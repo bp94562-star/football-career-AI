@@ -1,139 +1,150 @@
-<!doctype html><html><head><meta charset='utf-8'><title>Career AI Player</title><link rel='stylesheet' href='style.css'></head><body><h1>Career AI Player</h1><script src='script.js'></script></body></html>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Camino a la Gloria - Modo Carrera</title>
-  <!-- Tailwind CSS para diseño moderno y rápido -->
+  <title>Camino a la Gloria 2.0 - Modo Carrera</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-900 text-white font-sans min-h-screen flex flex-col justify-center items-center p-4">
+<body class="bg-slate-950 text-white font-sans min-h-screen flex flex-col justify-center items-center p-3">
 
-  <div id="game-card" class="w-full max-w-md bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl p-6 relative overflow-hidden">
+  <div id="game-card" class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl p-5 relative overflow-hidden">
     
-    <!-- 1. PANTALLA: CREACIÓN DE JUGADOR -->
+    <!-- HEADER GENERAL DE ESTADO -->
+    <div id="main-header" class="hidden mb-4 pb-3 border-b border-slate-800 flex justify-between items-center text-xs">
+      <div>
+        <span id="hdr-name" class="font-extrabold text-emerald-400 text-sm block">--</span>
+        <span id="hdr-club" class="text-slate-400">--</span>
+      </div>
+      <div class="flex gap-2 text-center font-mono">
+        <div class="bg-slate-800 px-2 py-1 rounded-lg"><span class="block text-[9px] text-slate-400">MEDIA</span><span id="hdr-ovr" class="text-amber-400 font-bold">60</span></div>
+        <div class="bg-slate-800 px-2 py-1 rounded-lg"><span class="block text-[9px] text-slate-400">DINERO</span><span id="hdr-money" class="text-emerald-400 font-bold">$0k</span></div>
+        <div class="bg-slate-800 px-2 py-1 rounded-lg"><span class="block text-[9px] text-slate-400">ENERGÍA</span><span id="hdr-energy" class="text-rose-400 font-bold">100%</span></div>
+      </div>
+    </div>
+
+    <!-- 1. CREACIÓN DE JUGADOR -->
     <div id="screen-creation" class="space-y-4">
       <div class="text-center">
-        <h1 class="text-3xl font-extrabold text-emerald-400">⚡ CAMINO A LA GLORIA</h1>
-        <p class="text-slate-400 text-sm mt-1">Crea tu leyenda en el fútbol Mexicano/latino</p>
+        <span class="text-3xl">⚽</span>
+        <h1 class="text-2xl font-black text-emerald-400 tracking-tight">CAMINO A LA GLORIA</h1>
+        <p class="text-slate-400 text-xs mt-1">Conviértete en leyenda o queda en el olvido</p>
       </div>
 
-      <div class="space-y-3 mt-4">
+      <div class="space-y-3 mt-4 text-xs">
         <div>
-          <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Nombre del Jugador</label>
-          <input type="text" id="player-name" placeholder="Ej. El 'Pipi' Román" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 text-white">
+          <label class="block text-slate-400 font-bold uppercase mb-1">Tu Nombre / Apodo</label>
+          <input type="text" id="player-name" placeholder="Ej. El 'Rayo' Gómez" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 focus:outline-none focus:border-emerald-500 text-white">
         </div>
 
-        <div>
-          <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Posición</label>
-          <select id="player-pos" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 text-white">
-            <option value="DEL">Delantero (DEL)</option>
-            <option value="MED">Mediocampista (MED)</option>
-            <option value="DEF">Defensor (DEF)</option>
-          </select>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-400 font-bold uppercase mb-1">Posición</label>
+            <select id="player-pos" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 focus:outline-none focus:border-emerald-500 text-white">
+              <option value="DEL">Delantero</option>
+              <option value="MED">Mediocampista</option>
+              <option value="DEF">Defensor</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-400 font-bold uppercase mb-1">Club Inicial</label>
+            <input type="text" id="player-club" placeholder="Ej. Potrero FC" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 focus:outline-none focus:border-emerald-500 text-white">
+          </div>
         </div>
 
-        <div>
-          <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Club de Debut</label>
-          <input type="text" id="player-club" placeholder="Ej. Deportivo Potrero" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 text-white">
-        </div>
-
-        <button onclick="startGame()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold py-3 rounded-xl shadow-lg transition-all transform active:scale-95 mt-4">
-          ¡INICIAR CARRERA!
+        <button onclick="startGame()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3 rounded-xl shadow-lg transition-all mt-3 text-sm">
+          ¡FIRMAR PRIMER CONTRATO! ✍️
         </button>
       </div>
     </div>
 
-    <!-- 2. PANTALLA: BUCLE PRINCIPAL DE JUEGO -->
-    <div id="screen-game" class="hidden space-y-4">
-      
-      <!-- HUD / Estadísticas -->
-      <div class="bg-slate-900 rounded-xl p-3 border border-slate-700/50 flex justify-between items-center text-xs font-bold">
-        <div>
-          <p id="hud-name" class="text-emerald-400 text-sm">--</p>
-          <p id="hud-club" class="text-slate-400">--</p>
-        </div>
-        <div class="flex gap-3 text-center">
-          <div><span class="block text-slate-400">MEDIA</span><span id="hud-ovr" class="text-amber-400 text-sm">60</span></div>
-          <div><span class="block text-slate-400">VALOR</span><span id="hud-pop" class="text-blue-400 text-sm">50%</span></div>
-          <div><span class="block text-slate-400">ENERGÍA</span><span id="hud-energy" class="text-rose-400 text-sm">100%</span></div>
-        </div>
+    <!-- 2. HUB DE TEMPORADA (MENÚ PRINCIPAL) -->
+    <div id="screen-hub" class="hidden space-y-4">
+      <div class="bg-gradient-to-r from-emerald-950 to-slate-900 border border-emerald-800/40 rounded-2xl p-4 text-center">
+        <span class="text-xs uppercase font-bold text-emerald-400 tracking-wider">Temporada Actual</span>
+        <h2 id="hub-season-title" class="text-xl font-black text-white">Temporada 1</h2>
+        <p id="hub-stats" class="text-xs text-slate-400 mt-1">Goles: 0 | Asistencias: 0 | Títulos: 0</p>
       </div>
 
-      <!-- Cuadro de Evento -->
-      <div class="bg-slate-900/60 rounded-xl p-5 border border-slate-700 min-h-[140px] flex flex-col justify-center">
-        <span class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold mb-1">Decisión de Carrera</span>
-        <p id="event-text" class="text-sm text-slate-200 leading-relaxed">Cargando situación...</p>
-      </div>
-
-      <!-- Opciones -->
-      <div id="options-container" class="space-y-2">
-        <!-- Generadas con JS -->
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="nextMatchEvent()" class="col-span-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3.5 rounded-xl shadow-lg text-sm flex justify-center items-center gap-2">
+          <span>🎮</span> JUGAR PRÓXIMO FECHA
+        </button>
+        <button onclick="showShop()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 rounded-xl text-xs border border-slate-700">
+          🛍️ Tienda y Lujos
+        </button>
+        <button onclick="restPlayer()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 rounded-xl text-xs border border-slate-700">
+          💤 Descansar (+20% Energ)
+        </button>
       </div>
     </div>
 
-    <!-- 3. PANTALLA: RESUMEN / FIN DE TEMPORADA -->
-    <div id="screen-gameover" class="hidden text-center space-y-4">
-      <h2 class="text-2xl font-black text-emerald-400">🏆 FIN DE LA TEMPORADA</h2>
-      <p class="text-slate-300 text-sm">Completaste tu primera etapa como profesional.</p>
-
-      <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 text-left space-y-2 text-sm">
-        <p><strong>Jugador:</strong> <span id="final-name" class="text-emerald-400"></span></p>
-        <p><strong>Club Final:</strong> <span id="final-club" class="text-slate-300"></span></p>
-        <p><strong>Media Lograda:</strong> <span id="final-ovr" class="text-amber-400"></span></p>
-        <p><strong>Popularidad/Reputación:</strong> <span id="final-pop" class="text-blue-400"></span></p>
+    <!-- 3. PANTALLA DE EVENTO / DECISIÓN DE PARTIDO -->
+    <div id="screen-event" class="hidden space-y-3">
+      <div id="press-feed" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-[11px] text-slate-400 flex items-center gap-2">
+        <span>📰</span> <span id="press-text">La hinchada espera ver de qué estás hecho hoy.</span>
       </div>
 
-      <button onclick="location.reload()" class="w-full bg-emerald-500 text-slate-950 font-bold py-3 rounded-xl">
-        Jugar Otra Carrera
-      </button>
+      <div class="bg-slate-950 rounded-2xl p-4 border border-slate-800">
+        <span class="text-[10px] uppercase font-bold text-emerald-400 tracking-widest block mb-1">Situación de Partido</span>
+        <p id="event-desc" class="text-xs text-slate-200 leading-relaxed font-medium">Cargando evento...</p>
+      </div>
+
+      <div id="options-box" class="space-y-2"></div>
+    </div>
+
+    <!-- 4. MERCADO DE PASES (FIN DE TEMPORADA) -->
+    <div id="screen-transfers" class="hidden space-y-3 text-center">
+      <h2 class="text-xl font-black text-amber-400">✈️ MERCADO DE PASES</h2>
+      <p class="text-xs text-slate-400">Terminó la temporada. Te llegaron las siguientes ofertas:</p>
+
+      <div id="offers-list" class="space-y-2 text-left text-xs"></div>
+    </div>
+
+    <!-- 5. TIENDA DE MEJORAS -->
+    <div id="screen-shop" class="hidden space-y-3">
+      <div class="flex justify-between items-center">
+        <h2 class="text-lg font-bold text-emerald-400">🛍️ Tienda de Carrera</h2>
+        <button onclick="closeShop()" class="text-xs bg-slate-800 px-3 py-1 rounded-lg text-slate-300">Cerrar</button>
+      </div>
+      <div id="shop-items" class="space-y-2 text-xs"></div>
     </div>
 
   </div>
 
-  <!-- LÓGICA DEL JUEGO EN JAVASCRIPT -->
   <script>
-    // Estado del Jugador
-    let player = {
-      name: '',
-      pos: '',
-      club: '',
-      ovr: 60,
-      pop: 50,
-      energy: 100,
-      step: 0
+    // ESTADO DEL JUEGO
+    let p = {
+      name: '', pos: '', club: '', ovr: 58, pop: 30, energy: 100, money: 5,
+      season: 1, matchCount: 0, goals: 0, titles: 0
     };
 
-    // Banco de Decisiones/Eventos al estilo Potrero
-    const events = [
+    const shopCatalog = [
+      { id: 1, name: "Nutricionista Personal", cost: 10, bonus: "+10% Recuperación de energía", type: "nutri" },
+      { id: 2, name: "Botines de Alta Gama", cost: 25, bonus: "+2 Media General (OVR)", type: "boots" },
+      { id: 3, name: "Reloj de Lujo", cost: 40, bonus: "+15% Popularidad", type: "watch" }
+    ];
+
+    const matchEvents = [
       {
-        text: "Es tu debut oficial. Entras al minuto 70 con el partido empatado 1-1. ¿Qué haces?",
+        text: "Minuto 85: Vas perdiendo 1-0. Te queda una última jugada en la puerta del área rival.",
         options: [
-          { text: "⚡ Arriesgar en la gambeta personal", effects: { ovr: +3, pop: +10, energy: -20 } },
-          { text: "🎯 Asegurar pases y jugar simple", effects: { ovr: +1, pop: +2, energy: -10 } }
+          { text: "🚀 Le pegas al arco de primera", effects: { ovr: +1, goals: +1, energy: -15, money: +2 }, press: "¡Golazo agónico para salvar el partido!" },
+          { text: "🤝 Buscas el pase al compañero mejor ubicado", effects: { ovr: +1, energy: -10, money: +1 }, press: "Gran visión de juego para empatar sobre el final." }
         ]
       },
       {
-        text: "Tu representante te invita a una fiesta la noche anterior a un partido clave.",
+        text: "Un rival te pega una patada descalificadora sin que el árbitro cobre nada.",
         options: [
-          { text: "🎉 Ir a la fiesta (Ganas seguidores pero pierdes físico)", effects: { ovr: -2, pop: +15, energy: -30 } },
-          { text: "🥗 Quedarte a descansar y enfocado", effects: { ovr: +2, pop: -5, energy: +10 } }
+          { text: "🤬 Ir a buscarlo y encararlo", effects: { pop: +10, energy: -10 }, press: "El jugador se cruzó feo con el rival y rozó la roja." },
+          { text: "🧠 Aguantar la bronca y responder jugando", effects: { ovr: +2, energy: -10, money: +2 }, press: "Demostró cabeza fría y madurez táctica." }
         ]
       },
       {
-        text: "Un ojeador de un club de Primera te está viendo hoy en la tribuna.",
+        text: "Partido de copa bajo una lluvia torrencial. La cancha está intratable.",
         options: [
-          { text: "🔥 Pedir todas las pelotas y patear al arco", effects: { ovr: +2, pop: +12, energy: -25 } },
-          { text: "🧠 Jugar para el equipo sin presiones", effects: { ovr: +1, pop: +5, energy: -15 } }
-        ]
-      },
-      {
-        text: "Minuto 90: Penal decisivo para ganar el partido.",
-        options: [
-          { text: "🚀 Romperle el arco al medio", effects: { ovr: +3, pop: +8, energy: -10 } },
-          { text: "🪄 Picarla a lo Panenka", effects: { ovr: +5, pop: +20, energy: -10 } }
+          { text: "🏃‍♂️ Barrerte a recuperar cada pelota", effects: { ovr: +2, energy: -30, money: +3 }, press: "Dejó la vida en la cancha bajo el agua." },
+          { text: "⚠️ Jugar con cautela para evitar una lesión", effects: { energy: -5, money: +1 }, press: "Pasó desapercibido en un partido muy físico." }
         ]
       }
     ];
@@ -141,70 +152,151 @@
     function startGame() {
       const name = document.getElementById('player-name').value.trim();
       const club = document.getElementById('player-club').value.trim();
+      if(!name || !club) return alert("¡Completa tu nombre y club!");
 
-      if (!name || !club) {
-        alert("Por favor completa tu nombre y club.");
-        return;
-      }
-
-      player.name = name;
-      player.pos = document.getElementById('player-pos').value;
-      player.club = club;
+      p.name = name; p.pos = document.getElementById('player-pos').value; p.club = club;
 
       document.getElementById('screen-creation').classList.add('hidden');
-      document.getElementById('screen-game').classList.remove('hidden');
-
+      document.getElementById('main-header').classList.remove('hidden');
+      document.getElementById('screen-hub').classList.remove('hidden');
       updateHUD();
-      renderEvent();
     }
 
     function updateHUD() {
-      document.getElementById('hud-name').innerText = `${player.name} (${player.pos})`;
-      document.getElementById('hud-club').innerText = player.club;
-      document.getElementById('hud-ovr').innerText = player.ovr;
-      document.getElementById('hud-pop').innerText = player.pop + '%';
-      document.getElementById('hud-energy').innerText = player.energy + '%';
+      document.getElementById('hdr-name').innerText = `${p.name} (${p.pos})`;
+      document.getElementById('hdr-club').innerText = p.club;
+      document.getElementById('hdr-ovr').innerText = p.ovr;
+      document.getElementById('hdr-money').innerText = `$${p.money}k`;
+      document.getElementById('hdr-energy').innerText = `${p.energy}%`;
+      document.getElementById('hub-stats').innerText = `Goles: ${p.goals} | Temporada: ${p.season}`;
     }
 
-    function renderEvent() {
-      if (player.step >= events.length || player.energy <= 0) {
-        endGame();
+    function nextMatchEvent() {
+      if(p.energy < 15) return alert("Estás exhausto. Necesitas descansar antes de jugar.");
+      
+      p.matchCount++;
+      if(p.matchCount > 4) {
+        showTransferWindow();
         return;
       }
 
-      const currentEvent = events[player.step];
-      document.getElementById('event-text').innerText = currentEvent.text;
+      document.getElementById('screen-hub').classList.add('hidden');
+      document.getElementById('screen-event').classList.remove('hidden');
 
-      const optionsDiv = document.getElementById('options-container');
-      optionsDiv.innerHTML = '';
+      const ev = matchEvents[Math.floor(Math.random() * matchEvents.length)];
+      document.getElementById('event-desc').innerText = ev.text;
 
-      currentEvent.options.forEach((opt) => {
+      const box = document.getElementById('options-box');
+      box.innerHTML = '';
+
+      ev.options.forEach(opt => {
         const btn = document.createElement('button');
-        btn.className = "w-full text-left bg-slate-700/50 hover:bg-slate-700 border border-slate-600/50 p-3 rounded-xl text-sm transition-all text-slate-100 font-medium";
+        btn.className = "w-full text-left bg-slate-800 hover:bg-slate-700 border border-slate-700 p-3 rounded-xl text-xs text-slate-100 font-medium transition-all";
         btn.innerText = opt.text;
-        btn.onclick = () => selectOption(opt.effects);
-        optionsDiv.appendChild(btn);
+        btn.onclick = () => selectMatchOption(opt);
+        box.appendChild(btn);
       });
     }
 
-    function selectOption(effects) {
-      player.ovr = Math.max(40, player.ovr + (effects.ovr || 0));
-      player.pop = Math.max(0, player.pop + (effects.pop || 0));
-      player.energy = Math.max(0, player.energy + (effects.energy || 0));
+    function selectMatchOption(opt) {
+      p.ovr += opt.effects.ovr || 0;
+      p.pop += opt.effects.pop || 0;
+      p.energy = Math.max(0, p.energy + (opt.effects.energy || 0));
+      p.money += opt.effects.money || 0;
+      p.goals += opt.effects.goals || 0;
 
-      player.step++;
+      document.getElementById('press-text').innerText = opt.press;
       updateHUD();
-      renderEvent();
+
+      setTimeout(() => {
+        document.getElementById('screen-event').classList.add('hidden');
+        document.getElementById('screen-hub').classList.remove('hidden');
+      }, 1200);
     }
 
-    function endGame() {
-      document.getElementById('screen-game').classList.add('hidden');
-      document.getElementById('screen-gameover').classList.remove('hidden');
+    function restPlayer() {
+      p.energy = Math.min(100, p.energy + 25);
+      updateHUD();
+      alert("Te tomaste un descanso. Recuperaste +25% de energía.");
+    }
 
-      document.getElementById('final-name').innerText = player.name;
-      document.getElementById('final-club').innerText = player.club;
-      document.getElementById('final-ovr').innerText = player.ovr;
-      document.getElementById('final-pop').innerText = player.pop + '%';
+    function showTransferWindow() {
+      document.getElementById('screen-hub').classList.add('hidden');
+      document.getElementById('screen-transfers').classList.remove('hidden');
+
+      const offers = [
+        { club: p.club, pay: "$10k", desc: "Renovación de contrato" },
+        { club: "Atlético Capital", pay: "$25k", desc: "Club de primera división" },
+        { club: "Unión Deportiva", pay: "$18k", desc: "Pelea la copa internacional" }
+      ];
+
+      const list = document.getElementById('offers-list');
+      list.innerHTML = '';
+
+      offers.forEach(off => {
+        const div = document.createElement('div');
+        div.className = "bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center";
+        div.innerHTML = `
+          <div>
+            <p class="font-bold text-white">${off.club}</p>
+            <p class="text-[10px] text-slate-400">${off.desc} - Sueldo: ${off.pay}</p>
+          </div>
+          <button onclick="acceptOffer('${off.club}')" class="bg-emerald-500 text-slate-950 font-extrabold px-3 py-1.5 rounded-lg text-xs">Firmar</button>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    function acceptOffer(newClub) {
+      p.club = newClub;
+      p.season++;
+      p.matchCount = 0;
+      p.energy = 100;
+      p.money += 15;
+      
+      document.getElementById('screen-transfers').classList.add('hidden');
+      document.getElementById('screen-hub').classList.remove('hidden');
+      document.getElementById('hub-season-title').innerText = `Temporada ${p.season}`;
+      updateHUD();
+      alert(`¡Felicidades! Has firmado con ${newClub} para la Temporada ${p.season}.`);
+    }
+
+    function showShop() {
+      document.getElementById('screen-hub').classList.add('hidden');
+      document.getElementById('screen-shop').classList.remove('hidden');
+
+      const box = document.getElementById('shop-items');
+      box.innerHTML = '';
+
+      shopCatalog.forEach(item => {
+        const div = document.createElement('div');
+        div.className = "bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center";
+        div.innerHTML = `
+          <div>
+            <p class="font-bold text-slate-200">${item.name}</p>
+            <p class="text-[10px] text-emerald-400">${item.bonus}</p>
+          </div>
+          <button onclick="buyItem(${item.cost}, '${item.type}')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs">
+            $${item.cost}k
+          </button>
+        `;
+        box.appendChild(div);
+      });
+    }
+
+    function buyItem(cost, type) {
+      if(p.money < cost) return alert("No tienes suficiente dinero.");
+      p.money -= cost;
+      if(type === 'boots') p.ovr += 2;
+      if(type === 'watch') p.pop += 15;
+      if(type === 'nutri') p.energy = Math.min(100, p.energy + 20);
+      updateHUD();
+      alert("¡Compra realizada con éxito!");
+    }
+
+    function closeShop() {
+      document.getElementById('screen-shop').classList.add('hidden');
+      document.getElementById('screen-hub').classList.remove('hidden');
     }
   </script>
 </body>
