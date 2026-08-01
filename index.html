@@ -5,33 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Futbol Legend World - Ultimate Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Importamos la base de datos externa -->
     <script src="database.js"></script>
     <style>
-        body { font-family: sans-serif; background-color: #050608; color: white; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #050608; color: white; }
         .bg-card { background: #0e1017; }
-        .glow-green { box-shadow: 0 0 20px rgba(34, 197, 94, 0.2); }
+        .glow-green { box-shadow: 0 0 20px rgba(34, 197, 94, 0.25); }
+        .glow-yellow { box-shadow: 0 0 20px rgba(234, 179, 8, 0.25); }
+        
+        /* Animaciones para Cinemáticas */
+        @keyframes flashPrensa {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.8; }
+        }
+        .flash-effect { animation: flashPrensa 0.8s infinite; }
     </style>
 </head>
-<body class="max-w-md mx-auto p-3 min-h-screen flex flex-col justify-between">
+<body class="max-w-md mx-auto p-3 min-h-screen flex flex-col justify-between select-none">
 
-    <!-- HEADER / MARCA -->
+    <!-- HEADER / BRANDING -->
     <header class="flex justify-between items-center bg-card p-3 rounded-2xl border border-gray-800">
         <div class="flex items-center gap-2">
             <div class="w-8 h-8 rounded-xl bg-green-500 flex items-center justify-center font-black text-black text-xs">⭐</div>
             <div>
                 <h1 class="text-xs font-black text-green-400 uppercase">MARCA GAME ENGINE</h1>
-                <p class="text-[8px] text-gray-400">WORLD CAREER V3.0</p>
+                <p class="text-[8px] text-gray-400">WORLD CAREER V4.0 (CINEMATICS ENABLED)</p>
             </div>
         </div>
-        <button onclick="hablar('¡Bienvenido al mejor juego del mundo!')" class="bg-gray-800 p-2 rounded-xl text-xs">🗣️</button>
+        <button onclick="hablar('Sistema de cinemáticas activo')" class="bg-gray-800 p-2 rounded-xl text-xs">🗣️</button>
     </header>
 
     <!-- PANTALLA 1: SELECCIÓN DE EQUIPO -->
     <main id="pantalla-seleccion" class="space-y-3 my-3">
         <div class="bg-card p-4 rounded-2xl border border-gray-800 text-center space-y-2">
-            <h2 class="text-sm font-black text-yellow-400 uppercase">🏆 SELECCIÓN DE EQUIPOS Y SELECCIONES</h2>
-            <p class="text-xs text-gray-400">Explora todos los clubes, selecciones, Copa Libertadores y Mundial</p>
+            <h2 class="text-sm font-black text-yellow-400 uppercase">🏆 ELEGIR CLUB / SELECCIÓN</h2>
+            <p class="text-xs text-gray-400">Selecciona un club para iniciar la cinemática de presentación oficial.</p>
             <button onclick="renderizarTodoElMundo()" class="w-full bg-gradient-to-r from-green-500 to-emerald-400 text-black font-black py-3 rounded-xl text-xs uppercase shadow-lg">
                 🌍 CARGAR BASE DE DATOS MUNDIAL
             </button>
@@ -39,9 +46,53 @@
         <div id="lista-equipos" class="space-y-4"></div>
     </main>
 
-    <!-- PANTALLA 2: MODO CARRERA Y JUEGO (SE ACTIVA AL ELEGIR EQUIPO) -->
+    <!-- PANTALLA 2: CINEMÁTICA 2D INTERACTIVA (MODAL / OVERLAY) -->
+    <div id="modal-cinematica" class="hidden fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="bg-card w-full max-w-md border-2 border-yellow-500/50 rounded-3xl p-4 space-y-3 text-center glow-yellow relative overflow-hidden">
+            
+            <!-- Efecto Flashes de Prensa -->
+            <div class="absolute inset-0 bg-white pointer-events-none opacity-0" id="flash-prensa"></div>
+
+            <!-- Escena 2D Gráfica -->
+            <div class="w-full h-40 bg-gradient-to-b from-gray-900 to-black rounded-2xl border border-gray-800 flex flex-col items-center justify-center relative overflow-hidden p-2" id="cine-bg">
+                <div class="flex items-center gap-4 z-10">
+                    <div id="cine-escudo-box"></div>
+                    <div class="text-5xl animate-bounce" id="cine-avatar">📸</div>
+                    <div id="cine-camiseta-box"></div>
+                </div>
+                <div class="absolute bottom-2 bg-black/80 px-3 py-1 rounded-full text-[10px] text-yellow-400 font-black border border-yellow-500/30 uppercase tracking-widest" id="cine-lugar">
+                    OFICINA DEL PRESIDENTE
+                </div>
+            </div>
+
+            <!-- Diálogos y Títulos -->
+            <div class="space-y-1">
+                <h3 class="text-sm font-black text-white uppercase tracking-wide" id="cine-titulo">FIRMA DE CONTRATO</h3>
+                <p class="text-xs text-gray-300 leading-relaxed italic" id="cine-texto">
+                    "El presidente te da la bienvenida oficial al club frente a las cámaras."
+                </p>
+            </div>
+
+            <!-- Rueda de Prensa: Opciones de Respuesta Interactiva -->
+            <div id="cine-respuestas" class="hidden space-y-2 pt-2 border-t border-gray-800 text-xs">
+                <p class="text-[10px] font-bold text-gray-400 uppercase">¿Qué le respondes a la prensa?</p>
+                <button onclick="responderPrensa('motivacion')" class="w-full bg-gray-800 hover:bg-green-600 text-white font-bold p-2 rounded-xl text-left transition border border-gray-700">
+                    🗣️ "Vengo a ganar todos los títulos y hacer historia aquí."
+                </button>
+                <button onclick="responderPrensa('humilde')" class="w-full bg-gray-800 hover:bg-blue-600 text-white font-bold p-2 rounded-xl text-left transition border border-gray-700">
+                    🗣️ "Paso a paso, vengo a trabajar duro y ganarme el puesto."
+                </button>
+            </div>
+
+            <!-- Botón Avanzar Cinemática -->
+            <button id="btn-cine-continuar" onclick="avanzarCinematica()" class="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-black py-3 rounded-2xl text-xs uppercase tracking-wider shadow-lg">
+                CONTINUAR ➔
+            </button>
+        </div>
+    </div>
+
+    <!-- PANTALLA 3: MODO CARRERA Y CENTRO DE JUEGO -->
     <main id="pantalla-juego" class="hidden space-y-3 my-3">
-        <!-- Tarjeta de Perfil del Club Elegido -->
         <div class="bg-card p-4 rounded-2xl border border-gray-800 glow-green space-y-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
@@ -54,7 +105,6 @@
                 <div id="game-camiseta-box"></div>
             </div>
 
-            <!-- Stats del Jugador -->
             <div class="grid grid-cols-4 gap-1.5 text-center bg-[#050608] p-2.5 rounded-xl border border-gray-800">
                 <div><div class="text-green-400 font-black text-sm" id="st-goals">0</div><div class="text-[8px] text-gray-400 font-bold uppercase">Goles</div></div>
                 <div><div class="text-sky-400 font-black text-sm" id="st-assists">0</div><div class="text-[8px] text-gray-400 font-bold uppercase">Asist.</div></div>
@@ -63,15 +113,13 @@
             </div>
         </div>
 
-        <!-- Consola de Resultados / Simulador de Partido -->
         <div id="match-log" class="bg-card p-3 rounded-2xl border border-gray-800 space-y-2">
             <h3 class="text-xs font-black text-yellow-400 uppercase">⚽ CENTRO DE PARTIDO</h3>
-            <p class="text-xs text-gray-300" id="log-text">Presiona el botón de abajo para jugar el próximo partido de la temporada.</p>
+            <p class="text-xs text-gray-300" id="log-text">Entra al vestuario para preparar el partido.</p>
         </div>
 
-        <!-- Botón Jugar Partido -->
-        <button onclick="jugarPartido()" class="w-full bg-gradient-to-r from-green-500 to-emerald-400 hover:from-green-400 text-black font-black py-4 rounded-2xl text-xs uppercase tracking-wider shadow-lg">
-            ⚽ JUGAR / SIMULAR PRÓXIMO PARTIDO
+        <button onclick="iniciarPartidoConCinematica()" class="w-full bg-gradient-to-r from-green-500 to-emerald-400 hover:from-green-400 text-black font-black py-4 rounded-2xl text-xs uppercase tracking-wider shadow-lg">
+            🎬 JUGAR PARTIDO CON CINEMÁTICA
         </button>
 
         <button onclick="volverASeleccion()" class="w-full bg-gray-800 hover:bg-gray-700 text-gray-300 font-bold py-2.5 rounded-xl text-xs uppercase">
@@ -81,9 +129,9 @@
 
     <script>
         let equipoActual = null;
+        let pasoCinematica = 0;
         let stats = { goles: 0, asistencias: 0, partidos: 0, titulos: 0 };
 
-        // Renderizador dinámico de CAMISETAS SVG
         function renderCamiseta(principal, secundaria, estilo) {
             let patron = "";
             if (estilo === "bastones-verticales") {
@@ -101,9 +149,7 @@
             `;
         }
 
-        // Renderizador de ESCUDOS REALES usando Proxy Bypass para evitar bloqueo de Wikipedia
         function renderEscudo(urlOriginal) {
-            // Pasamos la imagen por wsrv.nl para arreglar bloqueos de hotlinking/CORS de Wikimedia
             const urlProxy = "https://wsrv.nl/?url=" + encodeURIComponent(urlOriginal);
             return `
                 <div class="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center border border-gray-700 bg-gray-900 p-1">
@@ -112,13 +158,12 @@
             `;
         }
 
-        // Cargar Base de Datos
         function renderizarTodoElMundo() {
             const container = document.getElementById("lista-equipos");
             container.innerHTML = "";
 
             if (typeof BASE_DATOS_MUNDIAL === "undefined") {
-                container.innerHTML = `<div class="p-3 bg-red-900/50 text-red-200 text-xs text-center rounded-xl font-bold">⚠️ No se encontró el archivo database.js. Asegúrate de tenerlo en la misma carpeta.</div>`;
+                container.innerHTML = `<div class="p-3 bg-red-900/50 text-red-200 text-xs text-center rounded-xl font-bold">⚠️ No se encontró database.js en la carpeta.</div>`;
                 return;
             }
 
@@ -132,7 +177,6 @@
                         let kitSvg = renderCamiseta(eq.camisaLocal.principal, eq.camisaLocal.secundaria, eq.camisaLocal.estilo);
                         let escudoHtml = renderEscudo(eq.escudo);
 
-                        // Guardamos datos en el botón para seleccionarlo
                         htmlRegion += `
                             <div class="bg-[#050608] p-2 rounded-xl flex items-center justify-between border border-gray-800/80">
                                 <div class="flex items-center gap-2.5">
@@ -141,7 +185,7 @@
                                 </div>
                                 <div class="flex items-center gap-2">
                                     ${kitSvg}
-                                    <button onclick="iniciarJuegoConEquipo('${eq.nombre}', '${torneo}', '${eq.escudo}', '${eq.camisaLocal.principal}', '${eq.camisaLocal.secundaria}', '${eq.camisaLocal.estilo}')" class="bg-green-500 hover:bg-green-400 text-black font-black text-[9px] px-3 py-2 rounded-lg uppercase transition">
+                                    <button onclick="lanzarFichaje('${eq.nombre}', '${torneo}', '${eq.escudo}', '${eq.camisaLocal.principal}', '${eq.camisaLocal.secundaria}', '${eq.camisaLocal.estilo}')" class="bg-green-500 hover:bg-green-400 text-black font-black text-[9px] px-3 py-2 rounded-lg uppercase transition">
                                         Elegir
                                     </button>
                                 </div>
@@ -154,47 +198,111 @@
             }
         }
 
-        // FUNCIONALIDAD: ELEGIR EQUIPO E INICIAR EL JUEGO
-        function iniciarJuegoConEquipo(nombre, torneo, escudo, col1, col2, estilo) {
+        // SISTEMA DE CINEMÁTICAS 2D
+        function lanzarFichaje(nombre, torneo, escudo, col1, col2, estilo) {
             equipoActual = { nombre, torneo, escudo, col1, col2, estilo };
+            pasoCinematica = 1;
 
-            document.getElementById('game-club-name').innerText = nombre.toUpperCase();
-            document.getElementById('game-liga').innerText = torneo.toUpperCase();
-            document.getElementById('game-escudo-box').innerHTML = renderEscudo(escudo);
-            document.getElementById('game-camiseta-box').innerHTML = renderCamiseta(col1, col2, estilo);
+            document.getElementById('cine-escudo-box').innerHTML = renderEscudo(escudo);
+            document.getElementById('cine-camiseta-box').innerHTML = renderCamiseta(col1, col2, estilo);
+            document.getElementById('cine-avatar').innerText = "✍️";
+            document.getElementById('cine-lugar').innerText = "OFICINA DEL PRESIDENTE";
+            document.getElementById('cine-titulo').innerText = "¡OFICIAL: NUEVO FICHAJE!";
+            document.getElementById('cine-texto').innerText = `El presidente de ${nombre} firma tu contrato profesional frente a los medios.`;
+            document.getElementById('cine-respuestas').classList.add('hidden');
+            document.getElementById('btn-cine-continuar').classList.remove('hidden');
 
-            hablar(`Has fichado por ${nombre}. ¡A jugar!`);
-
-            // Cambiar de pantalla
-            document.getElementById('pantalla-seleccion').classList.add('hidden');
-            document.getElementById('pantalla-juego').classList.remove('hidden');
+            document.getElementById('modal-cinematica').classList.remove('hidden');
+            hablar(`Bienvenido a ${nombre}. Firma tu contrato.`);
         }
 
-        // FUNCIONALIDAD: SIMULAR / JUGAR PARTIDO
-        function jugarPartido() {
-            if(!equipoActual) return;
+        function avanzarCinematica() {
+            if (pasoCinematica === 1) {
+                // Paso 2: Rueda de Prensa
+                pasoCinematica = 2;
+                document.getElementById('cine-avatar').innerText = "🎙️";
+                document.getElementById('cine-lugar').innerText = "SALA DE PRENSA";
+                document.getElementById('cine-titulo').innerText = "RUEDA DE PRENSA OFICIAL";
+                document.getElementById('cine-texto').innerText = "Decenas de periodistas te apuntan con los micrófonos. ¿Cuál es tu mensaje inicial?";
+                
+                // Efecto Flash
+                const flash = document.getElementById('flash-prensa');
+                flash.classList.add('flash-effect');
+                setTimeout(() => flash.classList.remove('flash-effect'), 1500);
 
+                document.getElementById('cine-respuestas').classList.remove('hidden');
+                document.getElementById('btn-cine-continuar').classList.add('hidden');
+                hablar("Responde a la prensa sobre tu llegada.");
+            } else if (pasoCinematica === 3) {
+                // Entrar al juego
+                document.getElementById('modal-cinematica').classList.add('hidden');
+                document.getElementById('pantalla-seleccion').classList.add('hidden');
+                document.getElementById('pantalla-juego').classList.remove('hidden');
+
+                document.getElementById('game-club-name').innerText = equipoActual.nombre.toUpperCase();
+                document.getElementById('game-liga').innerText = equipoActual.torneo.toUpperCase();
+                document.getElementById('game-escudo-box').innerHTML = renderEscudo(equipoActual.escudo);
+                document.getElementById('game-camiseta-box').innerHTML = renderCamiseta(equipoActual.col1, equipoActual.col2, equipoActual.estilo);
+            } else if (pasoCinematica === 4) {
+                // Post Partido
+                document.getElementById('modal-cinematica').classList.add('hidden');
+            }
+        }
+
+        function responderPrensa(tipo) {
+            pasoCinematica = 3;
+            document.getElementById('cine-respuestas').classList.add('hidden');
+            document.getElementById('btn-cine-continuar').classList.remove('hidden');
+            
+            if (tipo === 'motivacion') {
+                document.getElementById('cine-texto').innerText = "La afición celebra tu ambición. Las redes sociales del club se llenan de comentarios positivos.";
+                hablar("La afición está entusiasmada con tu ambición.");
+            } else {
+                document.getElementById('cine-texto').innerText = "El entrenador aplaude tu humildad y tu respeto por el vestuario.";
+                hablar("El entrenador respeta tu profesionalismo.");
+            }
+        }
+
+        // CINEMÁTICA DE PARTIDO Y VESTUARIO
+        function iniciarPartidoConCinematica() {
+            pasoCinematica = 4;
             stats.partidos += 1;
             const misGoles = Math.floor(Math.random() * 4);
             const rivalGoles = Math.floor(Math.random() * 3);
 
-            let mensaje = "";
+            let msg = "";
+            let anim = "⚽";
+            let lugar = "VESTUARIO / ENTRADA AL CAMPO";
+
             if (misGoles > rivalGoles) {
-                stats.goles += Math.floor(Math.random() * 2) + 1;
-                stats.asistencias += Math.floor(Math.random() * 2);
-                mensaje = `🎉 ¡VICTORIA! ${equipoActual.nombre} ${misGoles} - ${rivalGoles} Rival. Aportaste al marcador.`;
-                hablar("¡Gran victoria!");
+                const g = Math.floor(Math.random() * 2) + 1;
+                stats.goles += g;
+                anim = "🔥🏆";
+                msg = `¡VICTORIA HEROICA! Marcaste ${g} gol(es). El estadio corea tu nombre al finalizar los 90 minutos.`;
+                hablar("¡Gran victoria! El estadio corea tu nombre.");
             } else if (misGoles === rivalGoles) {
-                mensaje = `🤝 EMPATE. ${equipoActual.nombre} ${misGoles} - ${rivalGoles} Rival. Partido muy disputado.`;
+                anim = "⚔️";
+                msg = `Empate ${misGoles}-${rivalGoles}. Partido muy disputado tácticamente.`;
+                hablar("Empate disputado.");
             } else {
-                mensaje = `❌ DERROTA. ${equipoActual.nombre} ${misGoles} - ${rivalGoles} Rival. A mejorar el próximo encuentro.`;
+                anim = "💔";
+                msg = `Derrota ${misGoles}-${rivalGoles}. El DT da una charla enérgica en el vestuario para corregir errores.`;
+                hablar("Derrota. A corregir errores.");
             }
 
-            // Actualizar interfaz
             document.getElementById('st-goals').innerText = stats.goles;
-            document.getElementById('st-assists').innerText = stats.asistencias;
             document.getElementById('st-matches').innerText = stats.partidos;
-            document.getElementById('log-text').innerText = mensaje;
+
+            document.getElementById('cine-escudo-box').innerHTML = renderEscudo(equipoActual.escudo);
+            document.getElementById('cine-camiseta-box').innerHTML = renderCamiseta(equipoActual.col1, equipoActual.col2, equipoActual.estilo);
+            document.getElementById('cine-avatar').innerText = anim;
+            document.getElementById('cine-lugar').innerText = lugar;
+            document.getElementById('cine-titulo').innerText = "RESULTADO DEL PARTIDO";
+            document.getElementById('cine-texto').innerText = msg;
+            document.getElementById('cine-respuestas').classList.add('hidden');
+            document.getElementById('btn-cine-continuar').classList.remove('hidden');
+
+            document.getElementById('modal-cinematica').classList.remove('hidden');
         }
 
         function volverASeleccion() {
@@ -202,7 +310,6 @@
             document.getElementById('pantalla-seleccion').classList.remove('hidden');
         }
 
-        // Voz interactiva
         function hablar(texto) {
             if ('speechSynthesis' in window) {
                 const u = new SpeechSynthesisUtterance(texto);
