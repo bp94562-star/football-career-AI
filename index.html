@@ -3,108 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Potrero Fútbol - Menú Principal</title>
+    <title>Potrero Fútbol - Crear Carrera</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-[#0F1015] text-white font-sans p-4 max-w-md mx-auto min-h-screen flex flex-col justify-between">
 
-    <div>
-        <!-- 🎧 Reproductor de Corridos Tumbados -->
-        <div class="bg-[#181A20] p-3 rounded-xl mb-4 flex items-center justify-between text-xs border border-gray-800 shadow-lg">
-            <div class="flex items-center gap-2 overflow-hidden">
-                <span class="text-xl">🎧</span>
-                <span class="text-yellow-400 font-semibold truncate">"Goles y Requintos" - Tumbado Beats</span>
-            </div>
-            <div class="flex gap-2 shrink-0">
-                <button class="bg-[#262833] hover:bg-gray-700 px-2.5 py-1.5 rounded-lg transition">⏸️</button>
-                <button class="bg-[#262833] hover:bg-gray-700 px-2.5 py-1.5 rounded-lg transition">⏭️</button>
-            </div>
+    <!-- ================= PANTALLA 1: CREAR JUGADOR (INICIAL) ================= -->
+    <div id="pantalla-creacion" class="space-y-4">
+        
+        <!-- Header -->
+        <div class="text-center my-2">
+            <h1 class="text-2xl font-black text-yellow-400 tracking-wider">⚡ POTRERO FÚTBOL</h1>
+            <p class="text-xs text-gray-400">Crea tu promesa y comienza desde abajo</p>
         </div>
 
-        <!-- 👤 Tarjeta de Perfil y Avatar 2D -->
-        <div class="bg-[#181A20] border-2 border-yellow-500/40 rounded-2xl p-4 mb-4 shadow-xl relative">
-            <div class="flex gap-4 items-center">
-                <!-- Slot de Avatar 2D -->
-                <div class="w-24 h-28 bg-[#262833] rounded-xl border border-gray-700 flex flex-col items-center justify-center shrink-0 relative overflow-hidden shadow-inner">
-                    <span class="text-3xl mb-1">🧢</span>
-                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Avatar 2D</span>
-                    <div class="absolute bottom-0 w-full bg-black/60 text-[9px] text-center text-yellow-400 font-bold py-0.5">AMÉRICA</div>
-                </div>
-                
-                <!-- Datos del Jugador -->
-                <div class="flex-1 min-w-0">
-                    <div class="flex justify-between items-start">
-                        <h1 class="text-lg font-black tracking-wide text-yellow-400 truncate">BRAYAN - LA 9</h1>
-                        <span class="text-[10px] bg-yellow-500/20 text-yellow-300 px-2 py-0.5 rounded-full font-bold border border-yellow-500/30">ÍDOLO</span>
-                    </div>
-                    <p class="text-xs text-gray-400 mb-2">AMÉRICA · LIGA MX · 37 AÑOS</p>
-                    
-                    <div class="grid grid-cols-2 gap-1 text-xs bg-[#111217] p-2 rounded-xl border border-gray-800">
-                        <div><span class="text-gray-500">MEDIA:</span> <strong class="text-yellow-400">67 🔻</strong></div>
-                        <div><span class="text-gray-500">FAMA:</span> <strong class="text-green-400">90/100</strong></div>
-                        <div><span class="text-gray-500">VALOR:</span> <strong class="text-white">US$ 1.4M</strong></div>
-                        <div><span class="text-gray-500">SELECCIÓN:</span> <strong class="text-blue-400">RADAR</strong></div>
-                    </div>
-                </div>
+        <!-- Formulario Datos -->
+        <div class="bg-[#181A20] p-4 rounded-2xl border border-gray-800 space-y-3">
+            <div>
+                <label class="text-[10px] text-gray-400 font-bold uppercase block mb-1">Nombre o Apodo</label>
+                <input type="text" id="input-nombre" value="BRAYAN" class="w-full bg-[#0F1015] border border-gray-700 rounded-xl p-2.5 text-sm text-yellow-400 font-bold focus:outline-none focus:border-yellow-500">
             </div>
-        </div>
 
-        <!-- 📱 Barra de Navegación Rápida -->
-        <div class="grid grid-cols-5 gap-1.5 mb-4 text-center text-[10px] font-bold">
-            <button class="bg-[#181A20] hover:bg-[#222530] border border-gray-800 p-2 rounded-xl text-yellow-400 transition">🏆<br>Torneos</button>
-            <button class="bg-[#181A20] hover:bg-[#222530] border border-gray-800 p-2 rounded-xl text-blue-400 transition">🏟️<br>Foro</button>
-            <button class="bg-[#181A20] hover:bg-[#222530] border border-gray-800 p-2 rounded-xl text-purple-400 transition">💼<br>Marcas</button>
-            <a href="lujos.html" class="bg-[#181A20] hover:bg-[#222530] border border-gray-800 p-2 rounded-xl text-green-400 transition block">🏎️<br>Lujos</a>
-
-            <button class="bg-[#181A20] hover:bg-[#222530] border border-gray-800 p-2 rounded-xl text-pink-400 transition">📱<br>Redes</button>
-        </div>
-
-        <!-- 📊 Estadísticas Clave -->
-        <div class="grid grid-cols-4 gap-2 mb-4 text-center">
-            <div class="bg-[#181A20] p-2 rounded-xl border border-gray-800">
-                <div class="text-green-400 font-black text-base">90</div>
-                <div class="text-[9px] text-gray-400 uppercase tracking-tight">Goles</div>
-            </div>
-            <div class="bg-[#181A20] p-2 rounded-xl border border-gray-800">
-                <div class="text-white font-black text-base">65</div>
-                <div class="text-[9px] text-gray-400 uppercase tracking-tight">Asist.</div>
-            </div>
-            <div class="bg-[#181A20] p-2 rounded-xl border border-gray-800">
-                <div class="text-white font-black text-base">286</div>
-                <div class="text-[9px] text-gray-400 uppercase tracking-tight">Partidos</div>
-            </div>
-            <div class="bg-[#181A20] p-2 rounded-xl border border-gray-800">
-                <div class="text-yellow-400 font-black text-base">3</div>
-                <div class="text-[9px] text-gray-400 uppercase tracking-tight">Títulos</div>
-            </div>
-        </div>
-
-        <!-- 📰 Sección "Pasan Cosas" (Dilemas / Eventos) -->
-        <div class="bg-[#181A20] border-l-4 border-green-500 rounded-xl p-3 mb-4 shadow-lg">
-            <div class="flex items-center gap-2 mb-1">
-                <span class="text-sm">🎸</span>
-                <span class="text-xs font-black tracking-wider text-green-400 uppercase">Rumor en Redes y Prensa</span>
-            </div>
-            <p class="text-xs text-gray-300 mb-3 leading-relaxed">
-                Te vieron saliendo de grabar un corrido en tu Supercar antes del clásico. El DT pide explicaciones.
-            </p>
             <div class="grid grid-cols-2 gap-2">
-                <button class="bg-[#222530] hover:bg-gray-700 text-gray-200 text-[11px] font-semibold py-2 px-2 rounded-lg border border-gray-700 transition">
-                    😇 Disculparse y Entrenar
-                </button>
-                <button class="bg-[#222530] hover:bg-gray-700 text-yellow-400 text-[11px] font-semibold py-2 px-2 rounded-lg border border-gray-700 transition">
-                    🕶️ "Es mi vida privada"
-                </button>
+                <div>
+                    <label class="text-[10px] text-gray-400 font-bold uppercase block mb-1">Edad Inicial</label>
+                    <input type="text" value="17 AÑOS" disabled class="w-full bg-[#0F1015] border border-gray-800 rounded-xl p-2.5 text-xs text-gray-500 font-bold">
+                </div>
+                <div>
+                    <label class="text-[10px] text-gray-400 font-bold uppercase block mb-1">Posición</label>
+                    <select id="input-posicion" class="w-full bg-[#0F1015] border border-gray-700 rounded-xl p-2.5 text-xs text-white font-bold focus:outline-none">
+                        <option>DELANTERO (DC)</option>
+                        <option>EXTREMO (EI/ED)</option>
+                        <option>MEDIOCAMPISTA (MC)</option>
+                    </select>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- ⚽ Botón de Acción Principal -->
-    <div class="pt-2">
-        <button class="w-full bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-black font-black py-3.5 px-4 rounded-xl shadow-lg shadow-green-900/30 text-sm tracking-wider uppercase transition transform active:scale-95 flex items-center justify-center gap-2">
-            <span>⚽</span> Jugar Siguiente Partido (Cinemática 2D)
+        <!-- Selección de Oferta Inicial (Clubes Reales) -->
+        <div>
+            <label class="text-[10px] text-gray-400 font-bold uppercase block mb-2 px-1">Escoge tu Primer Club (Ofertas)</label>
+            
+            <div class="space-y-2">
+                <!-- Oferta 1: Necaxa -->
+                <label class="bg-[#181A20] border-2 border-gray-800 rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-yellow-500 transition">
+                    <div class="flex items-center gap-3">
+                        <input type="radio" name="club-inicial" value="Necaxa" data-img="https://upload.wikimedia.org/wikipedia/commons/0/05/Club_Necaxa_logo.svg" checked class="accent-yellow-500">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Club_Necaxa_logo.svg" alt="Necaxa" class="w-7 h-7 object-contain">
+                        <div>
+                            <div class="font-bold text-xs text-white">Club Necaxa</div>
+                            <div class="text-[10px] text-gray-400">Liga MX · Rol: Sub-20 / Revulsivo</div>
+                        </div>
+                    </div>
+                    <span class="text-xs font-mono text-green-400 font-bold">US$ 1,200/mes</span>
+                </label>
+
+                <!-- Oferta 2: FC Juárez -->
+                <label class="bg-[#181A20] border-2 border-gray-800 rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-yellow-500 transition">
+                    <div class="flex items-center gap-3">
+                        <input type="radio" name="club-inicial" value="FC Juárez" data-img="https://upload.wikimedia.org/wikipedia/commons/a/a2/FC_Juarez_Logo.png" class="accent-yellow-500">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/FC_Juarez_Logo.png" alt="Juarez" class="w-7 h-7 object-contain">
+                        <div>
+                            <div class="font-bold text-xs text-white">FC Juárez</div>
+                            <div class="text-[10px] text-gray-400">Liga MX · Rol: Suplente</div>
+                        </div>
+                    </div>
+                    <span class="text-xs font-mono text-green-400 font-bold">US$ 1,500/mes</span>
+                </label>
+
+                <!-- Oferta 3: Puebla -->
+                <label class="bg-[#181A20] border-2 border-gray-800 rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-yellow-500 transition">
+                    <div class="flex items-center gap-3">
+                        <input type="radio" name="club-inicial" value="Puebla" data-img="https://upload.wikimedia.org/wikipedia/commons/2/22/Club_Puebla_Logo.png" class="accent-yellow-500">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Club_Puebla_Logo.png" alt="Puebla" class="w-7 h-7 object-contain">
+                        <div>
+                            <div class="font-bold text-xs text-white">Club Puebla</div>
+                            <div class="text-[10px] text-gray-400">Liga MX · Rol: Canterano</div>
+                        </div>
+                    </div>
+                    <span class="text-xs font-mono text-green-400 font-bold">US$ 1,000/mes</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Botón Iniciar -->
+        <button onclick="iniciarCarrera()" class="w-full bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-400 hover:to-amber-400 text-black font-black py-3.5 px-4 rounded-xl shadow-lg text-sm tracking-wider uppercase transition">
+            🚀 FIRMAR CONTRATO Y DEBUTAR
         </button>
     </div>
+
+
+    <!-- ================= PANTALLA 2: MENÚ PRINCIPAL (OCULTA AL INICIO) ================= -->
+    <div id="pantalla-menu" class="hidden space-y-4">
+        <!-- 🎧 Reproductor -->
+        <div class="bg-[#181A20] p-3 rounded-xl flex items-center justify-between text-xs border border-gray-800 shadow-lg">
+            <div class="flex items-center gap-2 overflow-hidden">
+                <span class="text-xl">🎧</span>
+                <span class="text-yellow-400 font-semibold truncate">"Sueños de Barrio" - Tumbado Beats</span>
+            </div>
+            <div class="flex gap-2 shrink-0">
+                <button class="bg-[#262833] px-2.5 py-1.5 rounded-lg">⏸️</button>
+                <button class="bg-[#262833] px-2.5 py-1.5 rounded-lg">⏭️</button>
+            </div>
+        </div>
+
+        <!-- 👤 Tarjeta del Jugador Joven -->
+        <div class="bg-[#181A20] border-2 border-yellow-500/40 rounded-2xl p-4 shadow-xl">
+            <div class="flex gap-4 items-center">
+                <!-- Avatar 2D con Escudo Real del Club -->
+                <div class="w-24 h-28 bg-[#262833] rounded-xl border border-gray-700 flex flex-col items-center justify-center shrink-0 relative overflow-hidden">
+                    <span class="text-3xl mb-1">🧢</span>
+                    <span class="text-[9px] text-gray-400 font-bold uppercase">PROMESA 2D</span>
+                    
+                    <!-- Escudo oficial cargado dinámicamente -->
+                    <div class="absolute bottom-0 w-full bg-black/80 flex items-center justify-center gap-1 py-1">
+                        <img id="img-escudo-club" src="" class="w-4 h-4 object-contain" alt="Escudo">
+                        <span id="tag-club" class="text-[9px] text-yellow-400 font-bold truncate max-w-[50px]">CLUB</span>
+                    </div>
+                </div>
+                
+                <!-- Datos Dinámicos -->
+                <div class="flex-1 min-w-0">
+                    <div class="flex justify-between items-start">
+                        <h1 id="txt-nombre" class="text-lg font-black text-yellow-400 truncate">JUGADOR</h1>
+                        <span class="text-[9px] bg-green-500/20 text-green-300 px-2 py-0.5 rounded-full font-bold border border-green-500/30">CANTERANO</span>
+                    </div>
+                    <p id="txt-detalles" class="text-xs text-gray-400 mb-2">CLUB · LIGA MX · 17 AÑOS</p>
+                    
+                    <div class="grid grid-cols-2 gap-1 text-xs bg-[#111217] p-2 rounded-xl border border-gray-800">
+                        <div><span class="text-gray-500">MEDIA:</span> <strong class="text-yellow-400">58 🟢</strong></div>
+                        <div><span class="text-gray-500">FAMA:</span> <strong class="text-white">5/100</strong></div>
+                        <div><span class="text-gray-500">VALOR:</span> <strong class="text-white">US$ 50K</strong></div>
+                        <div><span class="text-gray-500">ESTATUS:</span> <strong class="text-blue-400">PROMESA</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📱 Navegación Rápida -->
+        <div class="grid grid-cols-5 gap-1.5 text-center text-[10px] font-bold">
+            <button class="bg-[#181A20] border border-gray-800 p-2 rounded-xl text-yellow-400">🏆<br>Torneos</button>
+            <button class="bg-[#181A20] border border-gray-800 p-2 rounded-xl text-blue-400">🏟️<br>Foro</button>
+            <button class="bg-[#181A20] border border-gray-800 p-2 rounded-xl text-purple-400">💼<br>Marcas</button>
+            <a href="lujos.html" class="bg-[#181A20] border border-gray-800 p-2 rounded-xl text-green-400 block">🏎️<br>Lujos</a>
+            <button class="bg-[#181A20] border border-gray-800 p-2 rounded-xl text-pink-400">📱<br>Redes</button>
+        </div>
+
+        <!-- 📊 Estadísticas Iniciales -->
+        <div class="grid grid-cols-4 gap-2 text-center">
+            <div class="bg-[#181A20] p-2 rounded-xl border border-gray-800">
+                <div class="text-green-400 font-black text-base">0</div>
+                <div class="text-[9px] text-gray-400 uppercase">Goles</div>
+            </div>
+            <div class="bg-[#181A20] p-2 rounded-xl border border-gray-800">
+                <div class="text-white font-black text-base">0</div>
+                <div class="text-[9px] text-gray-400 uppercase">Asist.</div>
+            </div>
+            <div class="bg-[#181A20] p-2 rounded-xl border border-gray-800">
+                <div class="text-white font-black text-base">0</div>
+                <div class="text-[9px] text-gray-400 uppercase">Partidos</div>
+            </div>
+            <div class="bg-[#181A20] p-2 rounded-xl border border-gray-800">
+                <div class="text-yellow-400 font-black text-base">0</div>
+                <div class="text-[9px] text-gray-400 uppercase">Títulos</div>
+            </div>
+        </div>
+
+        <!-- ⚽ Botón de Partido -->
+        <button class="w-full bg-gradient-to-r from-green-600 to-emerald-500 text-black font-black py-3.5 px-4 rounded-xl shadow-lg text-sm uppercase tracking-wider">
+            ⚽ JUGAR PRIMER PARTIDO (DEBUT)
+        </button>
+    </div>
+
+    <!-- LÓGICA EN JAVASCRIPT -->
+    <script>
+        function iniciarCarrera() {
+            // Obtener inputs seleccionados
+            const nombre = document.getElementById('input-nombre').value || "BRAYAN";
+            const radioSeleccionado = document.querySelector('input[name="club-inicial"]:checked');
+            
+            const clubElegido = radioSeleccionado.value;
+            const urlEscudo = radioSeleccionado.getAttribute('data-img');
+
+            // Actualizar interfaz con datos e imágenes reales
+            document.getElementById('txt-nombre').innerText = nombre;
+            document.getElementById('tag-club').innerText = clubElegido.toUpperCase();
+            document.getElementById('img-escudo-club').src = urlEscudo;
+            document.getElementById('txt-detalles').innerText = `${clubElegido.toUpperCase()} · LIGA MX · 17 AÑOS`;
+
+            // Transición de pantallas
+            document.getElementById('pantalla-creacion').classList.add('hidden');
+            document.getElementById('pantalla-menu').classList.remove('hidden');
+        }
+    </script>
 
 </body>
 </html>
