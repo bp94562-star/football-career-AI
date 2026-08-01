@@ -11,7 +11,7 @@
     <div id="pantalla-crear" class="space-y-4">
         <div class="text-center my-3">
             <span class="text-[10px] text-green-400 font-bold uppercase tracking-widest block">MODO CARRERA</span>
-            <h1 class="text-2xl font-black text-white italic tracking-wider">EL ÍDOLO</h1>
+            <h1 class="text-2xl font-black text-white italic tracking-wider">EL ÍDOLO 🌎</h1>
         </div>
 
         <div class="bg-[#13151b] p-4 rounded-2xl border border-gray-800 space-y-3">
@@ -26,57 +26,41 @@
                     <select id="in-nac" class="w-full bg-[#0b0c10] border border-gray-700 rounded-xl p-2.5 text-xs text-white font-bold">
                         <option value="🇲🇽 México">🇲🇽 México</option>
                         <option value="🇦🇷 Argentina">🇦🇷 Argentina</option>
+                        <option value="🇪🇸 España">🇪🇸 España</option>
+                        <option value="🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra</option>
                         <option value="🇧🇷 Brasil">🇧🇷 Brasil</option>
                         <option value="🇨🇴 Colombia">🇨🇴 Colombia</option>
                     </select>
                 </div>
                 <div>
                     <label class="text-[10px] text-gray-400 font-bold uppercase block mb-1">Liga de Inicio</label>
-                    <select id="in-liga" class="w-full bg-[#0b0c10] border border-gray-700 rounded-xl p-2.5 text-xs text-white font-bold">
-                        <option value="Liga MX">🇲🇽 Liga MX</option>
+                    <select id="in-liga" onchange="cargarClubesPorLiga()" class="w-full bg-[#0b0c10] border border-gray-700 rounded-xl p-2.5 text-xs text-yellow-400 font-bold">
+                        <option value="Liga MX">🇲🇽 Liga MX (México)</option>
+                        <option value="LaLiga">🇪🇸 LaLiga (España)</option>
+                        <option value="Premier League">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League (Inglaterra)</option>
+                        <option value="Liga Argentina">🇦🇷 Liga Argentina</option>
+                        <option value="Brasileirão">🇧🇷 Brasileirão (Brasil)</option>
                     </select>
                 </div>
             </div>
 
             <div>
-                <label class="text-[10px] text-gray-400 font-bold uppercase block mb-1">Clase de Delantero</label>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="seleccionarPos('9 DELANTERO', 'TANQUE', this)" class="btn-pos bg-yellow-500/10 border-2 border-yellow-500 p-2.5 rounded-xl text-left">
-                        <div class="text-yellow-400 font-black text-xs">9 DELANTERO</div>
-                        <div class="text-[9px] text-gray-400">Vivís del gol, el área es tu oficina.</div>
-                    </button>
-                    <button onclick="seleccionarPos('10 ENGANCHE', 'HABILIDOSO', this)" class="btn-pos bg-[#1a1d26] border border-gray-800 p-2.5 rounded-xl text-left">
-                        <div class="text-white font-black text-xs">10 ENGANCHE</div>
-                        <div class="text-[9px] text-gray-400">El cerebro: tus pases valen goles.</div>
-                    </button>
-                </div>
+                <label class="text-[10px] text-gray-400 font-bold uppercase block mb-1">Posición</label>
+                <select id="in-pos" class="w-full bg-[#0b0c10] border border-gray-700 rounded-xl p-2.5 text-xs text-white font-bold">
+                    <option value="9 DELANTERO">9 DELANTERO</option>
+                    <option value="10 ENGANCHE">10 ENGANCHE</option>
+                    <option value="7 EXTREMO">7 EXTREMO</option>
+                </select>
             </div>
         </div>
 
         <div class="bg-[#13151b] p-3 rounded-2xl border border-gray-800">
-            <label class="text-[10px] text-gray-400 font-bold uppercase block mb-2">Escoge tu Primer Club</label>
-            <div class="space-y-2">
-                <label class="flex items-center justify-between p-2.5 bg-[#1a1d26] rounded-xl cursor-pointer border border-gray-800 hover:border-yellow-500">
-                    <div class="flex items-center gap-2.5">
-                        <input type="radio" name="club" value="Querétaro" data-img="https://upload.wikimedia.org/wikipedia/en/2/23/Quer%C3%A9taro_FC_logo.svg" checked class="accent-yellow-500">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/2/23/Quer%C3%A9taro_FC_logo.svg" class="w-6 h-6 object-contain">
-                        <span class="text-xs font-bold">Querétaro</span>
-                    </div>
-                    <span class="text-[10px] text-green-400 font-mono font-bold">US$ 700K / Valor</span>
-                </label>
-
-                <label class="flex items-center justify-between p-2.5 bg-[#1a1d26] rounded-xl cursor-pointer border border-gray-800 hover:border-yellow-500">
-                    <div class="flex items-center gap-2.5">
-                        <input type="radio" name="club" value="FC Juárez" data-img="https://upload.wikimedia.org/wikipedia/commons/a/a2/FC_Juarez_Logo.png" class="accent-yellow-500">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/FC_Juarez_Logo.png" class="w-6 h-6 object-contain">
-                        <span class="text-xs font-bold">FC Juárez</span>
-                    </div>
-                    <span class="text-[10px] text-green-400 font-mono font-bold">US$ 800K / Valor</span>
-                </label>
-            </div>
+            <label class="text-[10px] text-gray-400 font-bold uppercase block mb-2">Ofertas Disponibles en la Liga</label>
+            <div id="contenedor-clubes" class="space-y-2">
+                </div>
         </div>
 
-        <button onclick="empezarCarrera()" class="w-full bg-green-500 hover:bg-green-400 text-black font-black py-3.5 rounded-xl text-sm tracking-wider uppercase transition shadow-lg shadow-green-900/20">
+        <button onclick="empezarCarrera()" class="w-full bg-green-500 hover:bg-green-400 text-black font-black py-3.5 rounded-xl text-sm uppercase transition shadow-lg">
             ▶ EMPEZAR MI CARRERA
         </button>
     </div>
@@ -112,145 +96,15 @@
                 <div class="bg-[#1a1d26] p-1 rounded-lg"><span class="text-gray-400 block">POT</span><strong class="text-white" id="at-pot">55</strong></div>
                 <div class="bg-[#1a1d26] p-1 rounded-lg"><span class="text-gray-400 block">LID</span><strong class="text-white" id="at-lid">45</strong></div>
                 <div class="bg-[#1a1d26] p-1 rounded-lg"><span class="text-gray-400 block">RES</span><strong class="text-white" id="at-res">62</strong></div>
-                <button onclick="abrirTienda()" class="bg-yellow-500/20 border border-yellow-500/50 rounded-lg flex items-center justify-center text-yellow-400 font-bold text-xs">🛒</button>
+                <button onclick="toggleTienda()" class="bg-yellow-500/20 border border-yellow-500/50 rounded-lg flex items-center justify-center text-yellow-400 font-bold text-xs">🛒</button>
             </div>
 
             <div class="grid grid-cols-2 gap-2 mt-2 pt-2 border-t border-gray-800 text-center">
                 <div class="bg-[#0b0c10] p-1.5 rounded-xl border border-gray-800">
-                    <div class="text-[8px] text-gray-400 uppercase">VALOR</div>
+                    <div class="text-[8px] text-gray-400 uppercase">VALOR MERCADO</div>
                     <div class="text-xs font-mono font-bold text-green-400" id="dash-valor">US$ 700K</div>
                 </div>
                 <div class="bg-[#0b0c10] p-1.5 rounded-xl border border-gray-800">
                     <div class="text-[8px] text-gray-400 uppercase">DINERO GANADO</div>
-                    <div class="text-xs font-mono font-bold text-yellow-400" id="dash-ganado">US$ 0</div>
+                    <div class="text-xs font-mono font-bold text-yellow-400" id="dash-ganado">US$ 12K</div>
                 </div>
-            </div>
-        </div>
-
-        <div id="seccion-evento" class="bg-[#13151b] border-l-4 border-yellow-500 p-3 rounded-xl space-y-2">
-            <div class="text-[10px] text-yellow-400 font-black uppercase tracking-wider flex items-center gap-1">
-                <span>🎲</span> PASAN COSAS...
-            </div>
-            <h3 class="font-bold text-xs text-white" id="ev-titulo">EL CLAVADO</h3>
-            <p class="text-[11px] text-gray-300 leading-tight" id="ev-desc">
-                Entrás al área, te rozan apenas y el arco está lejos. Si te dejás caer es penal cantado. Si seguís, capaz no llegás.
-            </p>
-            <div class="grid grid-cols-2 gap-2 pt-1">
-                <button onclick="resolverEvento(1)" class="bg-[#1a1d26] hover:bg-gray-800 text-xs font-bold p-2 rounded-lg border border-gray-700 text-left">
-                    Dejarte caer <br><span class="text-[9px] text-yellow-400 font-normal">Penal fácil ⚠️ VAR</span>
-                </button>
-                <button onclick="resolverEvento(2)" class="bg-[#1a1d26] hover:bg-gray-800 text-xs font-bold p-2 rounded-lg border border-gray-700 text-left">
-                    Aguantar y seguir <br><span class="text-[9px] text-gray-400 font-normal">Juego limpio</span>
-                </button>
-            </div>
-        </div>
-
-        <button onclick="simularTemporada()" class="w-full bg-gradient-to-r from-green-500 to-emerald-400 text-black font-black py-3.5 rounded-xl text-sm uppercase tracking-wider shadow-lg shadow-green-900/30">
-            ⚽ SIMULAR TEMPORADA
-        </button>
-    </div>
-
-
-    <div id="modal-tienda" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-        <div class="bg-[#13151b] border border-gray-800 w-full max-w-sm rounded-2xl p-4 space-y-3">
-            <div class="flex justify-between items-center border-b border-gray-800 pb-2">
-                <h3 class="font-black text-sm text-yellow-400">🛒 TIENDA DE LUJOS & STAFF</h3>
-                <button onclick="cerrarTienda()" class="text-gray-400 hover:text-white font-bold text-sm">✕</button>
-            </div>
-
-            <div class="space-y-2 max-h-60 overflow-y-auto text-xs">
-                <div class="p-2 bg-[#1a1d26] rounded-xl flex justify-between items-center border border-gray-800">
-                    <div>
-                        <div class="font-bold text-white"> Auto Deportivo</div>
-                        <div class="text-[9px] text-green-400">+3 de Fama</div>
-                    </div>
-                    <button class="bg-yellow-500 text-black font-bold text-[10px] px-2.5 py-1 rounded-lg">US$ 500K</button>
-                </div>
-
-                <div class="p-2 bg-[#1a1d26] rounded-xl flex justify-between items-center border border-gray-800">
-                    <div>
-                        <div class="font-bold text-white">🏠 Casa Propia</div>
-                        <div class="text-[9px] text-green-400">Estatus Permanente</div>
-                    </div>
-                    <button class="bg-yellow-500 text-black font-bold text-[10px] px-2.5 py-1 rounded-lg">US$ 1.5M</button>
-                </div>
-            </div>
-
-            <button onclick="cerrarTienda()" class="w-full bg-gray-800 text-white font-bold text-xs py-2 rounded-xl">CERRAR</button>
-        </div>
-    </div>
-
-
-    <script>
-        let jugador = {
-            nombre: 'Brayan',
-            pos: '9 DELANTERO',
-            nac: '🇲🇽 México',
-            club: 'Querétaro',
-            escudo: '',
-            edad: 16,
-            año: 2026,
-            media: 57,
-            goles: 0,
-            asist: 0,
-            partidos: 0,
-            titulos: 0,
-            valor: 'US$ 700K',
-            ganado: 'US$ 0'
-        };
-
-        function seleccionarPos(pos, estilo, btn) {
-            jugador.pos = pos;
-            document.querySelectorAll('.btn-pos').forEach(b => {
-                b.classList.remove('border-yellow-500', 'bg-yellow-500/10');
-                b.classList.add('border-gray-800', 'bg-[#1a1d26]');
-            });
-            btn.classList.remove('border-gray-800', 'bg-[#1a1d26]');
-            btn.classList.add('border-yellow-500', 'bg-yellow-500/10');
-        }
-
-        function empezarCarrera() {
-            jugador.nombre = document.getElementById('in-nombre').value || "Brayan";
-            jugador.nac = document.getElementById('in-nac').value;
-            
-            const radioClub = document.querySelector('input[name="club"]:checked');
-            jugador.club = radioClub.value;
-            jugador.escudo = radioClub.getAttribute('data-img');
-
-            actualizarDashboard();
-            document.getElementById('pantalla-crear').classList.add('hidden');
-            document.getElementById('pantalla-dashboard').classList.remove('hidden');
-        }
-
-        function actualizarDashboard() {
-            document.getElementById('dash-media').innerText = jugador.media;
-            document.getElementById('dash-nombre').innerText = `${jugador.nombre.toUpperCase()} - ${jugador.pos.split(' ')[0]}`;
-            document.getElementById('dash-info').innerText = `${jugador.club.toUpperCase()} · ${jugador.año} · ${jugador.edad} AÑOS`;
-            document.getElementById('dash-escudo').src = jugador.escudo;
-            
-            document.getElementById('st-goles').innerText = jugador.goles;
-            document.getElementById('st-asist').innerText = jugador.asist;
-            document.getElementById('st-part').innerText = jugador.partidos;
-            document.getElementById('st-titulos').innerText = jugador.titulos;
-            document.getElementById('dash-ganado').innerText = jugador.ganado;
-        }
-
-        function simularTemporada() {
-            jugador.edad += 1;
-            jugador.año += 1;
-            jugador.media += Math.floor(Math.random() * 3) + 1;
-            jugador.goles += Math.floor(Math.random() * 6) + 1;
-            jugador.asist += Math.floor(Math.random() * 4);
-            jugador.partidos += Math.floor(Math.random() * 15) + 10;
-            jugador.ganado = `US$ ${(jugador.edad - 15) * 48}K`;
-
-            actualizarDashboard();
-            alert(`¡Terminó la temporada ${jugador.año - 1}! Ahora tienes ${jugador.edad} años y tu Media subió a ${jugador.media}.`);
-        }
-
-        function abrirTienda() { document.getElementById('modal-tienda').classList.remove('hidden'); }
-        function cerrarTienda() { document.getElementById('modal-tienda').classList.add('hidden'); }
-        function resolverEvento(opcion) { alert(opcion === 1 ? '¡El VAR revisó y cobró PENAL! Gol de tu equipo.' : 'Resististe la marca y mantuviste la posesión.'); }
-    </script>
-</body>
-</html>
