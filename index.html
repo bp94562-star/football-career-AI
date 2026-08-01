@@ -1,1 +1,211 @@
 <!doctype html><html><head><meta charset='utf-8'><title>Career AI Player</title><link rel='stylesheet' href='style.css'></head><body><h1>Career AI Player</h1><script src='script.js'></script></body></html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camino a la Gloria - Modo Carrera</title>
+  <!-- Tailwind CSS para diseño moderno y rápido -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white font-sans min-h-screen flex flex-col justify-center items-center p-4">
+
+  <div id="game-card" class="w-full max-w-md bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl p-6 relative overflow-hidden">
+    
+    <!-- 1. PANTALLA: CREACIÓN DE JUGADOR -->
+    <div id="screen-creation" class="space-y-4">
+      <div class="text-center">
+        <h1 class="text-3xl font-extrabold text-emerald-400">⚡ CAMINO A LA GLORIA</h1>
+        <p class="text-slate-400 text-sm mt-1">Crea tu leyenda en el fútbol argentino/latino</p>
+      </div>
+
+      <div class="space-y-3 mt-4">
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Nombre del Jugador</label>
+          <input type="text" id="player-name" placeholder="Ej. El 'Pipi' Román" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 text-white">
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Posición</label>
+          <select id="player-pos" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 text-white">
+            <option value="DEL">Delantero (DEL)</option>
+            <option value="MED">Mediocampista (MED)</option>
+            <option value="DEF">Defensor (DEF)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Club de Debut</label>
+          <input type="text" id="player-club" placeholder="Ej. Deportivo Potrero" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 text-white">
+        </div>
+
+        <button onclick="startGame()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold py-3 rounded-xl shadow-lg transition-all transform active:scale-95 mt-4">
+          ¡INICIAR CARRERA!
+        </button>
+      </div>
+    </div>
+
+    <!-- 2. PANTALLA: BUCLE PRINCIPAL DE JUEGO -->
+    <div id="screen-game" class="hidden space-y-4">
+      
+      <!-- HUD / Estadísticas -->
+      <div class="bg-slate-900 rounded-xl p-3 border border-slate-700/50 flex justify-between items-center text-xs font-bold">
+        <div>
+          <p id="hud-name" class="text-emerald-400 text-sm">--</p>
+          <p id="hud-club" class="text-slate-400">--</p>
+        </div>
+        <div class="flex gap-3 text-center">
+          <div><span class="block text-slate-400">MEDIA</span><span id="hud-ovr" class="text-amber-400 text-sm">60</span></div>
+          <div><span class="block text-slate-400">VALOR</span><span id="hud-pop" class="text-blue-400 text-sm">50%</span></div>
+          <div><span class="block text-slate-400">ENERGÍA</span><span id="hud-energy" class="text-rose-400 text-sm">100%</span></div>
+        </div>
+      </div>
+
+      <!-- Cuadro de Evento -->
+      <div class="bg-slate-900/60 rounded-xl p-5 border border-slate-700 min-h-[140px] flex flex-col justify-center">
+        <span class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold mb-1">Decisión de Carrera</span>
+        <p id="event-text" class="text-sm text-slate-200 leading-relaxed">Cargando situación...</p>
+      </div>
+
+      <!-- Opciones -->
+      <div id="options-container" class="space-y-2">
+        <!-- Generadas con JS -->
+      </div>
+    </div>
+
+    <!-- 3. PANTALLA: RESUMEN / FIN DE TEMPORADA -->
+    <div id="screen-gameover" class="hidden text-center space-y-4">
+      <h2 class="text-2xl font-black text-emerald-400">🏆 FIN DE LA TEMPORADA</h2>
+      <p class="text-slate-300 text-sm">Completaste tu primera etapa como profesional.</p>
+
+      <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 text-left space-y-2 text-sm">
+        <p><strong>Jugador:</strong> <span id="final-name" class="text-emerald-400"></span></p>
+        <p><strong>Club Final:</strong> <span id="final-club" class="text-slate-300"></span></p>
+        <p><strong>Media Lograda:</strong> <span id="final-ovr" class="text-amber-400"></span></p>
+        <p><strong>Popularidad/Reputación:</strong> <span id="final-pop" class="text-blue-400"></span></p>
+      </div>
+
+      <button onclick="location.reload()" class="w-full bg-emerald-500 text-slate-950 font-bold py-3 rounded-xl">
+        Jugar Otra Carrera
+      </button>
+    </div>
+
+  </div>
+
+  <!-- LÓGICA DEL JUEGO EN JAVASCRIPT -->
+  <script>
+    // Estado del Jugador
+    let player = {
+      name: '',
+      pos: '',
+      club: '',
+      ovr: 60,
+      pop: 50,
+      energy: 100,
+      step: 0
+    };
+
+    // Banco de Decisiones/Eventos al estilo Potrero
+    const events = [
+      {
+        text: "Es tu debut oficial. Entras al minuto 70 con el partido empatado 1-1. ¿Qué haces?",
+        options: [
+          { text: "⚡ Arriesgar en la gambeta personal", effects: { ovr: +3, pop: +10, energy: -20 } },
+          { text: "🎯 Asegurar pases y jugar simple", effects: { ovr: +1, pop: +2, energy: -10 } }
+        ]
+      },
+      {
+        text: "Tu representante te invita a una fiesta la noche anterior a un partido clave.",
+        options: [
+          { text: "🎉 Ir a la fiesta (Ganas seguidores pero pierdes físico)", effects: { ovr: -2, pop: +15, energy: -30 } },
+          { text: "🥗 Quedarte a descansar y enfocado", effects: { ovr: +2, pop: -5, energy: +10 } }
+        ]
+      },
+      {
+        text: "Un ojeador de un club de Primera te está viendo hoy en la tribuna.",
+        options: [
+          { text: "🔥 Pedir todas las pelotas y patear al arco", effects: { ovr: +2, pop: +12, energy: -25 } },
+          { text: "🧠 Jugar para el equipo sin presiones", effects: { ovr: +1, pop: +5, energy: -15 } }
+        ]
+      },
+      {
+        text: "Minuto 90: Penal decisivo para ganar el partido.",
+        options: [
+          { text: "🚀 Romperle el arco al medio", effects: { ovr: +3, pop: +8, energy: -10 } },
+          { text: "🪄 Picarla a lo Panenka", effects: { ovr: +5, pop: +20, energy: -10 } }
+        ]
+      }
+    ];
+
+    function startGame() {
+      const name = document.getElementById('player-name').value.trim();
+      const club = document.getElementById('player-club').value.trim();
+
+      if (!name || !club) {
+        alert("Por favor completa tu nombre y club.");
+        return;
+      }
+
+      player.name = name;
+      player.pos = document.getElementById('player-pos').value;
+      player.club = club;
+
+      document.getElementById('screen-creation').classList.add('hidden');
+      document.getElementById('screen-game').classList.remove('hidden');
+
+      updateHUD();
+      renderEvent();
+    }
+
+    function updateHUD() {
+      document.getElementById('hud-name').innerText = `${player.name} (${player.pos})`;
+      document.getElementById('hud-club').innerText = player.club;
+      document.getElementById('hud-ovr').innerText = player.ovr;
+      document.getElementById('hud-pop').innerText = player.pop + '%';
+      document.getElementById('hud-energy').innerText = player.energy + '%';
+    }
+
+    function renderEvent() {
+      if (player.step >= events.length || player.energy <= 0) {
+        endGame();
+        return;
+      }
+
+      const currentEvent = events[player.step];
+      document.getElementById('event-text').innerText = currentEvent.text;
+
+      const optionsDiv = document.getElementById('options-container');
+      optionsDiv.innerHTML = '';
+
+      currentEvent.options.forEach((opt) => {
+        const btn = document.createElement('button');
+        btn.className = "w-full text-left bg-slate-700/50 hover:bg-slate-700 border border-slate-600/50 p-3 rounded-xl text-sm transition-all text-slate-100 font-medium";
+        btn.innerText = opt.text;
+        btn.onclick = () => selectOption(opt.effects);
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    function selectOption(effects) {
+      player.ovr = Math.max(40, player.ovr + (effects.ovr || 0));
+      player.pop = Math.max(0, player.pop + (effects.pop || 0));
+      player.energy = Math.max(0, player.energy + (effects.energy || 0));
+
+      player.step++;
+      updateHUD();
+      renderEvent();
+    }
+
+    function endGame() {
+      document.getElementById('screen-game').classList.add('hidden');
+      document.getElementById('screen-gameover').classList.remove('hidden');
+
+      document.getElementById('final-name').innerText = player.name;
+      document.getElementById('final-club').innerText = player.club;
+      document.getElementById('final-ovr').innerText = player.ovr;
+      document.getElementById('final-pop').innerText = player.pop + '%';
+    }
+  </script>
+</body>
+</html>
