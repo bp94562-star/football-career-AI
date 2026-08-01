@@ -3,170 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Futbol Legend Global - Ultimate Career</title>
-    <script src="database_futbol.js"></script>
+    <title>Futbol Legend World - Ultimate Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Importamos la base de datos externa -->
+    <script src="database.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,900&display=swap');
-        body { font-family: 'Montserrat', sans-serif; background-color: #050608; }
+        body { font-family: sans-serif; background-color: #050608; color: white; }
         .bg-card { background: #0e1017; }
-        .glow-green { box-shadow: 0 0 20px rgba(34, 197, 94, 0.2); }
     </style>
 </head>
-<body class="text-white max-w-md mx-auto min-h-screen flex flex-col justify-between p-3 select-none">
+<body class="max-w-md mx-auto p-3 min-h-screen flex flex-col justify-between">
 
-    <header class="flex justify-between items-center bg-card p-3 rounded-2xl border border-gray-800 my-1">
+    <!-- HEADER / MARCA -->
+    <header class="flex justify-between items-center bg-card p-3 rounded-2xl border border-gray-800">
         <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-green-500 to-emerald-300 flex items-center justify-center font-black text-black text-xs shadow-md">
-                ⭐
-            </div>
+            <div class="w-8 h-8 rounded-xl bg-green-500 flex items-center justify-center font-black text-black text-xs">⭐</div>
             <div>
-                <h1 class="text-xs font-black tracking-wider text-green-400 uppercase">NUESTRA MARCA GAME</h1>
-                <p class="text-[8px] text-gray-400 font-bold uppercase">GLOBAL CAREER ENGINE v2.0</p>
+                <h1 class="text-xs font-black text-green-400 uppercase">MARCA GAME ENGINE</h1>
+                <p class="text-[8px] text-gray-400">WORLD CAREER V3.0</p>
             </div>
         </div>
-        <button onclick="toggleAjustes()" class="bg-gray-800 hover:bg-gray-700 text-xs p-2 rounded-xl border border-gray-700">
-            ⚙️
-        </button>
+        <button onclick="hablar('¡Bienvenido al mejor juego del mundo!')" class="bg-gray-800 p-2 rounded-xl text-xs">🗣️</button>
     </header>
 
-    <div id="modal-ajustes" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-card w-full max-w-xs border border-gray-800 rounded-2xl p-4 space-y-3">
-            <div class="flex justify-between items-center border-b border-gray-800 pb-2">
-                <h3 class="font-black text-sm text-yellow-400">⚙️ CONFIGURACIÓN</h3>
-                <button onclick="toggleAjustes()" class="text-gray-400 font-bold text-xs">✕</button>
-            </div>
-            <div class="space-y-2 text-xs">
-                <div class="flex justify-between items-center">
-                    <span>Efectos de Sonido (SFX)</span>
-                    <input type="checkbox" id="chk-sfx" checked class="accent-green-500">
-                </div>
-                <div class="flex justify-between items-center">
-                    <span>Voz del Personaje</span>
-                    <input type="checkbox" id="chk-voice" checked class="accent-green-500">
-                </div>
-                <div class="flex justify-between items-center">
-                    <span>Cinemáticas 2D</span>
-                    <input type="checkbox" id="chk-cine" checked class="accent-green-500">
-                </div>
-            </div>
-            <button onclick="toggleAjustes()" class="w-full bg-green-500 text-black font-black py-2 rounded-xl text-xs uppercase">Guardar y Cerrar</button>
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main id="app-container" class="space-y-3 my-3">
+        <div class="bg-card p-4 rounded-2xl border border-gray-800 text-center space-y-2">
+            <h2 class="text-sm font-black text-yellow-400 uppercase">🏆 SELECCIÓN DE EQUIPOS Y SELECCIONES</h2>
+            <p class="text-xs text-gray-400">Explora todos los clubes, selecciones, Copa Libertadores y Mundial</p>
+            <button onclick="renderizarTodoElMundo()" class="w-full bg-gradient-to-r from-green-500 to-emerald-400 text-black font-black py-3 rounded-xl text-xs uppercase shadow-lg">
+                🌍 CARGAR BASE DE DATOS MUNDIAL
+            </button>
         </div>
-    </div>
-
-    <div id="pantalla-cinematica" class="hidden bg-card border-2 border-yellow-500/50 rounded-2xl p-4 space-y-3 my-2 text-center animate-fade">
-        <div class="w-full h-32 bg-gradient-to-b from-blue-900 to-black rounded-xl border border-gray-800 flex flex-col items-center justify-center relative overflow-hidden">
-            <span class="text-4xl animate-bounce">✍️⚽</span>
-            <span class="text-[10px] bg-black/60 px-2 py-0.5 rounded text-yellow-400 font-bold mt-2" id="cine-sub">OFICINA DEL PRESIDENTE</span>
-        </div>
-        <h2 class="font-black text-sm text-white uppercase" id="cine-titulo">FIRMA DE CONTRATO</h2>
-        <p class="text-xs text-gray-300" id="cine-texto">El presidente te entrega la camiseta oficial y posan frente a la prensa.</p>
-        <button onclick="cerrarCinematica()" class="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-black py-2.5 rounded-xl text-xs uppercase">
-            CONTINUAR
-        </button>
-    </div>
-
-    <main id="game-container" class="space-y-3">
-        <div class="bg-card p-4 rounded-2xl border border-gray-800 glow-green space-y-3">
-            <div class="flex justify-between items-center">
-                <div>
-                    <span class="text-[9px] bg-green-500/20 text-green-400 font-bold px-2 py-0.5 rounded uppercase">Estatus: Titular</span>
-                    <h2 class="text-lg font-black text-white mt-1">CRACK MUNDIAL</h2>
-                </div>
-                <button onclick="hablarJugador('¡Estoy listo para ganar todos los títulos esta temporada!')" class="bg-blue-600/30 border border-blue-500 text-blue-300 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1">
-                    🗣️ Hablar
-                </button>
-            </div>
-
-            <div class="grid grid-cols-2 gap-2 text-center text-xs">
-                <div class="bg-[#050608] p-2 rounded-xl border border-gray-800">
-                    <span class="text-[9px] text-gray-400 block font-bold">SALDO BANCO</span>
-                    <strong class="text-yellow-400 font-mono text-sm" id="val-banco">US$ 150K</strong>
-                </div>
-                <div class="bg-[#050608] p-2 rounded-xl border border-gray-800">
-                    <span class="text-[9px] text-gray-400 block font-bold">VALOR MERCADO</span>
-                    <strong class="text-green-400 font-mono text-sm" id="val-mercado">US$ 2.5M</strong>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-card p-3 rounded-2xl border border-gray-800 space-y-2">
-            <h3 class="text-xs font-black text-yellow-400 uppercase tracking-wider flex items-center justify-between">
-                <span>🛒 TIENDA DE LUJOS Y ESTILO DE VIDA</span>
-            </h3>
-            <div class="space-y-2 text-xs">
-                <div class="p-2.5 bg-[#050608] rounded-xl flex justify-between items-center border border-gray-800">
-                    <div>
-                        <div class="font-bold text-white">🏎️ Superdeportivo V12</div>
-                        <div class="text-[9px] text-green-400">+10 Imagen Pública</div>
-                    </div>
-                    <button onclick="comprarItem('Superdeportivo', 80)" class="bg-yellow-500 text-black font-black px-3 py-1 rounded-lg text-[10px]">US$ 80K</button>
-                </div>
-                <div class="p-2.5 bg-[#050608] rounded-xl flex justify-between items-center border border-gray-800">
-                    <div>
-                        <div class="font-bold text-white">🏰 Mansión con Campo Privado</div>
-                        <div class="text-[9px] text-green-400">+15 Recuperación / Físico</div>
-                    </div>
-                    <button onclick="comprarItem('Mansion', 200)" class="bg-yellow-500 text-black font-black px-3 py-1 rounded-lg text-[10px]">US$ 200K</button>
-                </div>
-            </div>
-        </div>
+        <div id="lista-equipos" class="space-y-4"></div>
     </main>
 
     <script>
-        // MOTOR DE SONIDO (SFX)
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        function playSFX(freq = 500, type = 'sine') {
-            if(!document.getElementById('chk-sfx').checked) return;
-            try {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = type;
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.1);
-            } catch(e){}
+        // Renderizador dinámico de camisetas SVG
+        function renderCamiseta(principal, secundaria, estilo) {
+            let patron = "";
+            if (estilo === "bastones-verticales") {
+                patron = `<rect x="18" y="5" width="8" height="50" fill="${secundaria}" /><rect x="34" y="5" width="8" height="50" fill="${secundaria}" />`;
+            } else if (estilo === "franja-horizontal") {
+                patron = `<rect x="5" y="22" width="50" height="12" fill="${secundaria}" />`;
+            } else if (estilo === "banda-diagonal") {
+                patron = `<polygon points="10,5 20,5 50,50 40,50" fill="${secundaria}" />`;
+            }
+            return `
+                <svg viewBox="0 0 60 60" width="40" height="40">
+                    <path d="M 15 10 L 22 5 L 38 5 L 45 10 L 55 18 L 48 26 L 44 22 L 44 52 L 16 52 L 16 22 L 12 26 L 5 18 Z" fill="${principal}" stroke="#000" stroke-width="1.5"/>
+                    ${patron}
+                </svg>
+            `;
         }
 
-        // SÍNTESIS DE VOZ DEL PERSONAJE
-        function hablarJugador(texto) {
-            playSFX(600);
-            if(!document.getElementById('chk-voice').checked) return;
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(texto);
-                utterance.lang = 'es-MX';
-                utterance.pitch = 1.0;
-                utterance.rate = 1.0;
-                window.speechSynthesis.speak(utterance);
+        // Función para recorrer la base de datos
+        function renderizarTodoElMundo() {
+            const container = document.getElementById("lista-equipos");
+            container.innerHTML = "";
+
+            for (let region in BASE_DATOS_MUNDIAL) {
+                let htmlRegion = `<div class="bg-card p-3 rounded-2xl border border-gray-800 space-y-2"><h3 class="text-xs font-black text-green-400 uppercase">${region}</h3>`;
+                let torneos = BASE_DATOS_MUNDIAL[region];
+
+                for (let torneo in torneos) {
+                    htmlRegion += `<h4 class="text-[10px] font-bold text-yellow-400 uppercase">${torneo}</h4>`;
+                    torneos[torneo].forEach(eq => {
+                        let kitSvg = renderCamiseta(eq.camisaLocal.principal, eq.camisaLocal.secundaria, eq.camisaLocal.estilo);
+                        htmlRegion += `
+                            <div class="bg-[#050608] p-2 rounded-xl flex items-center justify-between border border-gray-800/80">
+                                <div class="flex items-center gap-2">
+                                    <img src="${eq.escudo}" class="w-7 h-7 object-contain">
+                                    <span class="text-xs font-bold text-white">${eq.nombre}</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    ${kitSvg}
+                                    <button onclick="hablar('Has seleccionado a ${eq.nombre}')" class="bg-green-500 text-black font-black text-[9px] px-2 py-1 rounded-lg uppercase">
+                                        Elegir
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+                htmlRegion += `</div>`;
+                container.innerHTML += htmlRegion;
             }
         }
 
-        function toggleAjustes() {
-            playSFX(400);
-            document.getElementById('modal-ajustes').classList.toggle('hidden');
-        }
-
-        function verCinematica(titulo, texto, sub) {
-            if(!document.getElementById('chk-cine').checked) return;
-            document.getElementById('cine-titulo').innerText = titulo;
-            document.getElementById('cine-texto').innerText = texto;
-            document.getElementById('cine-sub').innerText = sub;
-            document.getElementById('pantalla-cinematica').classList.remove('hidden');
-            hablarJugador(titulo);
-        }
-
-        function cerrarCinematica() {
-            playSFX(300);
-            document.getElementById('pantalla-cinematica').classList.add('hidden');
-        }
-
-        function comprarItem(nombre, costo) {
-            playSFX(800, 'triangle');
-            verCinematica('¡NUEVA ADQUISICIÓN!', `Has adquirido ${nombre}. Tu reputación mundial ha subido.`, 'ESTILO DE VIDA');
+        // Voz del personaje / narrador
+        function hablar(texto) {
+            if ('speechSynthesis' in window) {
+                const u = new SpeechSynthesisUtterance(texto);
+                u.lang = 'es-MX';
+                window.speechSynthesis.speak(u);
+            }
         }
     </script>
 </body>
