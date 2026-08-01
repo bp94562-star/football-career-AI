@@ -11,13 +11,13 @@
     <div id="pantalla-crear" class="space-y-4">
         <div class="text-center my-3">
             <span class="text-[10px] text-green-400 font-bold uppercase tracking-widest block">MODO CARRERA</span>
-            <h1 class="text-2xl font-black text-white italic tracking-wider">EL ÍDOLO 🌎</h1>
+            <h1 class="text-2xl font-black text-white italic tracking-wider">FOOTBALL CAREER ⚽</h1>
         </div>
 
         <div class="bg-[#13151b] p-4 rounded-2xl border border-gray-800 space-y-3">
             <div>
                 <label class="text-[10px] text-gray-400 font-bold uppercase block mb-1">Tu Nombre o Apodo</label>
-                <input type="text" id="in-nombre" value="Brayan" class="w-full bg-[#0b0c10] border border-gray-700 rounded-xl p-2.5 text-sm font-bold text-yellow-400 focus:outline-none">
+                <input type="text" id="in-nombre" placeholder="Ingresa tu nombre..." class="w-full bg-[#0b0c10] border border-gray-700 rounded-xl p-2.5 text-sm font-bold text-yellow-400 focus:outline-none placeholder-gray-600">
             </div>
 
             <div class="grid grid-cols-2 gap-2">
@@ -29,6 +29,11 @@
                         <option value="🇪🇸 España">🇪🇸 España</option>
                         <option value="🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra</option>
                         <option value="🇧🇷 Brasil">🇧🇷 Brasil</option>
+                        <option value="🇨🇱 Chile">🇨🇱 Chile</option>
+                        <option value="🇨🇴 Colombia">🇨🇴 Colombia</option>
+                        <option value="🇺🇸 Estados Unidos">🇺🇸 USA</option>
+                            <option value="🇨🇦 Canadá">🇨🇦 Canadá</option> 
+                            
                     </select>
                 </div>
                 <div>
@@ -49,12 +54,13 @@
                     <option value="9 DELANTERO">9 DELANTERO</option>
                     <option value="10 ENGANCHE">10 ENGANCHE</option>
                     <option value="7 EXTREMO">7 EXTREMO</option>
+                    <option value="5 MEDIOCAMPISTA">5 MEDIOCAMPISTA</option>
                 </select>
             </div>
         </div>
 
         <div class="bg-[#13151b] p-3 rounded-2xl border border-gray-800">
-            <label class="text-[10px] text-gray-400 font-bold uppercase block mb-2">Ofertas Disponibles</label>
+            <label class="text-[10px] text-gray-400 font-bold uppercase block mb-2">Ofertas Disponibles en la Liga</label>
             <div id="contenedor-clubes" class="space-y-2">
                 </div>
         </div>
@@ -69,17 +75,19 @@
         
         <div class="bg-[#13151b] border border-gray-800 rounded-2xl p-3 relative">
             <div class="flex items-center justify-between mb-2">
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2.5">
                     <div class="text-2xl font-black text-white bg-[#1a1d26] px-2.5 py-1 rounded-xl border border-gray-700" id="dash-media">57</div>
                     <div>
                         <div class="flex items-center gap-1.5">
                             <span id="dash-flag">🇲🇽</span>
-                            <h2 class="font-black text-sm text-yellow-400 uppercase tracking-wide" id="dash-nombre">BRAYAN - LA 9</h2>
+                            <h2 class="font-black text-sm text-yellow-400 uppercase tracking-wide" id="dash-nombre">JUGADOR - LA 9</h2>
                         </div>
-                        <div class="text-[10px] text-gray-400 font-semibold" id="dash-info">QUERÉTARO · 2026 · 16 AÑOS</div>
+                        <div class="text-[10px] text-gray-400 font-semibold" id="dash-info">CLUB · 2026 · 16 AÑOS</div>
                     </div>
                 </div>
-                <img id="dash-escudo" src="" class="w-8 h-8 object-contain">
+                <div id="dash-escudo-box" class="w-9 h-9 rounded-full flex items-center justify-center font-black text-xs border border-white/20 shadow-inner">
+                    FC
+                </div>
             </div>
 
             <div class="grid grid-cols-4 gap-1 text-center bg-[#0b0c10] p-2 rounded-xl my-2 border border-gray-800">
@@ -105,7 +113,7 @@
                 </div>
                 <div class="bg-[#0b0c10] p-1.5 rounded-xl border border-gray-800">
                     <div class="text-[8px] text-gray-400 uppercase">DINERO GANADO</div>
-                    <div class="text-xs font-mono font-bold text-yellow-400" id="dash-ganado">US$ 12K</div>
+                    <div class="text-xs font-mono font-bold text-yellow-400" id="dash-ganado">US$ 0K</div>
                 </div>
             </div>
         </div>
@@ -114,20 +122,20 @@
 
         <div id="seccion-evento" class="bg-[#13151b] border-l-4 border-yellow-500 p-3 rounded-xl space-y-2">
             <div class="text-[10px] text-yellow-400 font-black uppercase tracking-wider flex items-center gap-1">
-                <span>🎲</span> PASAN COSAS...
+                <span>🤖</span> EVENTO DINÁMICO
             </div>
-            <h3 class="font-bold text-xs text-white" id="ev-titulo">EL CLAVADO EN EL ÁREA</h3>
+            <h3 class="font-bold text-xs text-white" id="ev-titulo">CARGANDO...</h3>
             <p class="text-[11px] text-gray-300 leading-tight" id="ev-desc">
-                Entrás al área, te rozan apenas y el arco está lejos. Si te dejás caer es penal. Si seguís, podrías perderla.
+                Generando evento...
             </p>
             <div id="ev-botones" class="grid grid-cols-2 gap-2 pt-1">
                 <button onclick="responderEvento(0)" class="bg-[#1a1d26] hover:bg-gray-800 text-xs font-bold p-2 rounded-lg border border-gray-700 text-left">
-                    <span id="opt0-title">Dejarte caer</span><br>
-                    <span id="opt0-sub" class="text-[9px] text-yellow-400 font-normal">Penal fácil ⚠️ VAR</span>
+                    <span id="opt0-title">Opción 1</span><br>
+                    <span id="opt0-sub" class="text-[9px] text-yellow-400 font-normal">Efecto</span>
                 </button>
                 <button onclick="responderEvento(1)" class="bg-[#1a1d26] hover:bg-gray-800 text-xs font-bold p-2 rounded-lg border border-gray-700 text-left">
-                    <span id="opt1-title">Aguantar y seguir</span><br>
-                    <span id="opt1-sub" class="text-[9px] text-gray-400 font-normal">Juego limpio</span>
+                    <span id="opt1-title">Opción 2</span><br>
+                    <span id="opt1-sub" class="text-[9px] text-gray-400 font-normal">Efecto</span>
                 </button>
             </div>
         </div>
@@ -140,8 +148,8 @@
             <div class="space-y-1.5 text-xs">
                 <div class="p-2 bg-[#1a1d26] rounded-xl flex justify-between items-center border border-gray-800">
                     <div>
-                        <div class="font-bold text-white"> Auto Deportivo</div>
-                        <div class="text-[9px] text-green-400">+5 de Fama</div>
+                        <div class="font-bold text-white">🚗 Auto Deportivo</div>
+                        <div class="text-[9px] text-green-400">+5 Liderazgo</div>
                     </div>
                     <button onclick="comprarLujo('Auto Deportivo', 50)" class="bg-yellow-500 text-black font-bold text-[10px] px-2.5 py-1 rounded-lg">US$ 50K</button>
                 </div>
@@ -162,41 +170,76 @@
 
 
     <script>
+        // LIGAS CON MÚLTIPLES CLUBES Y COLORES OFICIALES PARA ESCUDOS
         const baseClubes = {
             "Liga MX": [
-                { nombre: "Necaxa", img: "https://upload.wikimedia.org/wikipedia/commons/0/05/Club_Necaxa_logo.svg", valor: "US$ 600K" },
-                { nombre: "FC Juárez", img: "https://upload.wikimedia.org/wikipedia/commons/a/a2/FC_Juarez_Logo.png", valor: "US$ 800K" },
-                { nombre: "Puebla", img: "https://upload.wikimedia.org/wikipedia/commons/2/22/Club_Puebla_Logo.png", valor: "US$ 650K" }
+                { nombre: "FC Juárez", sigla: "FCJ", color: "bg-green-700 text-white", valor: "US$ 800K" },
+                { nombre: "Necaxa", sigla: "NEC", color: "bg-red-600 text-white", valor: "US$ 600K" },
+                { nombre: "Puebla", sigla: "PUE", color: "bg-blue-600 text-white", valor: "US$ 650K" },
+                { nombre: "Querétaro", sigla: "QRO", color: "bg-blue-900 text-white", valor: "US$ 700K" },
+                { nombre: "Mazatlán", sigla: "MAZ", color: "bg-purple-800 text-white", valor: "US$ 750K" },
+                { nombre: "Xolos Tijuana", sigla: "TIJ", color: "bg-black text-red-500", valor: "US$ 850K" }
             ],
             "LaLiga": [
-                { nombre: "Getafe CF", img: "https://upload.wikimedia.org/wikipedia/en/7/7f/Getafe_logo.svg", valor: "US$ 1.2M" },
-                { nombre: "Rayo Vallecano", img: "https://upload.wikimedia.org/wikipedia/en/1/17/Rayo_Vallecano_logo.svg", valor: "US$ 1.1M" },
-                { nombre: "RCD Mallorca", img: "https://upload.wikimedia.org/wikipedia/en/e/e0/Rcd_mallorca.svg", valor: "US$ 1.5M" }
+                { nombre: "Getafe CF", sigla: "GET", color: "bg-blue-600 text-white", valor: "US$ 1.2M" },
+                { nombre: "Rayo Vallecano", sigla: "RAY", color: "bg-red-700 text-white", valor: "US$ 1.1M" },
+                { nombre: "RCD Mallorca", sigla: "RCD", color: "bg-red-600 text-yellow-400", valor: "US$ 1.5M" },
+                { nombre: "Cádiz CF", sigla: "CAD", color: "bg-yellow-400 text-blue-900", valor: "US$ 1.0M" },
+                { nombre: "CD Leganés", sigla: "LEG", color: "bg-blue-500 text-white", valor: "US$ 1.3M" }
             ],
             "Premier League": [
-                { nombre: "Burnley FC", img: "https://upload.wikimedia.org/wikipedia/en/6/62/Burnley_FC_badge.svg", valor: "US$ 2.0M" },
-                { nombre: "Luton Town", img: "https://upload.wikimedia.org/wikipedia/en/9/9d/LutonTownFC2009.svg", valor: "US$ 1.8M" },
-                { nombre: "Sheffield Utd", img: "https://upload.wikimedia.org/wikipedia/en/9/9c/Sheffield_United_FC_logo.svg", valor: "US$ 1.9M" }
+                { nombre: "Burnley FC", sigla: "BUR", color: "bg-red-900 text-cyan-300", valor: "US$ 2.0M" },
+                { nombre: "Luton Town", sigla: "LUT", color: "bg-orange-600 text-white", valor: "US$ 1.8M" },
+                { nombre: "Sheffield Utd", sigla: "SHU", color: "bg-red-600 text-black", valor: "US$ 1.9M" },
+                { nombre: "Brentford", sigla: "BRE", color: "bg-red-600 text-white", valor: "US$ 2.5M" },
+                { nombre: "Bournemouth", sigla: "BOU", color: "bg-red-700 text-black", valor: "US$ 2.2M" }
             ],
             "Liga Argentina": [
-                { nombre: "Banfield", img: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Escudo_del_Club_Atl%C3%A9tico_Banfield.svg", valor: "US$ 500K" },
-                { nombre: "Platense", img: "https://upload.wikimedia.org/wikipedia/commons/3/30/Escudo_del_Club_Atl%C3%A9tico_Platense.svg", valor: "US$ 450K" },
-                { nombre: "Sarmiento", img: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Escudo_Club_Atletico_Sarmiento_de_Junin.svg", valor: "US$ 400K" }
+                { nombre: "Banfield", sigla: "BAN", color: "bg-green-600 text-white", valor: "US$ 500K" },
+                { nombre: "Platense", sigla: "PLA", color: "bg-amber-800 text-white", valor: "US$ 450K" },
+                { nombre: "Sarmiento", sigla: "SAR", color: "bg-green-700 text-yellow-300", valor: "US$ 400K" },
+                { nombre: "Instituto", sigla: "INS", color: "bg-red-600 text-white", valor: "US$ 480K" },
+                { nombre: "Barracas Central", sigla: "BAR", color: "bg-red-600 text-white", valor: "US$ 420K" }
             ],
             "Brasileirão": [
-                { nombre: "Goiás EC", img: "https://upload.wikimedia.org/wikipedia/commons/b/b2/Goi%C3%A1s_Esporte_Clube_logo.svg", valor: "US$ 700K" },
-                { nombre: "Coritiba", img: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Coritiba_FCP_logo.svg", valor: "US$ 750K" },
-                { nombre: "Cuiabá EC", img: "https://upload.wikimedia.org/wikipedia/commons/8/87/Cuiab%C3%A1_EC_logo.svg", valor: "US$ 600K" }
+                { nombre: "Goiás EC", sigla: "GOI", color: "bg-green-800 text-white", valor: "US$ 700K" },
+                { nombre: "Coritiba", sigla: "CFC", color: "bg-emerald-700 text-white", valor: "US$ 750K" },
+                { nombre: "Cuiabá EC", sigla: "CUI", color: "bg-yellow-500 text-green-900", valor: "US$ 600K" },
+                { nombre: "Juventude", sigla: "JUV", color: "bg-green-600 text-white", valor: "US$ 650K" }
+            ]
+        };
+
+        // GENERADOR DINÁMICO DE EVENTOS ("SISTEMA IA")
+        const componentesEventos = {
+            sujetos: ["El entrenador", "Un cazatalentos de Europa", "La prensa deportiva", "El capitán del equipo", "Un patrocinador importante", "La hinchada rival"],
+            contextos: [
+                "te ofrece un bono exclusivo si anotas en el próximo clásico.",
+                "filtró un rumor de que estás disconforme en el club.",
+                "te pide ser el cobrador oficial de penales del equipo.",
+                "te invita a una fiesta privada antes del partido decisivo.",
+                "quiere exigirte doble turno de entrenamiento esta semana.",
+                "te propone grabar una publicidad en tu día libre."
+            ],
+            opcionesA: [
+                { t: "Aceptar la propuesta", s: "Efecto arriesgado", e: "Ganas +5 Fama pero pierdes -2 Resistencia" },
+                { t: "Apostar por todo", s: "Confianza alta", e: "Aumentas +2 Potencia y +1 Gol" },
+                { t: "Aceptar el reto", s: "Presión del DT", e: "Aumentas +2 Liderazgo" }
+            ],
+            opcionesB: [
+                { t: "Rechazar amablemente", s: "Perfil bajo", e: "Aumentas +3 Resistencia" },
+                { t: "Mantener la calma", s: "Profesionalismo", e: "Ganas +2 Liderazgo con el grupo" },
+                { t: "Priorizar el equipo", s: "Juego en equipo", e: "Aumentas +1 Asistencia" }
             ]
         };
 
         let jugador = {
-            nombre: 'Brayan',
+            nombre: 'Crack',
             pos: '9 DELANTERO',
             nac: '🇲🇽 México',
             liga: 'Liga MX',
-            club: 'Necaxa',
-            escudo: '',
+            club: 'FC Juárez',
+            sigla: 'FCJ',
+            color: 'bg-green-700 text-white',
             edad: 16,
             año: 2026,
             media: 57,
@@ -204,32 +247,11 @@
             asist: 0,
             partidos: 0,
             titulos: 0,
-            dinero: 12,
+            dinero: 0,
             def: 60, vel: 61, pot: 55, lid: 45, res: 62
         };
 
-        const bancoEventos = [
-            {
-                titulo: "EL CLAVADO EN EL ÁREA",
-                desc: "Entrás al área, te rozan apenas y el arco está lejos. Si te dejás caer es penal. Si seguís, podrías perderla.",
-                o0: ["Dejarte caer", "Probar la suerte del árbitro", "+1 Gol si cobraron penal"],
-                o1: ["Aguantar la marca", "Buscar el tiro limpio", "+1 Asistencia de crack"]
-            },
-            {
-                titulo: "FIESTA ANTES DEL PARTIDO",
-                desc: "Tus compañeros te invitan a un evento nocturno 24 horas antes del partido decisivo.",
-                o0: ["Ir a la fiesta", "Te ven las cámaras de TV", "+2 Fama / -1 Condición"],
-                o1: ["Quedarte a descansar", "Priorizar la disciplina", "+2 Resistencia en partido"]
-            },
-            {
-                titulo: "ENTREVISTA PICANTE",
-                desc: "Un periodista te pregunta si crees que mereces ser titular por encima del capitán del equipo.",
-                o0: ["DECLARAR: 'Soy el mejor'", "Actitud confiada", "+5 Fama / -1 Liderazgo"],
-                o1: ["DECLARAR: 'Decide el DT'", "Respuesta humilde", "+2 Liderazgo con el grupo"]
-            }
-        ];
-
-        let eventoActual = 0;
+        let eventoActualState = {};
 
         function cargarClubesPorLiga() {
             const selectLiga = document.getElementById('in-liga');
@@ -244,8 +266,10 @@
                 contenedor.innerHTML += `
                     <label class="flex items-center justify-between p-2.5 bg-[#1a1d26] rounded-xl cursor-pointer border border-gray-800 hover:border-yellow-500">
                         <div class="flex items-center gap-2.5">
-                            <input type="radio" name="club" value="${c.nombre}" data-img="${c.img}" ${index === 0 ? 'checked' : ''} class="accent-yellow-500">
-                            <img src="${c.img}" class="w-6 h-6 object-contain" onerror="this.src='https://via.placeholder.com/24/111/FFF?text=FC'">
+                            <input type="radio" name="club" value="${c.nombre}" data-sigla="${c.sigla}" data-color="${c.color}" ${index === 0 ? 'checked' : ''} class="accent-yellow-500">
+                            <div class="w-6 h-6 rounded-full flex items-center justify-center font-black text-[9px] ${c.color}">
+                                ${c.sigla}
+                            </div>
                             <span class="text-xs font-bold">${c.nombre}</span>
                         </div>
                         <span class="text-[10px] text-green-400 font-mono font-bold">${c.valor}</span>
@@ -255,7 +279,9 @@
         }
 
         function empezarCarrera() {
-            jugador.nombre = document.getElementById('in-nombre').value || "Brayan";
+            const nombreIngresado = document.getElementById('in-nombre').value.trim();
+            jugador.nombre = nombreIngresado !== "" ? nombreIngresado : "Crack";
+            
             jugador.nac = document.getElementById('in-nac').value;
             jugador.liga = document.getElementById('in-liga').value;
             jugador.pos = document.getElementById('in-pos').value;
@@ -263,10 +289,12 @@
             const radioClub = document.querySelector('input[name="club"]:checked');
             if(radioClub) {
                 jugador.club = radioClub.value;
-                jugador.escudo = radioClub.getAttribute('data-img');
+                jugador.sigla = radioClub.getAttribute('data-sigla');
+                jugador.color = radioClub.getAttribute('data-color');
             }
 
             actualizarDashboard();
+            generarEventoIA();
             document.getElementById('pantalla-crear').classList.add('hidden');
             document.getElementById('pantalla-dashboard').classList.remove('hidden');
         }
@@ -277,8 +305,9 @@
             document.getElementById('dash-info').innerText = `${jugador.club.toUpperCase()} · ${jugador.año} · ${jugador.edad} AÑOS`;
             document.getElementById('dash-flag').innerText = jugador.nac.split(' ')[0];
             
-            const imgEscudo = document.getElementById('dash-escudo');
-            imgEscudo.src = jugador.escudo;
+            const boxEscudo = document.getElementById('dash-escudo-box');
+            boxEscudo.className = `w-9 h-9 rounded-full flex items-center justify-center font-black text-xs shadow-inner ${jugador.color}`;
+            boxEscudo.innerText = jugador.sigla;
 
             document.getElementById('st-goles').innerText = jugador.goles;
             document.getElementById('st-asist').innerText = jugador.asist;
@@ -293,41 +322,55 @@
             document.getElementById('at-res').innerText = jugador.res;
         }
 
-        function cargarEvento() {
-            eventoActual = Math.floor(Math.random() * bancoEventos.length);
-            const ev = bancoEventos[eventoActual];
-            document.getElementById('ev-titulo').innerText = ev.titulo;
-            document.getElementById('ev-desc').innerText = ev.desc;
+        function generarEventoIA() {
+            const sujeto = componentesEventos.sujetos[Math.floor(Math.random() * componentesEventos.sujetos.length)];
+            const contexto = componentesEventos.contextos[Math.floor(Math.random() * componentesEventos.contextos.length)];
             
-            document.getElementById('opt0-title').innerText = ev.o0[0];
-            document.getElementById('opt0-sub').innerText = ev.o0[1];
+            const opA = componentesEventos.opcionesA[Math.floor(Math.random() * componentesEventos.opcionesA.length)];
+            const opB = componentesEventos.opcionesB[Math.floor(Math.random() * componentesEventos.opcionesB.length)];
 
-            document.getElementById('opt1-title').innerText = ev.o1[0];
-            document.getElementById('opt1-sub').innerText = ev.o1[1];
+            eventoActualState = { opA, opB };
+
+            document.getElementById('ev-titulo').innerText = `${sujeto.toUpperCase()}`;
+            document.getElementById('ev-desc').innerText = `${sujeto} ${contexto}`;
+            
+            document.getElementById('opt0-title').innerText = opA.t;
+            document.getElementById('opt0-sub').innerText = opA.s;
+
+            document.getElementById('opt1-title').innerText = opB.t;
+            document.getElementById('opt1-sub').innerText = opB.s;
         }
 
         function responderEvento(op) {
-            const ev = bancoEventos[eventoActual];
-            const msg = op === 0 ? ev.o0[2] : ev.o1[2];
-            mostrarNotificacion(`✅ Decisión tomada: ${msg}`);
-            cargarEvento();
+            const res = op === 0 ? eventoActualState.opA : eventoActualState.opB;
+            
+            // Aplicar pequeños efectos dinámicos
+            if (op === 0) {
+                jugador.pot += 1;
+            } else {
+                jugador.res += 1;
+            }
+
+            mostrarNotificacion(`✅ Decisión tomada: ${res.e}`);
+            generarEventoIA();
+            actualizarDashboard();
         }
 
         function simularTemporada() {
             jugador.edad += 1;
             jugador.año += 1;
             jugador.media += Math.floor(Math.random() * 2) + 1;
-            jugador.goles += Math.floor(Math.random() * 5) + 2;
-            jugador.asist += Math.floor(Math.random() * 4);
-            jugador.partidos += Math.floor(Math.random() * 12) + 10;
-            jugador.dinero += 35;
+            jugador.goles += Math.floor(Math.random() * 6) + 2;
+            jugador.asist += Math.floor(Math.random() * 5);
+            jugador.partidos += Math.floor(Math.random() * 12) + 12;
+            jugador.dinero += 40;
             
             jugador.vel += 1;
             jugador.pot += 1;
 
             actualizarDashboard();
-            cargarEvento();
-            mostrarNotificacion(`🎉 ¡Avanzaste a la Temporada ${jugador.año}! Subiste a ${jugador.media} de Media.`);
+            generarEventoIA();
+            mostrarNotificacion(`🎉 Temporada ${jugador.año} finalizada. ¡Media subió a ${jugador.media}!`);
         }
 
         function toggleTienda() {
@@ -337,11 +380,11 @@
         function comprarLujo(item, costo) {
             if (jugador.dinero >= costo) {
                 jugador.dinero -= costo;
-                jugador.res += 3;
+                jugador.lid += 5;
                 actualizarDashboard();
-                mostrarNotificacion(`🛒 Compraste: ${item}. ¡Tus atributos mejoraron!`);
+                mostrarNotificacion(`🛒 Compraste: ${item}. +5 Liderazgo.`);
             } else {
-                mostrarNotificacion(`⚠️ No tienes suficiente dinero (Necesitas US$ ${costo}K).`);
+                mostrarNotificacion(`⚠️ Dinero insuficiente (Necesitas US$ ${costo}K).`);
             }
         }
 
@@ -352,7 +395,6 @@
             setTimeout(() => { el.classList.add('hidden'); }, 3500);
         }
 
-        // Ejecutar asegurando que el DOM esté cargado
         document.addEventListener('DOMContentLoaded', function() {
             cargarClubesPorLiga();
         });
