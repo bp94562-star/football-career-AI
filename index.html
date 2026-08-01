@@ -3,507 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Futbol Legend: Modo Carrera Ultimate</title>
+    <title>Futbol Legend Global - Ultimate Career</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;0,900;1,900&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .glass { background: rgba(19, 21, 27, 0.85); backdrop-filter: blur(12px); }
-        .gold-gradient { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); }
-        .card-glow { box-shadow: 0 0 25px -5px rgba(34, 197, 94, 0.15); }
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,900&display=swap');
+        body { font-family: 'Montserrat', sans-serif; background-color: #050608; }
+        .bg-card { background: #0e1017; }
+        .glow-green { box-shadow: 0 0 20px rgba(34, 197, 94, 0.2); }
     </style>
 </head>
-<body class="bg-[#08090c] text-slate-100 max-w-md mx-auto min-h-screen flex flex-col justify-between p-4 select-none">
+<body class="text-white max-w-md mx-auto min-h-screen flex flex-col justify-between p-3 select-none">
 
-    <div id="screen-create" class="space-y-4">
-        <div class="text-center my-4 space-y-1">
-            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 text-[10px] font-extrabold uppercase tracking-widest">
-                <span>⚡ ULTIMATE CAREER MODE</span>
+    <header class="flex justify-between items-center bg-card p-3 rounded-2xl border border-gray-800 my-1">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-green-500 to-emerald-300 flex items-center justify-center font-black text-black text-xs shadow-md">
+                ⭐
             </div>
-            <h1 class="text-3xl font-black italic tracking-tight text-white uppercase">FÚTBOL LEGEND</h1>
-            <p class="text-xs text-slate-400">Crea tu jugador y conquista los mejores clubes del mundo</p>
-        </div>
-
-        <div class="bg-[#111319] p-4 rounded-2xl border border-slate-800/80 space-y-3.5 shadow-xl">
             <div>
-                <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-1">Nombre o Apodo del Crack</label>
-                <input type="text" id="in-name" placeholder="Ej: Rey Pelé / El Bicho" class="w-full bg-[#090a0f] border border-slate-700/70 rounded-xl p-3 text-sm font-bold text-green-400 focus:outline-none focus:border-green-500 transition placeholder-slate-600">
-            </div>
-
-            <div class="grid grid-cols-2 gap-2.5">
-                <div>
-                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-1">Nacionalidad</label>
-                    <select id="in-nat" class="w-full bg-[#090a0f] border border-slate-700/70 rounded-xl p-2.5 text-xs font-bold text-white focus:outline-none">
-                        <option value="🇲🇽 México">🇲🇽 México</option>
-                        <option value="🇦🇷 Argentina">🇦🇷 Argentina</option>
-                        <option value="🇪🇸 España">🇪🇸 España</option>
-                        <option value="🇧🇷 Brasil">🇧🇷 Brasil</option>
-                        <option value="🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra</option>
-                        <option value="🇨🇱 Chile">🇨🇱 Chile</option>
-                        <option value="🇨🇴 Colombia">🇨🇴 Colombia</option>
-                        <option value="🇺🇾 Uruguay">🇺🇾 Uruguay</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-1">Liga de Debut</label>
-                    <select id="in-league" onchange="updateOffers()" class="w-full bg-[#090a0f] border border-slate-700/70 rounded-xl p-2.5 text-xs font-bold text-yellow-400 focus:outline-none">
-                        <option value="Liga MX">🇲🇽 Liga MX</option>
-                        <option value="LaLiga">🇪🇸 LaLiga</option>
-                        <option value="Premier League">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League</option>
-                        <option value="Liga Argentina">🇦🇷 Liga Argentina</option>
-                        <option value="Brasileirão">🇧🇷 Brasileirão</option>
-                        <option value="Serie A">🇮🇹 Serie A</option>
-                    </select>
-                </div>
-            </div>
-
-            <div>
-                <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-1">Posición Preferida</label>
-                <select id="in-pos" class="w-full bg-[#090a0f] border border-slate-700/70 rounded-xl p-2.5 text-xs font-bold text-white focus:outline-none">
-                    <option value="DC - DELANTERO CENTRO">DC - Delantero Centro</option>
-                    <option value="MCO - ENGANCHE / 10">MCO - Enganche / Mediapunta</option>
-                    <option value="EI - EXTREMO IZQUIERDO">EI - Extremo Izquierdo</option>
-                    <option value="MC - MEDIOCAMPISTA">MC - Mediocampista Box-to-Box</option>
-                </select>
+                <h1 class="text-xs font-black tracking-wider text-green-400 uppercase">NUESTRA MARCA GAME</h1>
+                <p class="text-[8px] text-gray-400 font-bold uppercase">GLOBAL CAREER ENGINE v2.0</p>
             </div>
         </div>
+        <button onclick="toggleAjustes()" class="bg-gray-800 hover:bg-gray-700 text-xs p-2 rounded-xl border border-gray-700">
+            ⚙️
+        </button>
+    </header>
 
-        <div class="bg-[#111319] p-4 rounded-2xl border border-slate-800/80 space-y-2.5">
-            <div class="flex justify-between items-center">
-                <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">OFERTAS RECIBIDAS (CANTERA)</span>
-                <span class="text-[9px] bg-green-500/20 text-green-400 font-extrabold px-2 py-0.5 rounded-md">3 CONTRATOS</span>
+    <div id="modal-ajustes" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-card w-full max-w-xs border border-gray-800 rounded-2xl p-4 space-y-3">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-2">
+                <h3 class="font-black text-sm text-yellow-400">⚙️ CONFIGURACIÓN</h3>
+                <button onclick="toggleAjustes()" class="text-gray-400 font-bold text-xs">✕</button>
             </div>
-            <div id="offers-list" class="space-y-2">
+            <div class="space-y-2 text-xs">
+                <div class="flex justify-between items-center">
+                    <span>Efectos de Sonido (SFX)</span>
+                    <input type="checkbox" id="chk-sfx" checked class="accent-green-500">
                 </div>
+                <div class="flex justify-between items-center">
+                    <span>Voz del Personaje</span>
+                    <input type="checkbox" id="chk-voice" checked class="accent-green-500">
+                </div>
+                <div class="flex justify-between items-center">
+                    <span>Cinemáticas 2D</span>
+                    <input type="checkbox" id="chk-cine" checked class="accent-green-500">
+                </div>
+            </div>
+            <button onclick="toggleAjustes()" class="w-full bg-green-500 text-black font-black py-2 rounded-xl text-xs uppercase">Guardar y Cerrar</button>
         </div>
+    </div>
 
-        <button onclick="startCareer()" class="w-full bg-gradient-to-r from-green-500 to-emerald-400 hover:from-green-400 hover:to-emerald-300 text-black font-black py-4 rounded-2xl text-sm uppercase tracking-wider shadow-lg shadow-green-500/20 transition transform active:scale-95 flex items-center justify-center gap-2">
-            <span>✍️ FIRMAR CONTRATO DE DEBUT</span>
+    <div id="pantalla-cinematica" class="hidden bg-card border-2 border-yellow-500/50 rounded-2xl p-4 space-y-3 my-2 text-center animate-fade">
+        <div class="w-full h-32 bg-gradient-to-b from-blue-900 to-black rounded-xl border border-gray-800 flex flex-col items-center justify-center relative overflow-hidden">
+            <span class="text-4xl animate-bounce">✍️⚽</span>
+            <span class="text-[10px] bg-black/60 px-2 py-0.5 rounded text-yellow-400 font-bold mt-2" id="cine-sub">OFICINA DEL PRESIDENTE</span>
+        </div>
+        <h2 class="font-black text-sm text-white uppercase" id="cine-titulo">FIRMA DE CONTRATO</h2>
+        <p class="text-xs text-gray-300" id="cine-texto">El presidente te entrega la camiseta oficial y posan frente a la prensa.</p>
+        <button onclick="cerrarCinematica()" class="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-black py-2.5 rounded-xl text-xs uppercase">
+            CONTINUAR
         </button>
     </div>
 
-
-    <div id="screen-dash" class="hidden space-y-3.5">
-        
-        <div class="bg-[#111319] border border-slate-800/80 rounded-2xl p-4 relative overflow-hidden card-glow">
-            <div class="flex items-center justify-between mb-3 relative z-10">
-                <div class="flex items-center gap-3">
-                    <div class="relative">
-                        <div class="text-3xl font-black text-white bg-[#181b24] px-3 py-1.5 rounded-2xl border border-slate-700/80 shadow-inner" id="dash-ovr">60</div>
-                        <span class="absolute -bottom-1 -right-1 text-[8px] bg-green-500 text-black font-black px-1 rounded uppercase">OVR</span>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-1.5">
-                            <span id="dash-flag" class="text-base">🇲🇽</span>
-                            <h2 class="font-black text-base text-white uppercase tracking-wide" id="dash-name">JUGADOR</h2>
-                        </div>
-                        <div class="text-[10px] text-slate-400 font-bold" id="dash-sub">DC · 16 AÑOS · 2026</div>
-                    </div>
-                </div>
-                <div id="dash-badge" class="w-11 h-11 rounded-2xl flex items-center justify-center font-black text-xs border border-white/20 shadow-lg text-white">
-                    FC
-                </div>
-            </div>
-
-            <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5 flex justify-between items-center my-2">
-                <div class="flex items-center gap-2">
-                    <span class="text-xs">🏆</span>
-                    <div>
-                        <div class="text-[8px] text-slate-400 font-extrabold uppercase">TORNEO ACTUAL</div>
-                        <div class="text-xs font-black text-yellow-400" id="dash-comp">LIGA LOCAL</div>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <div class="text-[8px] text-slate-400 font-extrabold uppercase">CLUB ACTUAL</div>
-                    <div class="text-xs font-bold text-white" id="dash-club-name">CLUB</div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-4 gap-1.5 text-center bg-[#090a0f] p-2.5 rounded-xl border border-slate-800/80 my-2">
-                <div><div class="text-green-400 font-black text-base" id="st-goals">0</div><div class="text-[8px] text-slate-400 font-bold uppercase">Goles</div></div>
-                <div><div class="text-sky-400 font-black text-base" id="st-assists">0</div><div class="text-[8px] text-slate-400 font-bold uppercase">Asist.</div></div>
-                <div><div class="text-slate-200 font-black text-base" id="st-matches">0</div><div class="text-[8px] text-slate-400 font-bold uppercase">Partidos</div></div>
-                <div><div class="text-yellow-400 font-black text-base" id="st-trophies">0</div><div class="text-[8px] text-slate-400 font-bold uppercase">Títulos</div></div>
-            </div>
-
-            <div class="grid grid-cols-6 gap-1 text-center text-[9px] pt-1">
-                <div class="bg-[#181b24] p-1.5 rounded-xl border border-slate-800"><span class="text-slate-400 block font-bold">VEL</span><strong class="text-white text-xs font-black" id="at-pac">60</strong></div>
-                <div class="bg-[#181b24] p-1.5 rounded-xl border border-slate-800"><span class="text-slate-400 block font-bold">SHO</span><strong class="text-white text-xs font-black" id="at-sho">60</strong></div>
-                <div class="bg-[#181b24] p-1.5 rounded-xl border border-slate-800"><span class="text-slate-400 block font-bold">PAS</span><strong class="text-white text-xs font-black" id="at-pas">60</strong></div>
-                <div class="bg-[#181b24] p-1.5 rounded-xl border border-slate-800"><span class="text-slate-400 block font-bold">DRI</span><strong class="text-white text-xs font-black" id="at-dri">60</strong></div>
-                <div class="bg-[#181b24] p-1.5 rounded-xl border border-slate-800"><span class="text-slate-400 block font-bold">DEF</span><strong class="text-white text-xs font-black" id="at-def">60</strong></div>
-                <div class="bg-[#181b24] p-1.5 rounded-xl border border-slate-800"><span class="text-slate-400 block font-bold">PHY</span><strong class="text-white text-xs font-black" id="at-phy">60</strong></div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-2 mt-3 pt-2.5 border-t border-slate-800/80 text-center">
-                <div class="bg-[#090a0f] p-2 rounded-xl border border-slate-800">
-                    <div class="text-[8px] text-slate-400 font-black uppercase">VALOR DE MERCADO</div>
-                    <div class="text-xs font-mono font-black text-green-400" id="dash-val">US$ 500K</div>
-                </div>
-                <div class="bg-[#090a0f] p-2 rounded-xl border border-slate-800">
-                    <div class="text-[8px] text-slate-400 font-black uppercase">SALDO EN BANCO</div>
-                    <div class="text-xs font-mono font-black text-yellow-400" id="dash-money">US$ 10K</div>
-                </div>
-            </div>
-        </div>
-
-        <div id="toast" class="hidden bg-green-500/15 border border-green-500/40 text-green-300 p-3 rounded-2xl text-xs font-bold text-center animate-bounce"></div>
-
-        <div id="modal-offer" class="hidden bg-gradient-to-b from-yellow-950/80 to-[#111319] border-2 border-yellow-500/80 p-4 rounded-2xl space-y-3 shadow-2xl relative overflow-hidden">
-            <div class="flex justify-between items-center border-b border-yellow-500/30 pb-2">
-                <span class="text-[10px] text-yellow-400 font-black uppercase tracking-wider flex items-center gap-1">
-                    🚨 ¡OFERTA DE FICHAJE FORMAL!
-                </span>
-                <span class="bg-yellow-500 text-black font-black text-[9px] px-2 py-0.5 rounded">MERCADO ABIERTO</span>
-            </div>
-            <div>
-                <h3 class="font-black text-lg text-white" id="of-club-title">CLUB NAME</h3>
-                <p class="text-xs text-slate-300 mt-0.5" id="of-desc">Un equipo histórico quiere hacerse con tus servicios.</p>
-            </div>
-            <div class="bg-black/50 p-2.5 rounded-xl grid grid-cols-2 gap-2 text-[10px] border border-slate-800">
-                <div><span class="text-slate-400 block font-bold">Prima Fichaje:</span><strong class="text-yellow-400 text-xs font-mono" id="of-bonus">+US$ 0K</strong></div>
-                <div><span class="text-slate-400 block font-bold">Liga Destino:</span><strong class="text-white text-xs" id="of-league">LaLiga</strong></div>
-            </div>
-            <div class="grid grid-cols-2 gap-2">
-                <button onclick="acceptOffer()" class="bg-green-500 hover:bg-green-400 text-black font-black text-xs py-3 rounded-xl uppercase transition">
-                    ✍️ FIRMAR CONTRATO
-                </button>
-                <button onclick="rejectOffer()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs py-3 rounded-xl uppercase transition">
-                    ❌ RECHAZAR
-                </button>
-            </div>
-        </div>
-
-        <div id="card-event" class="bg-[#111319] border-l-4 border-green-500 p-3.5 rounded-2xl space-y-2.5">
+    <main id="game-container" class="space-y-3">
+        <div class="bg-card p-4 rounded-2xl border border-gray-800 glow-green space-y-3">
             <div class="flex justify-between items-center">
-                <span class="text-[10px] text-green-400 font-black uppercase tracking-wider">💬 SITUACIÓN DE TEMPORADA</span>
-                <span class="text-[9px] text-slate-400 font-mono">IA MANAGER</span>
+                <div>
+                    <span class="text-[9px] bg-green-500/20 text-green-400 font-bold px-2 py-0.5 rounded uppercase">Estatus: Titular</span>
+                    <h2 class="text-lg font-black text-white mt-1">CRACK MUNDIAL</h2>
+                </div>
+                <button onclick="hablarJugador('¡Estoy listo para ganar todos los títulos esta temporada!')" class="bg-blue-600/30 border border-blue-500 text-blue-300 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1">
+                    🗣️ Hablar
+                </button>
             </div>
-            <h3 class="font-bold text-xs text-white" id="ev-title">Generando evento...</h3>
-            <p class="text-[11px] text-slate-300 leading-snug" id="ev-body">Cargando...</p>
-            <div id="ev-buttons" class="grid grid-cols-2 gap-2 pt-1">
-                <button onclick="chooseEvent(0)" class="bg-[#181b24] hover:bg-slate-800 text-left p-2.5 rounded-xl border border-slate-700/60 transition">
-                    <span id="opt0-t" class="text-xs font-bold text-white block">Opción 1</span>
-                    <span id="opt0-s" class="text-[9px] text-green-400 font-semibold block">+Efecto</span>
-                </button>
-                <button onclick="chooseEvent(1)" class="bg-[#181b24] hover:bg-slate-800 text-left p-2.5 rounded-xl border border-slate-700/60 transition">
-                    <span id="opt1-t" class="text-xs font-bold text-white block">Opción 2</span>
-                    <span id="opt1-s" class="text-[9px] text-slate-400 font-semibold block">+Efecto</span>
-                </button>
+
+            <div class="grid grid-cols-2 gap-2 text-center text-xs">
+                <div class="bg-[#050608] p-2 rounded-xl border border-gray-800">
+                    <span class="text-[9px] text-gray-400 block font-bold">SALDO BANCO</span>
+                    <strong class="text-yellow-400 font-mono text-sm" id="val-banco">US$ 150K</strong>
+                </div>
+                <div class="bg-[#050608] p-2 rounded-xl border border-gray-800">
+                    <span class="text-[9px] text-gray-400 block font-bold">VALOR MERCADO</span>
+                    <strong class="text-green-400 font-mono text-sm" id="val-mercado">US$ 2.5M</strong>
+                </div>
             </div>
         </div>
 
-        <button onclick="simulateSeason()" class="w-full bg-gradient-to-r from-green-500 to-emerald-400 hover:from-green-400 hover:to-emerald-300 text-black font-black py-4 rounded-2xl text-sm uppercase tracking-wider shadow-lg shadow-green-500/20 transition transform active:scale-95 flex items-center justify-center gap-2">
-            <span>⚽ SIMULAR TEMPORADA Y MERCADO</span>
-        </button>
-    </div>
-
+        <div class="bg-card p-3 rounded-2xl border border-gray-800 space-y-2">
+            <h3 class="text-xs font-black text-yellow-400 uppercase tracking-wider flex items-center justify-between">
+                <span>🛒 TIENDA DE LUJOS Y ESTILO DE VIDA</span>
+            </h3>
+            <div class="space-y-2 text-xs">
+                <div class="p-2.5 bg-[#050608] rounded-xl flex justify-between items-center border border-gray-800">
+                    <div>
+                        <div class="font-bold text-white">🏎️ Superdeportivo V12</div>
+                        <div class="text-[9px] text-green-400">+10 Imagen Pública</div>
+                    </div>
+                    <button onclick="comprarItem('Superdeportivo', 80)" class="bg-yellow-500 text-black font-black px-3 py-1 rounded-lg text-[10px]">US$ 80K</button>
+                </div>
+                <div class="p-2.5 bg-[#050608] rounded-xl flex justify-between items-center border border-gray-800">
+                    <div>
+                        <div class="font-bold text-white">🏰 Mansión con Campo Privado</div>
+                        <div class="text-[9px] text-green-400">+15 Recuperación / Físico</div>
+                    </div>
+                    <button onclick="comprarItem('Mansion', 200)" class="bg-yellow-500 text-black font-black px-3 py-1 rounded-lg text-[10px]">US$ 200K</button>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <script>
-        // SINTETIZADOR DE SONIDO WEB AUDIO API (Sin archivos externos)
+        // MOTOR DE SONIDO (SFX)
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        function playSound(type) {
+        function playSFX(freq = 500, type = 'sine') {
+            if(!document.getElementById('chk-sfx').checked) return;
             try {
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
-
-                if (type === 'click') {
-                    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
-                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-                    osc.start(); osc.stop(audioCtx.currentTime + 0.05);
-                } else if (type === 'goal') {
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(220, audioCtx.currentTime);
-                    osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3);
-                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                    osc.start(); osc.stop(audioCtx.currentTime + 0.3);
-                }
-            } catch(e) {}
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.1);
+            } catch(e){}
         }
 
-        // base de datos masiva de clubes por liga
-        const databaseLigas = {
-            "Liga MX": [
-                { name: "FC Juárez", badge: "FCJ", color: "bg-green-700 text-white", tier: 1, salary: "US$ 15K/año" },
-                { name: "Necaxa", badge: "NEC", color: "bg-red-600 text-white", tier: 1, salary: "US$ 12K/año" },
-                { name: "Puebla", badge: "PUE", color: "bg-blue-600 text-white", tier: 1, salary: "US$ 14K/año" },
-                { name: "Chivas Guadalajara", badge: "GDA", color: "bg-red-700 text-white", tier: 2, salary: "US$ 35K/año" },
-                { name: "Club América", badge: "AME", color: "bg-yellow-400 text-blue-900", tier: 3, salary: "US$ 60K/año" },
-                { name: "Tigres UANL", badge: "TIG", color: "bg-yellow-500 text-blue-800", tier: 3, salary: "US$ 70K/año" }
-            ],
-            "LaLiga": [
-                { name: "Getafe CF", badge: "GET", color: "bg-blue-600 text-white", tier: 1, salary: "US$ 25K/año" },
-                { name: "Rayo Vallecano", badge: "RAY", color: "bg-red-700 text-white", tier: 1, salary: "US$ 22K/año" },
-                { name: "Real Betis", badge: "BET", color: "bg-green-600 text-white", tier: 2, salary: "US$ 50K/año" },
-                { name: "Sevilla FC", badge: "SEV", color: "bg-red-600 text-white", tier: 2, salary: "US$ 55K/año" },
-                { name: "FC Barcelona", badge: "BAR", color: "bg-blue-900 text-red-500", tier: 3, salary: "US$ 120K/año" },
-                { name: "Real Madrid", badge: "RMA", color: "bg-slate-100 text-purple-900", tier: 3, salary: "US$ 150K/año" }
-            ],
-            "Premier League": [
-                { name: "Burnley FC", badge: "BUR", color: "bg-red-900 text-cyan-300", tier: 1, salary: "US$ 35K/año" },
-                { name: "Luton Town", badge: "LUT", color: "bg-orange-600 text-white", tier: 1, salary: "US$ 30K/año" },
-                { name: "West Ham Utd", badge: "HAM", color: "bg-purple-900 text-cyan-400", tier: 2, salary: "US$ 70K/año" },
-                { name: "Aston Villa", badge: "AVL", color: "bg-purple-800 text-sky-300", tier: 2, salary: "US$ 80K/año" },
-                { name: "Arsenal FC", badge: "ARS", color: "bg-red-600 text-white", tier: 3, salary: "US$ 140K/año" },
-                { name: "Manchester City", badge: "MCI", color: "bg-sky-400 text-white", tier: 3, salary: "US$ 180K/año" }
-            ],
-            "Liga Argentina": [
-                { name: "Banfield", badge: "BAN", color: "bg-green-600 text-white", tier: 1, salary: "US$ 10K/año" },
-                { name: "Platense", badge: "PLA", color: "bg-amber-800 text-white", tier: 1, salary: "US$ 8K/año" },
-                { name: "Racing Club", badge: "RAC", color: "bg-sky-500 text-white", tier: 2, salary: "US$ 25K/año" },
-                { name: "Boca Juniors", badge: "BOC", color: "bg-blue-800 text-yellow-400", tier: 3, salary: "US$ 45K/año" },
-                { name: "River Plate", badge: "RIV", color: "bg-white text-red-600", tier: 3, salary: "US$ 50K/año" }
-            ],
-            "Brasileirão": [
-                { name: "Goiás EC", badge: "GOI", color: "bg-green-800 text-white", tier: 1, salary: "US$ 15K/año" },
-                { name: "Santos FC", badge: "SAN", color: "bg-black text-white", tier: 2, salary: "US$ 30K/año" },
-                { name: "Palmeiras", badge: "PAL", color: "bg-green-700 text-white", tier: 3, salary: "US$ 60K/año" },
-                { name: "Flamengo", badge: "FLA", color: "bg-red-700 text-black", tier: 3, salary: "US$ 70K/año" }
-            ],
-            "Serie A": [
-                { name: "Empoli FC", badge: "EMP", color: "bg-blue-700 text-white", tier: 1, salary: "US$ 20K/año" },
-                { name: "AC Milan", badge: "MIL", color: "bg-red-600 text-black", tier: 3, salary: "US$ 110K/año" },
-                { name: "Inter Milan", badge: "INT", color: "bg-blue-600 text-black", tier: 3, salary: "US$ 120K/año" },
-                { name: "Juventus", badge: "JUV", color: "bg-black text-white", tier: 3, salary: "US$ 130K/año" }
-            ]
-        };
-
-        const tournaments = ["Liga Local", "Copa Nacional", "Copa Continental 🏆", "Supercopa"];
-
-        const eventDatabase = [
-            {
-                t: "CHARLA CON EL ENTRENADOR",
-                b: "El DT te sugiere entrenar tiros libres después de hora para ganar la titularidad.",
-                a: { t: "Quedarte a entrenar", s: "+2 Tiro / +1 Físico" },
-                bOpt: { t: "Ir a descansar", s: "+2 Velocidad" }
-            },
-            {
-                t: "OFERTA PUBLICITARIA",
-                b: "Una marca de botines deportivos te ofrece un patrocinio exclusivo.",
-                a: { t: "Aceptar contrato", s: "+US$ 25K en banco" },
-                bOpt: { t: "Rechazar por perfil bajo", s: "+3 Pase / Foco" }
-            },
-            {
-                t: "RUEDA DE PRENSA",
-                b: "La prensa te pregunta si el equipo está listo para salir campeón este año.",
-                a: { t: "Declarar con confianza", s: "+3 Regate / Liderazgo" },
-                bOpt: { t: "Ser cauteloso", s: "+2 Defensa" }
-            }
-        ];
-
-        let player = {
-            name: 'Crack',
-            pos: 'DC',
-            nat: '🇲🇽 México',
-            league: 'Liga MX',
-            club: '', badge: '', color: '',
-            comp: 'Liga Local',
-            age: 16, year: 2026, ovr: 60,
-            val: 500, goals: 0, assists: 0, matches: 0, trophies: 0, money: 10,
-            pac: 62, sho: 60, pas: 58, dri: 61, def: 45, phy: 55
-        };
-
-        let pendingOffer = null;
-
-        function updateOffers() {
-            playSound('click');
-            const league = document.getElementById('in-league').value;
-            const container = document.getElementById('offers-list');
-            container.innerHTML = '';
-
-            const clubs = (databaseLigas[league] || databaseLigas["Liga MX"]).filter(c => c.tier === 1);
-
-            clubs.forEach((c, idx) => {
-                container.innerHTML += `
-                    <label class="flex items-center justify-between p-2.5 bg-[#181b24] rounded-xl cursor-pointer border border-slate-800 hover:border-green-500/60 transition">
-                        <div class="flex items-center gap-3">
-                            <input type="radio" name="club-opt" value="${c.name}" data-badge="${c.badge}" data-color="${c.color}" ${idx === 0 ? 'checked' : ''} class="accent-green-500">
-                            <div class="w-7 h-7 rounded-lg flex items-center justify-center font-black text-[10px] ${c.color}">
-                                ${c.badge}
-                            </div>
-                            <div>
-                                <span class="text-xs font-bold text-white block leading-none">${c.name}</span>
-                                <span class="text-[9px] text-slate-400">Contrato Profesional</span>
-                            </div>
-                        </div>
-                        <span class="text-[10px] font-mono font-bold text-green-400">${c.salary}</span>
-                    </label>
-                `;
-            });
-        }
-
-        function startCareer() {
-            playSound('goal');
-            const nameIn = document.getElementById('in-name').value.trim();
-            player.name = nameIn !== "" ? nameIn : "Crack";
-            player.nat = document.getElementById('in-nat').value;
-            player.league = document.getElementById('in-league').value;
-            player.pos = document.getElementById('in-pos').value.split(' ')[0];
-
-            const selected = document.querySelector('input[name="club-opt"]:checked');
-            if (selected) {
-                player.club = selected.value;
-                player.badge = selected.getAttribute('data-badge');
-                player.color = selected.getAttribute('data-color');
-            } else {
-                const def = databaseLigas[player.league][0];
-                player.club = def.name; player.badge = def.badge; player.color = def.color;
-            }
-
-            calculateMarketValue();
-            updateDashboard();
-            generateEvent();
-
-            document.getElementById('screen-create').classList.add('hidden');
-            document.getElementById('screen-dash').classList.remove('hidden');
-        }
-
-        function calculateMarketValue() {
-            let base = (player.ovr - 50) * 180;
-            if (base < 300) base = 300;
-            base += (player.goals * 40) + (player.assists * 25);
-            if (player.age < 21) base = Math.round(base * 1.5);
-            player.val = base;
-        }
-
-        function updateDashboard() {
-            document.getElementById('dash-ovr').innerText = player.ovr;
-            document.getElementById('dash-name').innerText = `${player.name.toUpperCase()}`;
-            document.getElementById('dash-sub').innerText = `${player.pos} · ${player.age} AÑOS · ${player.year}`;
-            document.getElementById('dash-flag').innerText = player.nat.split(' ')[0];
-            document.getElementById('dash-comp').innerText = player.comp.toUpperCase();
-            document.getElementById('dash-club-name').innerText = player.club.toUpperCase();
-
-            const badgeBox = document.getElementById('dash-badge');
-            badgeBox.className = `w-11 h-11 rounded-2xl flex items-center justify-center font-black text-xs border border-white/20 shadow-lg ${player.color}`;
-            badgeBox.innerText = player.badge;
-
-            document.getElementById('st-goals').innerText = player.goals;
-            document.getElementById('st-assists').innerText = player.assists;
-            document.getElementById('st-matches').innerText = player.matches;
-            document.getElementById('st-trophies').innerText = player.trophies;
-
-            document.getElementById('at-pac').innerText = player.pac;
-            document.getElementById('at-sho').innerText = player.sho;
-            document.getElementById('at-pas').innerText = player.pas;
-            document.getElementById('at-dri').innerText = player.dri;
-            document.getElementById('at-def').innerText = player.def;
-            document.getElementById('at-phy').innerText = player.phy;
-
-            const valText = player.val >= 1000 ? `US$ ${(player.val/1000).toFixed(1)}M` : `US$ ${player.val}K`;
-            document.getElementById('dash-val').innerText = valText;
-            document.getElementById('dash-money').innerText = `US$ ${player.money}K`;
-        }
-
-        function simulateSeason() {
-            playSound('click');
-            document.getElementById('modal-offer').classList.add('hidden');
-
-            player.age += 1;
-            player.year += 1;
-
-            const newGoals = Math.floor(Math.random() * 8) + 4;
-            const newAssists = Math.floor(Math.random() * 6) + 1;
-            player.goals += newGoals;
-            player.assists += newAssists;
-            player.matches += Math.floor(Math.random() * 10) + 20;
-
-            player.ovr += Math.floor(Math.random() * 3) + 1;
-            player.pac += 1; player.sho += 1; player.dri += 1;
-            player.money += 35;
-
-            player.comp = tournaments[Math.floor(Math.random() * tournaments.length)];
-
-            if (Math.random() > 0.65) {
-                player.trophies += 1;
-                playSound('goal');
-                showToast(`🏆 ¡CAMPEÓN! Levantaste el título de ${player.comp} con ${player.club}.`);
-            } else {
-                showToast(`⚽ Temporada ${player.year} finalizada: +${newGoals} Goles / Media sube a ${player.ovr}.`);
-            }
-
-            calculateMarketValue();
-            updateDashboard();
-            generateEvent();
-            checkTransferMarket();
-        }
-
-        function checkTransferMarket() {
-            if (player.ovr >= 58) {
-                const leagues = Object.keys(databaseLigas);
-                const randomLeague = leagues[Math.floor(Math.random() * leagues.length)];
-                let tierNeeded = player.ovr >= 68 ? 3 : (player.ovr >= 62 ? 2 : 1);
-                
-                let candidates = databaseLigas[randomLeague].filter(c => c.name !== player.club && c.tier <= tierNeeded);
-
-                if (candidates.length > 0) {
-                    pendingOffer = candidates[Math.floor(Math.random() * candidates.length)];
-                    pendingOffer.targetLeague = randomLeague;
-
-                    document.getElementById('of-club-title').innerText = pendingOffer.name.toUpperCase();
-                    document.getElementById('of-league').innerText = pendingOffer.targetLeague;
-                    document.getElementById('of-desc').innerText = `El ${pendingOffer.name} pagará tu cláusula para ficharte esta temporada.`;
-                    document.getElementById('of-bonus').innerText = `+US$ ${Math.round(player.val * 0.12)}K`;
-
-                    document.getElementById('modal-offer').classList.remove('hidden');
-                }
+        // SÍNTESIS DE VOZ DEL PERSONAJE
+        function hablarJugador(texto) {
+            playSFX(600);
+            if(!document.getElementById('chk-voice').checked) return;
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(texto);
+                utterance.lang = 'es-MX';
+                utterance.pitch = 1.0;
+                utterance.rate = 1.0;
+                window.speechSynthesis.speak(utterance);
             }
         }
 
-        function acceptOffer() {
-            playSound('goal');
-            if (!pendingOffer) return;
-            player.club = pendingOffer.name;
-            player.badge = pendingOffer.badge;
-            player.color = pendingOffer.color;
-            player.league = pendingOffer.targetLeague;
-            player.money += Math.round(player.val * 0.12);
-
-            document.getElementById('modal-offer').classList.add('hidden');
-            showToast(`🎉 ¡FICHAJE OFICIAL! Has firmado con el ${player.club}.`);
-            updateDashboard();
+        function toggleAjustes() {
+            playSFX(400);
+            document.getElementById('modal-ajustes').classList.toggle('hidden');
         }
 
-        function rejectOffer() {
-            playSound('click');
-            document.getElementById('modal-offer').classList.add('hidden');
-            showToast(`❌ Rechazaste la oferta. Decidiste permanecer en ${player.club}.`);
+        function verCinematica(titulo, texto, sub) {
+            if(!document.getElementById('chk-cine').checked) return;
+            document.getElementById('cine-titulo').innerText = titulo;
+            document.getElementById('cine-texto').innerText = texto;
+            document.getElementById('cine-sub').innerText = sub;
+            document.getElementById('pantalla-cinematica').classList.remove('hidden');
+            hablarJugador(titulo);
         }
 
-        function generateEvent() {
-            const ev = eventDatabase[Math.floor(Math.random() * eventDatabase.length)];
-            document.getElementById('ev-title').innerText = ev.t;
-            document.getElementById('ev-body').innerText = ev.b;
-            document.getElementById('opt0-t').innerText = ev.a.t;
-            document.getElementById('opt0-s').innerText = ev.a.s;
-            document.getElementById('opt1-t').innerText = ev.bOpt.t;
-            document.getElementById('opt1-s').innerText = ev.bOpt.s;
+        function cerrarCinematica() {
+            playSFX(300);
+            document.getElementById('pantalla-cinematica').classList.add('hidden');
         }
 
-        function chooseEvent(idx) {
-            playSound('click');
-            if (idx === 0) { player.sho += 1; player.phy += 1; }
-            else { player.pac += 1; player.money += 25; }
-
-            showToast(`✅ Decisión procesada. Atributos actualizados.`);
-            generateEvent();
-            updateDashboard();
+        function comprarItem(nombre, costo) {
+            playSFX(800, 'triangle');
+            verCinematica('¡NUEVA ADQUISICIÓN!', `Has adquirido ${nombre}. Tu reputación mundial ha subido.`, 'ESTILO DE VIDA');
         }
-
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.innerText = msg;
-            t.classList.remove('hidden');
-            setTimeout(() => { t.classList.add('hidden'); }, 4000);
-        }
-
-        window.onload = function() {
-            updateOffers();
-        };
     </script>
 </body>
 </html>
