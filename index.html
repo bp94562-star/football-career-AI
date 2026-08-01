@@ -3,109 +3,237 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Camino a la Gloria 2.0 - Modo Carrera</title>
+  <title>Camino a la Gloria 3.0 - Modo Carrera Pro</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+  </style>
 </head>
-<body class="bg-slate-950 text-white font-sans min-h-screen flex flex-col justify-center items-center p-3">
+<body class="bg-slate-950 text-white font-sans min-h-screen flex flex-col justify-center items-center p-2 sm:p-4">
 
-  <div id="game-card" class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl p-5 relative overflow-hidden">
+  <div id="game-card" class="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl p-4 sm:p-6 relative overflow-hidden my-4">
     
     <!-- HEADER GENERAL DE ESTADO -->
     <div id="main-header" class="hidden mb-4 pb-3 border-b border-slate-800 flex justify-between items-center text-xs">
-      <div>
-        <span id="hdr-name" class="font-extrabold text-emerald-400 text-sm block">--</span>
-        <span id="hdr-club" class="text-slate-400">--</span>
+      <div class="flex items-center gap-3">
+        <!-- AVATAR EN HEADER -->
+        <div id="hdr-avatar-display" class="w-10 h-10 rounded-full border-2 border-emerald-500 overflow-hidden flex items-center justify-center text-lg font-bold">
+          <!-- Renderizado dinámico -->
+        </div>
+        <div>
+          <span id="hdr-name" class="font-extrabold text-emerald-400 text-sm block">--</span>
+          <span id="hdr-club" class="text-slate-400 font-semibold">--</span>
+        </div>
       </div>
-      <div class="flex gap-2 text-center font-mono">
-        <div class="bg-slate-800 px-2 py-1 rounded-lg"><span class="block text-[9px] text-slate-400">MEDIA</span><span id="hdr-ovr" class="text-amber-400 font-bold">60</span></div>
-        <div class="bg-slate-800 px-2 py-1 rounded-lg"><span class="block text-[9px] text-slate-400">DINERO</span><span id="hdr-money" class="text-emerald-400 font-bold">$0k</span></div>
-        <div class="bg-slate-800 px-2 py-1 rounded-lg"><span class="block text-[9px] text-slate-400">ENERGÍA</span><span id="hdr-energy" class="text-rose-400 font-bold">100%</span></div>
+      <div class="flex gap-1.5 sm:gap-2 text-center font-mono">
+        <div class="bg-slate-950 border border-slate-800 px-2 py-1 rounded-xl">
+          <span class="block text-[8px] text-slate-400 font-sans">MEDIA</span>
+          <span id="hdr-ovr" class="text-amber-400 font-bold">60</span>
+        </div>
+        <div class="bg-slate-950 border border-slate-800 px-2 py-1 rounded-xl">
+          <span class="block text-[8px] text-slate-400 font-sans">DINERO</span>
+          <span id="hdr-money" class="text-emerald-400 font-bold">$0k</span>
+        </div>
+        <div class="bg-slate-950 border border-slate-800 px-2 py-1 rounded-xl">
+          <span class="block text-[8px] text-slate-400 font-sans">ENERGÍA</span>
+          <span id="hdr-energy" class="text-rose-400 font-bold">100%</span>
+        </div>
       </div>
     </div>
 
-    <!-- 1. CREACIÓN DE JUGADOR -->
+    <!-- 1. CREACIÓN DE JUGADOR Y EDITOR DE AVATAR -->
     <div id="screen-creation" class="space-y-4">
       <div class="text-center">
-        <span class="text-3xl">⚽</span>
-        <h1 class="text-2xl font-black text-emerald-400 tracking-tight">CAMINO A LA GLORIA</h1>
-        <p class="text-slate-400 text-xs mt-1">Conviértete en leyenda o queda en el olvido</p>
+        <span class="text-4xl">⚽</span>
+        <h1 class="text-2xl font-black text-emerald-400 tracking-tight">CAMINO A LA GLORIA PRO</h1>
+        <p class="text-slate-400 text-xs mt-0.5">Ligas Reales • Tablas • Goleadores • Editor de Avatar</p>
       </div>
 
-      <div class="space-y-3 mt-4 text-xs">
+      <!-- PREVIEW Y CREADOR DE AVATAR -->
+      <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col items-center gap-3">
+        <span class="text-xs uppercase font-bold text-slate-400 tracking-wider">Diseña tu Avatar</span>
+        <div id="avatar-preview" class="w-24 h-24 rounded-full border-4 border-emerald-500 overflow-hidden flex items-center justify-center relative shadow-inner">
+          <!-- Renderizado dinámico por JS -->
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 w-full text-xs">
+          <div>
+            <label class="block text-slate-400 text-[10px] uppercase font-bold mb-1">Piel</label>
+            <select id="av-skin" onchange="updateAvatarPreview()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-white">
+              <option value="#f8d5c2">Clara</option>
+              <option value="#e0ac69">Morena</option>
+              <option value="#8d5524">Oscura</option>
+              <option value="#ffdbac">Pálida</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-400 text-[10px] uppercase font-bold mb-1">Pelo</label>
+            <select id="av-hair" onchange="updateAvatarPreview()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-white">
+              <option value="corto">Corto</option>
+              <option value="crestazo">Cresta</option>
+              <option value="afro">Afro / Rizado</option>
+              <option value="largo">Largo</option>
+              <option value="calvo">Rapado / Calvo</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-400 text-[10px] uppercase font-bold mb-1">Color Pelo</label>
+            <select id="av-haircolor" onchange="updateAvatarPreview()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-white">
+              <option value="#1e1b18">Negro</option>
+              <option value="#4a2e12">Castaño</option>
+              <option value="#b8860b">Rubio</option>
+              <option value="#990000">Pelirrojo</option>
+              <option value="#00e676">Fantasía Verde</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-400 text-[10px] uppercase font-bold mb-1">Barba</label>
+            <select id="av-beard" onchange="updateAvatarPreview()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-white">
+              <option value="ninguna">Sin Barba</option>
+              <option value="corta">Barba Corta</option>
+              <option value="candado">Perilla / Candado</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORMULARIO DATOS -->
+      <div class="space-y-3 text-xs">
         <div>
           <label class="block text-slate-400 font-bold uppercase mb-1">Tu Nombre / Apodo</label>
-          <input type="text" id="player-name" placeholder="Ej. El 'Rayo' Gómez" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 focus:outline-none focus:border-emerald-500 text-white">
+          <input type="text" id="player-name" placeholder="Ej. Mateo 'La Joya' Silva" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 focus:outline-none focus:border-emerald-500 text-white">
         </div>
 
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block text-slate-400 font-bold uppercase mb-1">Posición</label>
             <select id="player-pos" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 focus:outline-none focus:border-emerald-500 text-white">
-              <option value="DEL">Delantero</option>
-              <option value="MED">Mediocampista</option>
-              <option value="DEF">Defensor</option>
+              <option value="DEL">Delantero (DEL)</option>
+              <option value="MED">Mediocampista (MED)</option>
+              <option value="DEF">Defensor (DEF)</option>
             </select>
           </div>
           <div>
-            <label class="block text-slate-400 font-bold uppercase mb-1">Club Inicial</label>
-            <input type="text" id="player-club" placeholder="Ej. Potrero FC" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 focus:outline-none focus:border-emerald-500 text-white">
+            <label class="block text-slate-400 font-bold uppercase mb-1">Liga de Inicio</label>
+            <select id="player-league" onchange="populateInitialClubs()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 focus:outline-none focus:border-emerald-500 text-white">
+              <!-- Se cargan por JS -->
+            </select>
           </div>
         </div>
 
-        <button onclick="startGame()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3 rounded-xl shadow-lg transition-all mt-3 text-sm">
-          ¡FIRMAR PRIMER CONTRATO! ✍️
+        <div>
+          <label class="block text-slate-400 font-bold uppercase mb-1">Club de Debut</label>
+          <select id="player-club" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 focus:outline-none focus:border-emerald-500 text-white">
+            <!-- Se cargan según la liga -->
+          </select>
+        </div>
+
+        <button onclick="startGame()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3 rounded-xl shadow-lg transition-all mt-2 text-sm uppercase tracking-wide">
+          ¡INICIAR MI CARRERA PROFESIONAL! ✍️
         </button>
       </div>
     </div>
 
     <!-- 2. HUB DE TEMPORADA (MENÚ PRINCIPAL) -->
     <div id="screen-hub" class="hidden space-y-4">
-      <div class="bg-gradient-to-r from-emerald-950 to-slate-900 border border-emerald-800/40 rounded-2xl p-4 text-center">
-        <span class="text-xs uppercase font-bold text-emerald-400 tracking-wider">Temporada Actual</span>
-        <h2 id="hub-season-title" class="text-xl font-black text-white">Temporada 1</h2>
-        <p id="hub-stats" class="text-xs text-slate-400 mt-1">Goles: 0 | Asistencias: 0 | Títulos: 0</p>
+      <div class="bg-gradient-to-r from-emerald-950 to-slate-900 border border-emerald-800/40 rounded-2xl p-4 text-center relative overflow-hidden">
+        <span class="text-[10px] uppercase font-bold text-emerald-400 tracking-widest block">Temporada en Curso</span>
+        <h2 id="hub-league-info" class="text-xl font-black text-white mt-0.5">Liga Profesional</h2>
+        <p id="hub-stats" class="text-xs text-slate-300 mt-1 font-medium">Goles: 0 | Asistencias: 0 | Fecha: 1 / 10</p>
       </div>
 
       <div class="grid grid-cols-2 gap-2">
-        <button onclick="nextMatchEvent()" class="col-span-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3.5 rounded-xl shadow-lg text-sm flex justify-center items-center gap-2">
-          <span>🎮</span> JUGAR PRÓXIMO FECHA
+        <button onclick="nextMatchEvent()" class="col-span-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3.5 rounded-xl shadow-lg text-sm flex justify-center items-center gap-2 active:scale-95 transition-transform">
+          <span>⚽</span> JUGAR SIGUIENTE FECHA
         </button>
-        <button onclick="showShop()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 rounded-xl text-xs border border-slate-700">
-          🛍️ Tienda y Lujos
+        <button onclick="showLeagueTables()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 rounded-xl text-xs border border-slate-700 flex justify-center items-center gap-1.5">
+          <span>🏆</span> Tabla y Goleadores
         </button>
-        <button onclick="restPlayer()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 rounded-xl text-xs border border-slate-700">
-          💤 Descansar (+20% Energ)
+        <button onclick="showShop()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 rounded-xl text-xs border border-slate-700 flex justify-center items-center gap-1.5">
+          <span>🛍️</span> Tienda y Entrenamientos
+        </button>
+        <button onclick="restPlayer()" class="col-span-2 bg-slate-800/80 hover:bg-slate-700 text-slate-300 font-bold py-2 rounded-xl text-xs border border-slate-700/60 flex justify-center items-center gap-1">
+          <span>💤</span> Descansar (+30% Energía)
         </button>
       </div>
     </div>
 
     <!-- 3. PANTALLA DE EVENTO / DECISIÓN DE PARTIDO -->
     <div id="screen-event" class="hidden space-y-3">
-      <div id="press-feed" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-[11px] text-slate-400 flex items-center gap-2">
-        <span>📰</span> <span id="press-text">La hinchada espera ver de qué estás hecho hoy.</span>
+      <div id="press-feed" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-[11px] text-slate-300 flex items-center gap-2">
+        <span>📰</span> <span id="press-text">Cargando previa del partido...</span>
       </div>
 
       <div class="bg-slate-950 rounded-2xl p-4 border border-slate-800">
-        <span class="text-[10px] uppercase font-bold text-emerald-400 tracking-widest block mb-1">Situación de Partido</span>
-        <p id="event-desc" class="text-xs text-slate-200 leading-relaxed font-medium">Cargando evento...</p>
+        <span id="event-tag" class="text-[10px] uppercase font-bold text-emerald-400 tracking-widest block mb-1">Minuto 75</span>
+        <p id="event-desc" class="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">Cargando evento de partido...</p>
       </div>
 
       <div id="options-box" class="space-y-2"></div>
     </div>
 
-    <!-- 4. MERCADO DE PASES (FIN DE TEMPORADA) -->
-    <div id="screen-transfers" class="hidden space-y-3 text-center">
-      <h2 class="text-xl font-black text-amber-400">✈️ MERCADO DE PASES</h2>
-      <p class="text-xs text-slate-400">Terminó la temporada. Te llegaron las siguientes ofertas:</p>
+    <!-- 4. TABLAS DE POSICIONES Y GOLEADORES -->
+    <div id="screen-tables" class="hidden space-y-3">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+        <h2 id="tables-league-name" class="text-base font-black text-emerald-400">Liga Argentina</h2>
+        <button onclick="closeTables()" class="text-xs bg-slate-800 px-3 py-1 rounded-lg text-slate-300 font-bold">Volver</button>
+      </div>
 
-      <div id="offers-list" class="space-y-2 text-left text-xs"></div>
+      <!-- TABS -->
+      <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-bold text-slate-400">
+        <button id="tab-btn-pos" onclick="switchTableTab('pos')" class="flex-1 py-1.5 rounded-lg bg-emerald-500 text-slate-950">Tabla Posiciones</button>
+        <button id="tab-btn-gol" onclick="switchTableTab('gol')" class="flex-1 py-1.5 rounded-lg">Goleadores</button>
+      </div>
+
+      <!-- TABLA POSICIONES -->
+      <div id="tab-content-pos" class="overflow-x-auto max-h-64">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-950 text-slate-400 text-[10px] uppercase border-b border-slate-800">
+            <tr>
+              <th class="py-2 px-1">#</th>
+              <th class="py-2 px-1">Club</th>
+              <th class="py-2 px-1 text-center">PJ</th>
+              <th class="py-2 px-1 text-center">DG</th>
+              <th class="py-2 px-1 text-center font-bold text-emerald-400">PTS</th>
+            </tr>
+          </thead>
+          <tbody id="table-pos-body" class="divide-y divide-slate-800/50"></tbody>
+        </table>
+      </div>
+
+      <!-- TABLA GOLEADORES -->
+      <div id="tab-content-gol" class="hidden overflow-x-auto max-h-64">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-950 text-slate-400 text-[10px] uppercase border-b border-slate-800">
+            <tr>
+              <th class="py-2 px-1">#</th>
+              <th class="py-2 px-1">Jugador</th>
+              <th class="py-2 px-1">Club</th>
+              <th class="py-2 px-1 text-center font-bold text-amber-400">Goles</th>
+            </tr>
+          </thead>
+          <tbody id="table-gol-body" class="divide-y divide-slate-800/50"></tbody>
+        </table>
+      </div>
     </div>
 
-    <!-- 5. TIENDA DE MEJORAS -->
+    <!-- 5. MERCADO DE PASES (FIN DE TEMPORADA) -->
+    <div id="screen-transfers" class="hidden space-y-3 text-center">
+      <h2 class="text-xl font-black text-amber-400">✈️ MERCADO DE PASES DE FIN DE TEMPORADA</h2>
+      <p class="text-xs text-slate-400">Tu rendimiento atrajo la atención de varios clubes internacionales:</p>
+
+      <div id="offers-list" class="space-y-2 text-left text-xs max-h-72 overflow-y-auto pr-1"></div>
+    </div>
+
+    <!-- 6. TIENDA DE MEJORAS Y ENTRENAMIENTO -->
     <div id="screen-shop" class="hidden space-y-3">
       <div class="flex justify-between items-center">
-        <h2 class="text-lg font-bold text-emerald-400">🛍️ Tienda de Carrera</h2>
-        <button onclick="closeShop()" class="text-xs bg-slate-800 px-3 py-1 rounded-lg text-slate-300">Cerrar</button>
+        <h2 class="text-base font-bold text-emerald-400">🛍️ Tienda y Mejoras</h2>
+        <button onclick="closeShop()" class="text-xs bg-slate-800 px-3 py-1 rounded-lg text-slate-300 font-bold">Volver</button>
       </div>
       <div id="shop-items" class="space-y-2 text-xs"></div>
     </div>
@@ -113,52 +241,183 @@
   </div>
 
   <script>
-    // ESTADO DEL JUEGO
-    let p = {
-      name: '', pos: '', club: '', ovr: 58, pop: 30, energy: 100, money: 5,
-      season: 1, matchCount: 0, goals: 0, titles: 0
+    // BASE DE DATOS DE LIGAS Y CLUBES REALES
+    const LEAGUES = {
+      ARG: {
+        name: "Liga Profesional Argentina 🇦🇷",
+        clubs: ["River Plate", "Boca Juniors", "Racing Club", "Independiente", "San Lorenzo", "Estudiantes LP", "Talleres", "Rosario Central"]
+      },
+      ESP: {
+        name: "LaLiga España 🇪🇸",
+        clubs: ["Real Madrid", "FC Barcelona", "Atlético de Madrid", "Athletic Club", "Real Betis", "Villarreal CF", "Sevilla FC", "Real Sociedad"]
+      },
+      ENG: {
+        name: "Premier League 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+        clubs: ["Manchester City", "Arsenal FC", "Liverpool FC", "Chelsea FC", "Manchester United", "Tottenham Hotspur", "Aston Villa", "Newcastle"]
+      },
+      ITA: {
+        name: "Serie A Italia 🇮🇹",
+        clubs: ["Inter de Milán", "AC Milan", "Juventus FC", "SSC Napoli", "AS Roma", "SS Lazio", "Atalanta BC", "Fiorentina"]
+      },
+      MEX: {
+        name: "Liga MX México 🇲🇽",
+        clubs: ["Club América", "Chivas Guadalajara", "Tigres UANL", "CF Monterrey", "Cruz Azul", "Pumas UNAM", "Toluca FC", "Club León"]
+      }
     };
 
-    const shopCatalog = [
-      { id: 1, name: "Nutricionista Personal", cost: 10, bonus: "+10% Recuperación de energía", type: "nutri" },
-      { id: 2, name: "Botines de Alta Gama", cost: 25, bonus: "+2 Media General (OVR)", type: "boots" },
-      { id: 3, name: "Reloj de Lujo", cost: 40, bonus: "+15% Popularidad", type: "watch" }
-    ];
+    // BANCO DE JUGADORES GOLEADORES RIVALES POR LIGA
+    const STAR_PLAYERS = {
+      ARG: [ { name: "M. Borja", club: "River Plate" }, { name: "E. Cavani", club: "Boca Juniors" }, { name: "A. Martínez", club: "Racing Club" } ],
+      ESP: [ { name: "K. Mbappé", club: "Real Madrid" }, { name: "R. Lewandowski", club: "FC Barcelona" }, { name: "A. Griezmann", club: "Atlético de Madrid" } ],
+      ENG: [ { name: "E. Haaland", club: "Manchester City" }, { name: "M. Salah", club: "Liverpool FC" }, { name: "B. Saka", club: "Arsenal FC" } ],
+      ITA: [ { name: "L. Martínez", club: "Inter de Milán" }, { name: "D. Vlahović", club: "Juventus FC" }, { name: "R. Leão", club: "AC Milan" } ],
+      MEX: [ { name: "H. Martín", club: "Club América" }, { name: "A. Gignac", club: "Tigres UANL" }, { name: "S. Canales", club: "CF Monterrey" } ]
+    };
 
-    const matchEvents = [
-      {
-        text: "Minuto 85: Vas perdiendo 1-0. Te queda una última jugada en la puerta del área rival.",
-        options: [
-          { text: "🚀 Le pegas al arco de primera", effects: { ovr: +1, goals: +1, energy: -15, money: +2 }, press: "¡Golazo agónico para salvar el partido!" },
-          { text: "🤝 Buscas el pase al compañero mejor ubicado", effects: { ovr: +1, energy: -10, money: +1 }, press: "Gran visión de juego para empatar sobre el final." }
-        ]
-      },
-      {
-        text: "Un rival te pega una patada descalificadora sin que el árbitro cobre nada.",
-        options: [
-          { text: "🤬 Ir a buscarlo y encararlo", effects: { pop: +10, energy: -10 }, press: "El jugador se cruzó feo con el rival y rozó la roja." },
-          { text: "🧠 Aguantar la bronca y responder jugando", effects: { ovr: +2, energy: -10, money: +2 }, press: "Demostró cabeza fría y madurez táctica." }
-        ]
-      },
-      {
-        text: "Partido de copa bajo una lluvia torrencial. La cancha está intratable.",
-        options: [
-          { text: "🏃‍♂️ Barrerte a recuperar cada pelota", effects: { ovr: +2, energy: -30, money: +3 }, press: "Dejó la vida en la cancha bajo el agua." },
-          { text: "⚠️ Jugar con cautela para evitar una lesión", effects: { energy: -5, money: +1 }, press: "Pasó desapercibido en un partido muy físico." }
-        ]
+    // ESTADO DEL JUEGO
+    let p = {
+      name: '', pos: '', leagueKey: 'ARG', club: '', ovr: 60, pop: 30, energy: 100, money: 5,
+      season: 1, matchCount: 0, goals: 0, assists: 0,
+      avatar: { skin: '#f8d5c2', hair: 'corto', hairColor: '#1e1b18', beard: 'ninguna' }
+    };
+
+    let currentLeagueTable = [];
+    let currentScorersTable = [];
+
+    // INICIALIZACIÓN DE SELECCIÓN DE LIGAS Y CLUBES
+    window.onload = function() {
+      const lSelect = document.getElementById('player-league');
+      lSelect.innerHTML = '';
+      for (let key in LEAGUES) {
+        let opt = document.createElement('option');
+        opt.value = key;
+        opt.innerText = LEAGUES[key].name;
+        lSelect.appendChild(opt);
       }
-    ];
+      populateInitialClubs();
+      updateAvatarPreview();
+    };
+
+    function populateInitialClubs() {
+      const lKey = document.getElementById('player-league').value;
+      const cSelect = document.getElementById('player-club');
+      cSelect.innerHTML = '';
+      LEAGUES[lKey].clubs.forEach(c => {
+        let opt = document.createElement('option');
+        opt.value = c;
+        opt.innerText = c;
+        cSelect.appendChild(opt);
+      });
+    }
+
+    // EDITOR DE AVATAR (SVG DINÁMICO)
+    function updateAvatarPreview() {
+      const skin = document.getElementById('av-skin').value;
+      const hair = document.getElementById('av-hair').value;
+      const hairColor = document.getElementById('av-haircolor').value;
+      const beard = document.getElementById('av-beard').value;
+
+      p.avatar = { skin, hair, hairColor, beard };
+
+      const svgHtml = renderAvatarSVG(skin, hair, hairColor, beard);
+      document.getElementById('avatar-preview').innerHTML = svgHtml;
+    }
+
+    function renderAvatarSVG(skin, hair, hairColor, beard) {
+      let hairPath = "";
+      if (hair === "corto") hairPath = `<path d="M 25 35 C 25 10, 75 10, 75 35 C 75 25, 25 25, 25 35 Z" fill="${hairColor}"/>`;
+      else if (hair === "crestazo") hairPath = `<path d="M 40 5 C 50 -5, 50 -5, 60 5 C 65 20, 35 20, 40 5 Z" fill="${hairColor}"/>`;
+      else if (hair === "afro") hairPath = `<circle cx="50" cy="30" r="28" fill="${hairColor}"/><circle cx="50" cy="40" r="20" fill="${skin}"/>`;
+      else if (hair === "largo") hairPath = `<path d="M 20 20 C 30 5, 70 5, 80 20 L 82 65 L 72 65 L 72 35 C 72 25, 28 25, 28 35 L 28 65 L 18 65 Z" fill="${hairColor}"/>`;
+
+      let beardPath = "";
+      if (beard === "corta") beardPath = `<path d="M 30 55 C 30 75, 70 75, 70 55 C 65 68, 35 68, 30 55 Z" fill="${hairColor}" opacity="0.8"/>`;
+      else if (beard === "candado") beardPath = `<path d="M 40 55 C 40 72, 60 72, 60 55 C 55 65, 45 65, 40 55 Z" fill="${hairColor}"/>`;
+
+      return `
+        <svg viewBox="0 0 100 100" class="w-full h-full bg-slate-800">
+          <!-- Cuello y Camiseta -->
+          <rect x="38" y="70" width="24" height="20" fill="${skin}" />
+          <path d="M 15 100 L 35 78 L 65 78 L 85 100 Z" fill="#10b981" />
+          <!-- Cabeza -->
+          <circle cx="50" cy="45" r="22" fill="${skin}" />
+          <!-- Orejas -->
+          <circle cx="27" cy="45" r="4" fill="${skin}" />
+          <circle cx="73" cy="45" r="4" fill="${skin}" />
+          <!-- Ojos -->
+          <circle cx="42" cy="42" r="2.5" fill="#0f172a" />
+          <circle cx="58" cy="42" r="2.5" fill="#0f172a" />
+          <!-- Boca -->
+          <path d="M 44 58 Q 50 63 56 58" stroke="#0f172a" stroke-width="2" fill="none" />
+          <!-- Pelo -->
+          ${hairPath}
+          <!-- Barba -->
+          ${beardPath}
+        </svg>
+      `;
+    }
+
+    // GENERAR TABLA DE POSICIONES INICIAL
+    function initLeagueTable() {
+      const clubs = LEAGUES[p.leagueKey].clubs;
+      currentLeagueTable = clubs.map(club => ({
+        club: club,
+        pj: 0,
+        pts: 0,
+        dg: 0
+      }));
+
+      // Inicializar Goleadores
+      currentScorersTable = [];
+      const rivalStars = STAR_PLAYERS[p.leagueKey] || [];
+      rivalStars.forEach(s => {
+        currentScorersTable.push({ name: s.name, club: s.club, goals: Math.floor(Math.random() * 3) });
+      });
+      // Agregar al jugador
+      currentScorersTable.push({ name: p.name, club: p.club, goals: 0 });
+    }
+
+    function updateLeagueSimulation() {
+      // Simular resultados aleatorios para el resto de clubes
+      currentLeagueTable.forEach(item => {
+        item.pj = p.matchCount;
+        if (item.club !== p.club) {
+          let rand = Math.random();
+          if (rand > 0.5) { item.pts += 3; item.dg += Math.floor(Math.random() * 2) + 1; }
+          else if (rand > 0.25) { item.pts += 1; }
+          else { item.dg -= Math.floor(Math.random() * 2) + 1; }
+        }
+      });
+
+      // Simular goles de rivales
+      currentScorersTable.forEach(sc => {
+        if (sc.name !== p.name && Math.random() > 0.4) {
+          sc.goals += 1;
+        }
+      });
+
+      // Ordenar Tablas
+      currentLeagueTable.sort((a,b) => b.pts - a.pts || b.dg - a.dg);
+      currentScorersTable.sort((a,b) => b.goals - a.goals);
+    }
 
     function startGame() {
       const name = document.getElementById('player-name').value.trim();
-      const club = document.getElementById('player-club').value.trim();
-      if(!name || !club) return alert("¡Completa tu nombre y club!");
+      if(!name) return alert("¡Por favor ingresa tu nombre de jugador!");
 
-      p.name = name; p.pos = document.getElementById('player-pos').value; p.club = club;
+      p.name = name;
+      p.pos = document.getElementById('player-pos').value;
+      p.leagueKey = document.getElementById('player-league').value;
+      p.club = document.getElementById('player-club').value;
 
       document.getElementById('screen-creation').classList.add('hidden');
       document.getElementById('main-header').classList.remove('hidden');
       document.getElementById('screen-hub').classList.remove('hidden');
+
+      // Renderizar avatar en header
+      document.getElementById('hdr-avatar-display').innerHTML = renderAvatarSVG(p.avatar.skin, p.avatar.hair, p.avatar.hairColor, p.avatar.beard);
+
+      initLeagueTable();
       updateHUD();
     }
 
@@ -168,14 +427,46 @@
       document.getElementById('hdr-ovr').innerText = p.ovr;
       document.getElementById('hdr-money').innerText = `$${p.money}k`;
       document.getElementById('hdr-energy').innerText = `${p.energy}%`;
-      document.getElementById('hub-stats').innerText = `Goles: ${p.goals} | Temporada: ${p.season}`;
+
+      document.getElementById('hub-league-info').innerText = LEAGUES[p.leagueKey].name;
+      document.getElementById('hub-stats').innerText = `Goles: ${p.goals} | Asistencias: ${p.assists} | Fecha: ${p.matchCount} / 10`;
     }
 
+    // EVENTOS DE PARTIDO
+    const matchEvents = [
+      {
+        tag: "Minuto 88 • Tiro Libre al Borde del Área",
+        desc: "El marcador está 0-0. Tienes la oportunidad de patear un tiro libre decisivo con barrera alta.",
+        options: [
+          { text: "🎯 Colocarla con rosca al palo del arquero", effects: { ovr: +1, goals: +1, energy: -15, money: +3 }, press: "¡GOLAZO de tiro libre exquisito para ganar el partido!" },
+          { text: "🚀 Romper la barrera con un potente zapatazo", effects: { ovr: +1, goals: +1, energy: -20, money: +2 }, press: "¡Un misil teledirigido que rompió la red!" }
+        ]
+      },
+      {
+        tag: "Minuto 60 • Mano a Mano de Contraataque",
+        desc: "Te escapas solo desde mitad de cancha y el arquero rival sale a achicarte desesperado.",
+        options: [
+          { text: "🪄 Picarla por encima del arquero (Vaselina)", effects: { ovr: +2, goals: +1, pop: +10, energy: -15 }, press: "Definición con clase pura por encima del arquero." },
+          { text: "⚡ Gambetear al arquero por afuera", effects: { ovr: +1, goals: +1, energy: -15, money: +2 }, press: "Velocidad y cintura para dejar tirado al arquero." },
+          { text: "🤝 Ceder el pase a tu compañero solo", effects: { assists: +1, energy: -10, money: +2 }, press: "Generosidad total para dar la asistencia del gol." }
+        ]
+      },
+      {
+        tag: "Minuto 35 • Clásico Picado y Roce Físico",
+        desc: "Un defensor rival te viene hablando y pegando patadas abajo en cada jugada.",
+        options: [
+          { text: "🔥 Devolverle una entrada fuerte", effects: { pop: +5, energy: -25 }, press: "Un cruce picante que le costó tarjeta amarilla." },
+          { text: "🧠 Pedir la pelota y hacerle un caño/túnel", effects: { ovr: +2, pop: +15, energy: -10 }, press: "Uso de calidad técnica para dejar en ridículo al rival." }
+        ]
+      }
+    ];
+
     function nextMatchEvent() {
-      if(p.energy < 15) return alert("Estás exhausto. Necesitas descansar antes de jugar.");
-      
+      if(p.energy < 15) return alert("⚠️ Estás muy fatigado. Tómate un descanso antes de jugar la siguiente fecha.");
+
       p.matchCount++;
-      if(p.matchCount > 4) {
+
+      if (p.matchCount > 10) {
         showTransferWindow();
         return;
       }
@@ -184,14 +475,15 @@
       document.getElementById('screen-event').classList.remove('hidden');
 
       const ev = matchEvents[Math.floor(Math.random() * matchEvents.length)];
-      document.getElementById('event-desc').innerText = ev.text;
+      document.getElementById('event-tag').innerText = `Fecha ${p.matchCount} • ${ev.tag}`;
+      document.getElementById('event-desc').innerText = ev.desc;
 
       const box = document.getElementById('options-box');
       box.innerHTML = '';
 
       ev.options.forEach(opt => {
         const btn = document.createElement('button');
-        btn.className = "w-full text-left bg-slate-800 hover:bg-slate-700 border border-slate-700 p-3 rounded-xl text-xs text-slate-100 font-medium transition-all";
+        btn.className = "w-full text-left bg-slate-800 hover:bg-slate-700 border border-slate-700 p-3 rounded-xl text-xs text-slate-100 font-medium transition-all active:scale-98";
         btn.innerText = opt.text;
         btn.onclick = () => selectMatchOption(opt);
         box.appendChild(btn);
@@ -204,6 +496,22 @@
       p.energy = Math.max(0, p.energy + (opt.effects.energy || 0));
       p.money += opt.effects.money || 0;
       p.goals += opt.effects.goals || 0;
+      p.assists += opt.effects.assists || 0;
+
+      // Actualizar puntos de mi club en la tabla
+      let myClubInTable = currentLeagueTable.find(c => c.club === p.club);
+      if (myClubInTable) {
+        myClubInTable.pts += 3;
+        myClubInTable.dg += (opt.effects.goals || 1);
+      }
+
+      // Actualizar mi registro en goleadores
+      let myScorerReg = currentScorersTable.find(s => s.name === p.name);
+      if (myScorerReg) {
+        myScorerReg.goals = p.goals;
+      }
+
+      updateLeagueSimulation();
 
       document.getElementById('press-text').innerText = opt.press;
       updateHUD();
@@ -215,51 +523,125 @@
     }
 
     function restPlayer() {
-      p.energy = Math.min(100, p.energy + 25);
+      p.energy = Math.min(100, p.energy + 30);
       updateHUD();
-      alert("Te tomaste un descanso. Recuperaste +25% de energía.");
+      alert("💤 Te tomaste una jornada de recuperación física (+30% Energía).");
     }
 
+    // TABLAS DE POSICIONES
+    function showLeagueTables() {
+      document.getElementById('screen-hub').classList.add('hidden');
+      document.getElementById('screen-tables').classList.remove('hidden');
+      document.getElementById('tables-league-name').innerText = LEAGUES[p.leagueKey].name;
+
+      renderTablesUI();
+    }
+
+    function renderTablesUI() {
+      // Posiciones Body
+      const posBody = document.getElementById('table-pos-body');
+      posBody.innerHTML = '';
+      currentLeagueTable.forEach((row, idx) => {
+        const isMyClub = row.club === p.club;
+        const tr = document.createElement('tr');
+        tr.className = isMyClub ? "bg-emerald-950/60 font-bold text-emerald-300" : "hover:bg-slate-900";
+        tr.innerHTML = `
+          <td class="py-2 px-1 text-slate-400">${idx + 1}</td>
+          <td class="py-2 px-1">${row.club} ${isMyClub ? '⭐' : ''}</td>
+          <td class="py-2 px-1 text-center">${row.pj}</td>
+          <td class="py-2 px-1 text-center">${row.dg > 0 ? '+'+row.dg : row.dg}</td>
+          <td class="py-2 px-1 text-center font-extrabold text-emerald-400">${row.pts}</td>
+        `;
+        posBody.appendChild(tr);
+      });
+
+      // Goleadores Body
+      const golBody = document.getElementById('table-gol-body');
+      golBody.innerHTML = '';
+      currentScorersTable.forEach((row, idx) => {
+        const isMe = row.name === p.name;
+        const tr = document.createElement('tr');
+        tr.className = isMe ? "bg-amber-950/60 font-bold text-amber-300" : "hover:bg-slate-900";
+        tr.innerHTML = `
+          <td class="py-2 px-1 text-slate-400">${idx + 1}</td>
+          <td class="py-2 px-1">${row.name} ${isMe ? '👑' : ''}</td>
+          <td class="py-2 px-1 text-slate-400 text-[10px]">${row.club}</td>
+          <td class="py-2 px-1 text-center font-extrabold text-amber-400">${row.goals}</td>
+        `;
+        golBody.appendChild(tr);
+      });
+    }
+
+    function switchTableTab(tab) {
+      if (tab === 'pos') {
+        document.getElementById('tab-content-pos').classList.remove('hidden');
+        document.getElementById('tab-content-gol').classList.add('hidden');
+        document.getElementById('tab-btn-pos').className = "flex-1 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold";
+        document.getElementById('tab-btn-gol').className = "flex-1 py-1.5 rounded-lg font-bold text-slate-400";
+      } else {
+        document.getElementById('tab-content-pos').classList.add('hidden');
+        document.getElementById('tab-content-gol').classList.remove('hidden');
+        document.getElementById('tab-btn-pos').className = "flex-1 py-1.5 rounded-lg font-bold text-slate-400";
+        document.getElementById('tab-btn-gol').className = "flex-1 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold";
+      }
+    }
+
+    function closeTables() {
+      document.getElementById('screen-tables').classList.add('hidden');
+      document.getElementById('screen-hub').classList.remove('hidden');
+    }
+
+    // MERCADO DE PASES
     function showTransferWindow() {
       document.getElementById('screen-hub').classList.add('hidden');
       document.getElementById('screen-transfers').classList.remove('hidden');
 
-      const offers = [
-        { club: p.club, pay: "$10k", desc: "Renovación de contrato" },
-        { club: "Atlético Capital", pay: "$25k", desc: "Club de primera división" },
-        { club: "Unión Deportiva", pay: "$18k", desc: "Pelea la copa internacional" }
+      const offersList = [
+        { leagueKey: 'ESP', club: "Real Betis", pay: "$35k", desc: "Titularidad garantizada en España" },
+        { leagueKey: 'ENG', club: "Aston Villa", pay: "$50k", desc: "Desafío exigente en Premier League" },
+        { leagueKey: 'ITA', club: "AC Milan", pay: "$45k", desc: "Gigante de Europa busca delantero" },
+        { leagueKey: p.leagueKey, club: p.club, pay: "$25k", desc: "Renovación con tu club actual" }
       ];
 
       const list = document.getElementById('offers-list');
       list.innerHTML = '';
 
-      offers.forEach(off => {
+      offersList.forEach(off => {
         const div = document.createElement('div');
         div.className = "bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center";
         div.innerHTML = `
           <div>
-            <p class="font-bold text-white">${off.club}</p>
-            <p class="text-[10px] text-slate-400">${off.desc} - Sueldo: ${off.pay}</p>
+            <p class="font-bold text-white text-sm">${off.club} <span class="text-[10px] text-slate-400">(${LEAGUES[off.leagueKey].name})</span></p>
+            <p class="text-[10px] text-slate-400">${off.desc} • Prima: ${off.pay}</p>
           </div>
-          <button onclick="acceptOffer('${off.club}')" class="bg-emerald-500 text-slate-950 font-extrabold px-3 py-1.5 rounded-lg text-xs">Firmar</button>
+          <button onclick="acceptOffer('${off.leagueKey}', '${off.club}')" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-3 py-1.5 rounded-lg text-xs">Firmar</button>
         `;
         list.appendChild(div);
       });
     }
 
-    function acceptOffer(newClub) {
+    function acceptOffer(newLeagueKey, newClub) {
+      p.leagueKey = newLeagueKey;
       p.club = newClub;
       p.season++;
       p.matchCount = 0;
       p.energy = 100;
-      p.money += 15;
-      
+      p.money += 20;
+
+      initLeagueTable();
+
       document.getElementById('screen-transfers').classList.add('hidden');
       document.getElementById('screen-hub').classList.remove('hidden');
-      document.getElementById('hub-season-title').innerText = `Temporada ${p.season}`;
       updateHUD();
-      alert(`¡Felicidades! Has firmado con ${newClub} para la Temporada ${p.season}.`);
+      alert(`🎉 ¡Felicidades! Firmaste tu contrato con ${newClub} para disputar la Temporada ${p.season}.`);
     }
+
+    // TIENDA
+    const shopCatalog = [
+      { id: 1, name: "Entrenador Personal de Tiro", cost: 12, bonus: "+2 Media (OVR)", type: "train" },
+      { id: 2, name: "Botines Nike Elite Custom", cost: 20, bonus: "+3 Media (OVR)", type: "boots" },
+      { id: 3, name: "Auto Deportivo / Lujo", cost: 35, bonus: "+20% Popularidad", type: "car" }
+    ];
 
     function showShop() {
       document.getElementById('screen-hub').classList.add('hidden');
@@ -274,9 +656,9 @@
         div.innerHTML = `
           <div>
             <p class="font-bold text-slate-200">${item.name}</p>
-            <p class="text-[10px] text-emerald-400">${item.bonus}</p>
+            <p class="text-[10px] text-emerald-400 font-semibold">${item.bonus}</p>
           </div>
-          <button onclick="buyItem(${item.cost}, '${item.type}')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs">
+          <button onclick="buyItem(${item.cost}, '${item.type}')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-3 py-1.5 rounded-lg text-xs">
             $${item.cost}k
           </button>
         `;
@@ -285,13 +667,13 @@
     }
 
     function buyItem(cost, type) {
-      if(p.money < cost) return alert("No tienes suficiente dinero.");
+      if(p.money < cost) return alert("❌ No tienes suficiente dinero ahorrado.");
       p.money -= cost;
-      if(type === 'boots') p.ovr += 2;
-      if(type === 'watch') p.pop += 15;
-      if(type === 'nutri') p.energy = Math.min(100, p.energy + 20);
+      if(type === 'train') p.ovr += 2;
+      if(type === 'boots') p.ovr += 3;
+      if(type === 'car') p.pop += 20;
       updateHUD();
-      alert("¡Compra realizada con éxito!");
+      alert("✅ ¡Compra realizada con éxito!");
     }
 
     function closeShop() {
