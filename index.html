@@ -10,6 +10,7 @@
     <style>
         body { font-family: sans-serif; background-color: #050608; color: white; }
         .bg-card { background: #0e1017; }
+        .glow-green { box-shadow: 0 0 20px rgba(34, 197, 94, 0.2); }
     </style>
 </head>
 <body class="max-w-md mx-auto p-3 min-h-screen flex flex-col justify-between">
@@ -26,8 +27,8 @@
         <button onclick="hablar('¡Bienvenido al mejor juego del mundo!')" class="bg-gray-800 p-2 rounded-xl text-xs">🗣️</button>
     </header>
 
-    <!-- CONTENEDOR PRINCIPAL -->
-    <main id="app-container" class="space-y-3 my-3">
+    <!-- PANTALLA 1: SELECCIÓN DE EQUIPO -->
+    <main id="pantalla-seleccion" class="space-y-3 my-3">
         <div class="bg-card p-4 rounded-2xl border border-gray-800 text-center space-y-2">
             <h2 class="text-sm font-black text-yellow-400 uppercase">🏆 SELECCIÓN DE EQUIPOS Y SELECCIONES</h2>
             <p class="text-xs text-gray-400">Explora todos los clubes, selecciones, Copa Libertadores y Mundial</p>
@@ -38,8 +39,51 @@
         <div id="lista-equipos" class="space-y-4"></div>
     </main>
 
+    <!-- PANTALLA 2: MODO CARRERA Y JUEGO (SE ACTIVA AL ELEGIR EQUIPO) -->
+    <main id="pantalla-juego" class="hidden space-y-3 my-3">
+        <!-- Tarjeta de Perfil del Club Elegido -->
+        <div class="bg-card p-4 rounded-2xl border border-gray-800 glow-green space-y-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div id="game-escudo-box"></div>
+                    <div>
+                        <span class="text-[9px] bg-green-500/20 text-green-400 font-bold px-2 py-0.5 rounded uppercase" id="game-liga">LIGA</span>
+                        <h2 class="text-lg font-black text-white mt-0.5" id="game-club-name">CLUB SELECCIONADO</h2>
+                    </div>
+                </div>
+                <div id="game-camiseta-box"></div>
+            </div>
+
+            <!-- Stats del Jugador -->
+            <div class="grid grid-cols-4 gap-1.5 text-center bg-[#050608] p-2.5 rounded-xl border border-gray-800">
+                <div><div class="text-green-400 font-black text-sm" id="st-goals">0</div><div class="text-[8px] text-gray-400 font-bold uppercase">Goles</div></div>
+                <div><div class="text-sky-400 font-black text-sm" id="st-assists">0</div><div class="text-[8px] text-gray-400 font-bold uppercase">Asist.</div></div>
+                <div><div class="text-slate-200 font-black text-sm" id="st-matches">0</div><div class="text-[8px] text-gray-400 font-bold uppercase">Partidos</div></div>
+                <div><div class="text-yellow-400 font-black text-sm" id="st-trophies">0</div><div class="text-[8px] text-gray-400 font-bold uppercase">Títulos</div></div>
+            </div>
+        </div>
+
+        <!-- Consola de Resultados / Simulador de Partido -->
+        <div id="match-log" class="bg-card p-3 rounded-2xl border border-gray-800 space-y-2">
+            <h3 class="text-xs font-black text-yellow-400 uppercase">⚽ CENTRO DE PARTIDO</h3>
+            <p class="text-xs text-gray-300" id="log-text">Presiona el botón de abajo para jugar el próximo partido de la temporada.</p>
+        </div>
+
+        <!-- Botón Jugar Partido -->
+        <button onclick="jugarPartido()" class="w-full bg-gradient-to-r from-green-500 to-emerald-400 hover:from-green-400 text-black font-black py-4 rounded-2xl text-xs uppercase tracking-wider shadow-lg">
+            ⚽ JUGAR / SIMULAR PRÓXIMO PARTIDO
+        </button>
+
+        <button onclick="volverASeleccion()" class="w-full bg-gray-800 hover:bg-gray-700 text-gray-300 font-bold py-2.5 rounded-xl text-xs uppercase">
+            ⬅️ Cambiar de Equipo
+        </button>
+    </main>
+
     <script>
-        // Renderizador dinámico de camisetas SVG
+        let equipoActual = null;
+        let stats = { goles: 0, asistencias: 0, partidos: 0, titulos: 0 };
+
+        // Renderizador dinámico de CAMISETAS SVG
         function renderCamiseta(principal, secundaria, estilo) {
             let patron = "";
             if (estilo === "bastones-verticales") {
@@ -50,35 +94,54 @@
                 patron = `<polygon points="10,5 20,5 50,50 40,50" fill="${secundaria}" />`;
             }
             return `
-                <svg viewBox="0 0 60 60" width="40" height="40">
+                <svg viewBox="0 0 60 60" width="42" height="42">
                     <path d="M 15 10 L 22 5 L 38 5 L 45 10 L 55 18 L 48 26 L 44 22 L 44 52 L 16 52 L 16 22 L 12 26 L 5 18 Z" fill="${principal}" stroke="#000" stroke-width="1.5"/>
                     ${patron}
                 </svg>
             `;
         }
 
-        // Función para recorrer la base de datos
+        // Renderizador de ESCUDOS REALES usando Proxy Bypass para evitar bloqueo de Wikipedia
+        function renderEscudo(urlOriginal) {
+            // Pasamos la imagen por wsrv.nl para arreglar bloqueos de hotlinking/CORS de Wikimedia
+            const urlProxy = "https://wsrv.nl/?url=" + encodeURIComponent(urlOriginal);
+            return `
+                <div class="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center border border-gray-700 bg-gray-900 p-1">
+                    <img src="${urlProxy}" class="w-full h-full object-contain" crossorigin="anonymous">
+                </div>
+            `;
+        }
+
+        // Cargar Base de Datos
         function renderizarTodoElMundo() {
             const container = document.getElementById("lista-equipos");
             container.innerHTML = "";
+
+            if (typeof BASE_DATOS_MUNDIAL === "undefined") {
+                container.innerHTML = `<div class="p-3 bg-red-900/50 text-red-200 text-xs text-center rounded-xl font-bold">⚠️ No se encontró el archivo database.js. Asegúrate de tenerlo en la misma carpeta.</div>`;
+                return;
+            }
 
             for (let region in BASE_DATOS_MUNDIAL) {
                 let htmlRegion = `<div class="bg-card p-3 rounded-2xl border border-gray-800 space-y-2"><h3 class="text-xs font-black text-green-400 uppercase">${region}</h3>`;
                 let torneos = BASE_DATOS_MUNDIAL[region];
 
                 for (let torneo in torneos) {
-                    htmlRegion += `<h4 class="text-[10px] font-bold text-yellow-400 uppercase">${torneo}</h4>`;
+                    htmlRegion += `<h4 class="text-[10px] font-bold text-yellow-400 uppercase mt-2">${torneo}</h4>`;
                     torneos[torneo].forEach(eq => {
                         let kitSvg = renderCamiseta(eq.camisaLocal.principal, eq.camisaLocal.secundaria, eq.camisaLocal.estilo);
+                        let escudoHtml = renderEscudo(eq.escudo);
+
+                        // Guardamos datos en el botón para seleccionarlo
                         htmlRegion += `
                             <div class="bg-[#050608] p-2 rounded-xl flex items-center justify-between border border-gray-800/80">
-                                <div class="flex items-center gap-2">
-                                    <img src="${eq.escudo}" class="w-7 h-7 object-contain">
+                                <div class="flex items-center gap-2.5">
+                                    ${escudoHtml}
                                     <span class="text-xs font-bold text-white">${eq.nombre}</span>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     ${kitSvg}
-                                    <button onclick="hablar('Has seleccionado a ${eq.nombre}')" class="bg-green-500 text-black font-black text-[9px] px-2 py-1 rounded-lg uppercase">
+                                    <button onclick="iniciarJuegoConEquipo('${eq.nombre}', '${torneo}', '${eq.escudo}', '${eq.camisaLocal.principal}', '${eq.camisaLocal.secundaria}', '${eq.camisaLocal.estilo}')" class="bg-green-500 hover:bg-green-400 text-black font-black text-[9px] px-3 py-2 rounded-lg uppercase transition">
                                         Elegir
                                     </button>
                                 </div>
@@ -91,7 +154,55 @@
             }
         }
 
-        // Voz del personaje / narrador
+        // FUNCIONALIDAD: ELEGIR EQUIPO E INICIAR EL JUEGO
+        function iniciarJuegoConEquipo(nombre, torneo, escudo, col1, col2, estilo) {
+            equipoActual = { nombre, torneo, escudo, col1, col2, estilo };
+
+            document.getElementById('game-club-name').innerText = nombre.toUpperCase();
+            document.getElementById('game-liga').innerText = torneo.toUpperCase();
+            document.getElementById('game-escudo-box').innerHTML = renderEscudo(escudo);
+            document.getElementById('game-camiseta-box').innerHTML = renderCamiseta(col1, col2, estilo);
+
+            hablar(`Has fichado por ${nombre}. ¡A jugar!`);
+
+            // Cambiar de pantalla
+            document.getElementById('pantalla-seleccion').classList.add('hidden');
+            document.getElementById('pantalla-juego').classList.remove('hidden');
+        }
+
+        // FUNCIONALIDAD: SIMULAR / JUGAR PARTIDO
+        function jugarPartido() {
+            if(!equipoActual) return;
+
+            stats.partidos += 1;
+            const misGoles = Math.floor(Math.random() * 4);
+            const rivalGoles = Math.floor(Math.random() * 3);
+
+            let mensaje = "";
+            if (misGoles > rivalGoles) {
+                stats.goles += Math.floor(Math.random() * 2) + 1;
+                stats.asistencias += Math.floor(Math.random() * 2);
+                mensaje = `🎉 ¡VICTORIA! ${equipoActual.nombre} ${misGoles} - ${rivalGoles} Rival. Aportaste al marcador.`;
+                hablar("¡Gran victoria!");
+            } else if (misGoles === rivalGoles) {
+                mensaje = `🤝 EMPATE. ${equipoActual.nombre} ${misGoles} - ${rivalGoles} Rival. Partido muy disputado.`;
+            } else {
+                mensaje = `❌ DERROTA. ${equipoActual.nombre} ${misGoles} - ${rivalGoles} Rival. A mejorar el próximo encuentro.`;
+            }
+
+            // Actualizar interfaz
+            document.getElementById('st-goals').innerText = stats.goles;
+            document.getElementById('st-assists').innerText = stats.asistencias;
+            document.getElementById('st-matches').innerText = stats.partidos;
+            document.getElementById('log-text').innerText = mensaje;
+        }
+
+        function volverASeleccion() {
+            document.getElementById('pantalla-juego').classList.add('hidden');
+            document.getElementById('pantalla-seleccion').classList.remove('hidden');
+        }
+
+        // Voz interactiva
         function hablar(texto) {
             if ('speechSynthesis' in window) {
                 const u = new SpeechSynthesisUtterance(texto);
